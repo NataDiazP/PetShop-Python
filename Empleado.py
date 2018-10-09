@@ -4,10 +4,10 @@ from Persona import Persona
 
 class Empleado(Persona):
 
-	```
+	"""
 		Empleado: Información de los trabajadores
 		Atributos: admin, productos, pedidosAnulados
-	```
+	"""
 	def __init__(self, id, nombre, email, telefono, direccion, admin):
 		super().__init__(id, nombre, email, telefono, direccion)
 		self.setAdmin(admin)

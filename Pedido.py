@@ -2,18 +2,17 @@ import sys
 
 class Pedido():
 
-	```
+	"""
 		Pedido: Datos del pedido realizado por el usuario
 		Atributos: id, fecha, valorTotal, empleadoAnulador, persona, productos
-	```
-	def __init__(self, id, fecha, valorTotal, empleadoAnulador, persona, productos):
+	"""
+	def __init__(self, id, fecha, valorTotal, empleadoAnulador, persona):
 		self.setId(id)
 		self.setFecha(fecha)
 		self.setValorTotal(valorTotal)
 		self.setEmpleadoAnulador(empleadoAnulador)
-		self.setDireccion(direccion)
-		self.setComentarios([])
-		self.setPedidos([])
+		self.setPersona(persona)
+		self.setProductos([])
 
 	def setId(self, id):
 		self._id = id
@@ -40,4 +39,15 @@ class Pedido():
 	def getEmpleadoAnulador(self):
 		return self._empleadoAnulador
 
-FALTAN OTROS
+	def setPersona(self, persona):
+		self._persona = persona
+		self._persona.getPedidos().append(self)
+
+	def getPersona(self):
+		return self._persona
+
+	def setProductos(self, productos):
+		self._productos = productos
+
+	def getProductos(self):
+		return self._productos

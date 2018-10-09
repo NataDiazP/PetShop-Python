@@ -2,11 +2,11 @@ import sys
 
 class Persona():
 
-	```
+	"""
 		Persona: Información básica de usuarios y empleados
 		Atributos: id, nombre, email, telefono, direccion, comentarios, pedidos
-	```
-	def __init__(self, id, nombre, email, telefono, direccion):
+	"""
+	def __init__(self, id, nombre, email, telefono = "", direccion):
 		self.setId(id)
 		self.setNombre(nombre)
 		self.setEmail(email)
