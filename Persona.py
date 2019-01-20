@@ -65,7 +65,7 @@ class Persona():
         while registro_terminado == 0:
 
             usuario = input("\nIngrese un nombre de usuario para su cuenta: ")
-            usuario_tomado = 0
+            usuario_existe = 0
             archivo = open("usuarios.txt","r")
 
             for linea in archivo:
@@ -74,10 +74,10 @@ class Persona():
 
                             print("\nAlguien ya ha tomado ese nombre de usuario, por favor selecciona otro.")
                             archivo.close()
-                            usuario_tomado = 1
+                            usuario_existe = 1
                             break
 
-            if usuario_tomado == 0:
+            if usuario_existe == 0:
 
                     print("\nA continuacion se le pediran algunas datos personales para terminar con el registro de su cuenta.")
 
@@ -142,10 +142,6 @@ class Persona():
                     else:
 
                         print("Contraseña incorrecta, ingrese nuevamente sus datos.")
-
-                else:
-
-                    continue
 
             if password == "":
 
