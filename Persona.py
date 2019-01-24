@@ -109,43 +109,38 @@ class Persona():
 
                     registro_terminado = 1
 
-    def iniciar_sesion(self):
-
+    def iniciar_sesion(lang):
         inicio_sesion_terminado = 0
 
         while inicio_sesion_terminado == 0:
-
-            usuario = input("\nUsuario: ")
+            email = input(lang["email"])
             password = ""
             archivo = open("usuarios.txt","r")
 
             for linea in archivo:
-
-                if linea.split(";")[0] == usuario:
-
-                    password = input("\nContraseña: ")
+                if linea.split(";")[0] == email:
+                    password = input(lang["password"])
 
                     if password == linea.split(";")[1]:
 
-                        print("Ha iniciado sesión con exito")
+                        return "Ha iniciado sesión con exito"
                         inicio_sesion_terminado = 1
                         archivo.close()
-
-                        datos = linea.split(";")
-                        self.setNombre(datos[2])
-                        self.setEmail(datos[3])
-                        self.setTelefono(datos[4])
-                        self.setDireccion(datos[5])
                         break
-
-
                     else:
-
-                        print("Contraseña incorrecta, ingrese nuevamente sus datos.")
+                        return "Contraseña incorrecta, ingrese nuevamente sus datos."
 
             if password == "":
 
-                print("No tenemos registro de su cuenta en nuestra base de datos. Por favor ingrese nuevamente su información")
+                return "No tenemos registro de su cuenta en nuestra base de datos. Por favor ingrese nuevamente su información"
+
+
+
+# {
+#     usuario_actual: Persona(...),
+#     mensaje:
+# }
+
 
 
 

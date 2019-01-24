@@ -1,27 +1,47 @@
 from Persona import Persona
+from Mensajes import Mensajes
 
-opcion = int(input("Bienvenido a PetShop.\n\n1) Iniciar sesión\n2) Registrarse\n3) Salir\n\nSeleccione una opcion: "))
+class Main:
+	personas = []
 
+	@staticmethod
+	def setIdioma():
+		print("""
+			1. Español
+			2. Inglés
+		""")
 
-while opcion > 3 or opcion < 1:
-    opcion=int(input("\nOpcion invalida, por favor seleccione nuevamente una opcion: "))
-  
-if opcion == 1 or opcion == 2:
-    
-    usuario_actual = Persona()
-    
-    if opcion == 1:
-        
-        usuario_actual.iniciar_sesion()
+		lang = int(input())
 
-    else:
-        usuario_actual.registrarse()
+		if lang == 2:
+			return Mensajes.mensajes_eng
 
+		return Mensajes.mensajes_es
 
+	@staticmethod
+	def menu():
+		sw = 1
+		lang = Main.setIdioma()
+		
+		while sw == 1:
+			print(lang["welcome"])
+			print(lang["login"])
+			print(lang["sign_up"])
+			print(lang["exit"])
+			print(lang["menu_msg"])
 
-elif opcion == 3:
-        
-    exit
-        
+			opcion = int(input())
 
+			if opcion == 1:
+				 print(Persona.iniciar_sesion(lang))
 
+			elif opcion == 2:				
+				Persona.registrarse(persona)
+				
+			elif opcion == 3:
+				sw = 0
+			else:
+				print(lang["wrong_option"])
+
+if __name__ == "__main__":
+	Main.menu()
