@@ -1,13 +1,8 @@
-import sys
-
-
 class Producto():
     """
         Producto: Información de los productos ofertados en la tienda
         Atributos: id, nombre, descripcion, valor, cantidadInventario, empleado, pedidos, comentarios
     """
-
-    lista_productos = []
 
     def __init__(self, empleado, id=0, nombre="", descripcion="", valor=0, cantidadInventario=0):
         self.setId(id)
@@ -18,7 +13,6 @@ class Producto():
         self.setEmpleado(empleado)
         self.setPedidos([])
         self.setComentarios([])
-        Producto.lista_productos.append(self)
 
     def setId(self, id):
         self._id = id
