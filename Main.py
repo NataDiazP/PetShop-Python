@@ -106,7 +106,6 @@ class Main:
                 if in_reCompletado == True:
 
                     print("\n" + usuario_actual.getNombre() + Main.mensajes["client_menu"])
-                    breakOpciones = 0
 
                     while breakOpciones == 0:
                         opcionSeleccionada = int(input("\n-> "))
