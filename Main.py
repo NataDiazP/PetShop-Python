@@ -1,11 +1,12 @@
 from Persona import Persona
-from Empleado import Empleado
 from Producto import Producto
+from Empleado import Empleado
 from Mensajes import Mensajes
 
 
 class Main:
     personas = []
+    productos = []
     mensajes = None
     datos_ficticios_agregados = 0
     datos_ficticios_txt_agregados = 0
@@ -85,13 +86,13 @@ class Main:
 
             if opcionSeleccionada == 1 or opcionSeleccionada == 2:
                 usuario_actual = Persona()
-                in_reCompletado = 0
+                operacion_completada = {}
 
                 if opcionSeleccionada == 1:
                     email = input(Main.mensajes["user_email"])
                     password = input(Main.mensajes["user_password"])
 
-                    in_reCompletado = usuario_actual.iniciar_sesion(email, password)
+                    operacion_completada = usuario_actual.iniciar_sesion(email, password, Main.mensajes)
 
                 elif opcionSeleccionada == 2:
 
@@ -101,9 +102,11 @@ class Main:
                     direccion = input(Main.mensajes["user_address"])
                     password = input(Main.mensajes["user_password"])
 
-                    in_reCompletado = usuario_actual.registrarse(nombre, email, telefono, direccion, password)
+                    operacion_completada = usuario_actual.registrarse(nombre, email, telefono, direccion, password,
+                                                                      Main.mensajes)
 
-                if in_reCompletado == True:
+                if operacion_completada["exitoso"] == True:
+                    print(operacion_completada["mensaje"])
 
                     print("\n" + usuario_actual.getNombre() + Main.mensajes["client_menu"])
 
@@ -111,19 +114,14 @@ class Main:
                         opcionSeleccionada = int(input("\n-> "))
 
                         if opcionSeleccionada == 1:
-                            print("\n")
-                            for producto_actual in Producto.lista_productos:
-                                print("----------------------------")
+                            for producto_actual in Main.productos:
+                                print("------------------------------------------")
                                 print(producto_actual.listarProductos())
-                                print("----------------------------")
-
-
+                                print("------------------------------------------")
 
                 else:
-                    print("error")
-
-
-
+                    print(operacion_completada["mensaje"])
+                    Main.menuUsuarios()
 
             elif opcionSeleccionada == 3:
                 Main.menuPrincipal()
@@ -136,6 +134,7 @@ class Main:
 
         print(Main.mensajes["employee_login_menu"])
         breakOpciones = 0
+
         pass
 
     @staticmethod
@@ -145,6 +144,9 @@ class Main:
         p1 = Producto(empleado=e1, nombre="Collar para perro", valor=10000,
                       descripcion="Un bonito collar verde para perro")
         p2 = Producto(empleado=e1, nombre="Gimnasio para gato", valor=54000, descripcion="Una cosa de locos ")
+
+        Main.productos.append(p1)
+        Main.productos.append(p2)
 
 
 if __name__ == "__main__":
