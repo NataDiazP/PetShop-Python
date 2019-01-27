@@ -1,6 +1,3 @@
-import sys
-
-
 class Persona():
     """
     	Persona: Información básica de usuarios y empleados
@@ -52,7 +49,7 @@ class Persona():
     def setPassword(self, password):
         self._password = password
 
-    def getPassoword(self):
+    def getPassword(self):
         return self._password
 
     def setComentarios(self, comentarios):
@@ -67,7 +64,7 @@ class Persona():
     def getPedidos(self):
         return self._pedidos
 
-    def registrarse(self, nombre, email, telefono, direccion, password):
+    def registrarse(self, nombre, email, telefono, direccion, password, mensajes):
 
         archivo = open("usuarios.txt", "r")
         usuario_existe = 0
@@ -92,13 +89,15 @@ class Persona():
             archivo.close()
 
             self.lista_personas.append(self)
-            return True
+            return {"exitoso": True,
+                    "mensaje": mensajes["succes_register"]}
 
         else:
 
-            return False
+            return {"exitoso": False,
+                    "mensaje": mensajes["error_register"]}
 
-    def iniciar_sesion(self, email, password):
+    def iniciar_sesion(self, email, password, mensajes):
 
         archivo = open("usuarios.txt", "r")
         usuario_existe = 0
@@ -121,8 +120,10 @@ class Persona():
 
         if usuario_existe == 0:
 
-            return False
+            return {"exitoso": False,
+                    "mensaje": mensajes["error_login"]}
 
         else:
 
-            return True
+            return {"exitoso": True,
+                    "mensaje": mensajes["succes_login"]}
