@@ -1,66 +1,74 @@
 import sys
 
+
 class Producto():
+    """
+        Producto: Información de los productos ofertados en la tienda
+        Atributos: id, nombre, descripcion, valor, cantidadInventario, empleado, pedidos, comentarios
+    """
 
-	"""
-		Producto: Información de los productos ofertados en la tienda
-		Atributos: id, nombre, descripcion, valor, cantidadInventario, empleado, pedidos, comentarios
-	"""
-	def __init__(self, id, nombre, descripcion, valor, cantidadInventario, empleado):
-		self.setId(id)
-		self.setNombre(nombre)
-		self.setDescripcion(descripcion)
-		self.setValor(valor)
-		self.setCantidadInventario(cantidadInventario)
-		self.setEmpleado(empleado)
-		self.setPedidos([])
-		self.setComentarios([])
+    lista_productos = []
 
-	def setId(self, id):
-		self._id = id
+    def __init__(self, empleado, id=0, nombre="", descripcion="", valor=0, cantidadInventario=0):
+        self.setId(id)
+        self.setNombre(nombre)
+        self.setDescripcion(descripcion)
+        self.setValor(valor)
+        self.setCantidadInventario(cantidadInventario)
+        self.setEmpleado(empleado)
+        self.setPedidos([])
+        self.setComentarios([])
+        Producto.lista_productos.append(self)
 
-	def getId(self):
-		return self._id
+    def setId(self, id):
+        self._id = id
 
-	def setNombre(self, nombre):
-		self._nombre = nombre
+    def getId(self):
+        return self._id
 
-	def getNombre(self):
-		return self._nombre
+    def setNombre(self, nombre):
+        self._nombre = nombre
 
-	def setDescripcion(self, descripcion):
-		self._descripcion = descripcion
+    def getNombre(self):
+        return self._nombre
 
-	def getDescripcion(self):
-		return self._descripcion
+    def setDescripcion(self, descripcion):
+        self._descripcion = descripcion
 
-	def setValor(self, valor):
-		self._valor = valor
+    def getDescripcion(self):
+        return self._descripcion
 
-	def getValor(self):
-		return self._valor
+    def setValor(self, valor):
+        self._valor = valor
 
-	def setCantidadInventario(self, cantidadInventario):
-		self._cantidadInventario = cantidadInventario
+    def getValor(self):
+        return self._valor
 
-	def getCantidadInventario(self):
-		return self._cantidadInventario
+    def setCantidadInventario(self, cantidadInventario):
+        self._cantidadInventario = cantidadInventario
 
-	def setEmpleado(self, empleado):
-		self._empleado = empleado
-		self._empleado.getProductos().append(self)
+    def getCantidadInventario(self):
+        return self._cantidadInventario
 
-	def getEmpleado(self):
-		return self._empleado
+    def setEmpleado(self, empleado):
+        self._empleado = empleado
+        self._empleado.getProductos().append(self)
 
-	def setPedidos(self, pedidos):
-		self._pedidos = pedidos
+    def getEmpleado(self):
+        return self._empleado
 
-	def getPedidos(self):
-		return self._pedidos
+    def setPedidos(self, pedidos):
+        self._pedidos = pedidos
 
-	def setComentarios(self, comentarios):
-		self._comentarios = comentarios
+    def getPedidos(self):
+        return self._pedidos
 
-	def getComentarios(self):
-		return self._comentarios
+    def setComentarios(self, comentarios):
+        self._comentarios = comentarios
+
+    def getComentarios(self):
+        return self._comentarios
+
+    def listarProductos(self):
+        return "Nombre: " + self.getNombre() + "\nValor: " + str(
+            self.getValor()) + "\nDescripcion: " + self.getDescripcion()

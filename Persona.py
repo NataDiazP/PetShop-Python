@@ -1,18 +1,21 @@
 import sys
 
+
 class Persona():
-    
     """
     	Persona: Información básica de usuarios y empleados
     	Atributos: id, nombre, email, telefono, direccion, comentarios, pedidos
     """
 
-    def __init__(self, id="", nombre="", email="", telefono="", direccion=""):
+    lista_personas = []
+
+    def __init__(self, id=0, nombre="", email="", telefono="", direccion="", password=""):
         self.setId(id)
         self.setNombre(nombre)
         self.setEmail(email)
         self.setTelefono(telefono)
         self.setDireccion(direccion)
+        self.setPassword(password)
         self.setComentarios([])
         self.setPedidos([])
 
@@ -46,6 +49,12 @@ class Persona():
     def getDireccion(self):
         return self._direccion
 
+    def setPassword(self, password):
+        self._password = password
+
+    def getPassoword(self):
+        return self._password
+
     def setComentarios(self, comentarios):
         self._comentarios = comentarios
 
@@ -58,89 +67,62 @@ class Persona():
     def getPedidos(self):
         return self._pedidos
 
-    def registrarse(self):
+    def registrarse(self, nombre, email, telefono, direccion, password):
 
-        registro_terminado = 0
+        archivo = open("usuarios.txt", "r")
+        usuario_existe = 0
 
-        while registro_terminado == 0:
+        for linea in archivo:
 
-            usuario = input("\nIngrese un nombre de usuario para su cuenta: ")
-            usuario_existe = 0
-            archivo = open("usuarios.txt","r")
+            if linea.split(";")[0] == email:
+                archivo.close()
+                usuario_existe = 1
+                break
 
-            for linea in archivo:
+        if usuario_existe == 0:
 
-                    if linea.split(";")[0] == usuario:
+            self.setNombre(nombre)
+            self.setEmail(email)
+            self.setTelefono(telefono)
+            self.setDireccion(direccion)
+            self.setPassword(password)
 
-                            print("\nAlguien ya ha tomado ese nombre de usuario, por favor selecciona otro.")
-                            archivo.close()
-                            usuario_existe = 1
-                            break
+            archivo = open("usuarios.txt", "a")
+            archivo.write(email + ";" + password + ";" + nombre + ";" + direccion + ";" + telefono + "\n")
+            archivo.close()
 
-            if usuario_existe == 0:
+            self.lista_personas.append(self)
+            return True
 
-                    print("\nA continuacion se le pediran algunas datos personales para terminar con el registro de su cuenta.")
+        else:
 
-                    nombre = input("\n\nNombre: ")
-                    while nombre == "":
-                        nombre = input("\nPor favor ingrese un nombre: ")
-                    email = input("\nEmail: ")
-                    while email == "":
-                        email = input("\nPor favor ingrese un email: ")
-                    telefono = input("\nTelefono: ")
-                    while telefono == "":
-                        telefono = input("\nPor favor ingrese un telefono: ")
-                    direccion = input("\nDirección: ")
-                    while direccion == "":
-                        direccion = input("\nPor favor ingrese una direccion: ")
-                    password = input("\nContraseña de ingreso para su cuenta: ")
-                    while password == "" or len(password) < 5:
-                        password = input("\nPor favor ingrese una contraseña valida de por lo menos 5 caracteres: ")
+            return False
 
+    def iniciar_sesion(self, email, password):
 
-                    self.setNombre(nombre)
-                    self.setEmail(email)
-                    self.setTelefono(telefono)
-                    self.setDireccion(direccion)
+        archivo = open("usuarios.txt", "r")
+        usuario_existe = 0
 
-                    archivo = open("usuarios.txt","a")
-                    archivo.write(usuario+";"+password+";"+nombre+";"+email+";"+telefono+";"+direccion+"\n")
+        for linea in archivo:
+
+            if linea.split(";")[0] == email:
+
+                if linea.split(";")[1] == password:
                     archivo.close()
 
-                    registro_terminado = 1
+                    datos = linea.split(";")
+                    self.setEmail(datos[0])
+                    self.setPassword(datos[1])
+                    self.setNombre(datos[2])
+                    self.setDireccion(datos[3])
+                    self.setTelefono(datos[4])
+                    usuario_existe = 1
+                    break
 
-    def iniciar_sesion(lang):
-        inicio_sesion_terminado = 0
+        if usuario_existe == 0:
 
-        while inicio_sesion_terminado == 0:
-            email = input(lang["email"])
-            password = ""
-            archivo = open("usuarios.txt","r")
+            return False
 
-            for linea in archivo:
-                if linea.split(";")[0] == email:
-                    password = input(lang["password"])
+        else:
 
-                    if password == linea.split(";")[1]:
-
-                        return "Ha iniciado sesión con exito"
-                        inicio_sesion_terminado = 1
-                        archivo.close()
-                        break
-                    else:
-                        return "Contraseña incorrecta, ingrese nuevamente sus datos."
-
-            if password == "":
-
-                return "No tenemos registro de su cuenta en nuestra base de datos. Por favor ingrese nuevamente su información"
-
-
-
-# {
-#     usuario_actual: Persona(...),
-#     mensaje:
-# }
-
-
-
-
+            return True

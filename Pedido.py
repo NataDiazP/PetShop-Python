@@ -51,3 +51,6 @@ class Pedido():
 
 	def getProductos(self):
 		return self._productos
+
+	def crear_pedido(self):
+

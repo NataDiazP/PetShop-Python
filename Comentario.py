@@ -37,3 +37,5 @@ class Comentario():
 
 	def getProducto(self):
 		return self._producto
+
+	def crear_comentario(self):
