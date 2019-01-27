@@ -48,7 +48,7 @@ class Main:
 
             elif opcionSeleccionada == 2:
 
-                pass
+                """Añadir datos desde txt"""
 
             elif opcionSeleccionada == 3:
 
