@@ -7,6 +7,7 @@ from Mensajes import Mensajes
 class Main:
     personas = []
     productos = []
+    empleados = []
     mensajes = None
     datos_ficticios_agregados = 0
     datos_ficticios_txt_agregados = 0
@@ -46,11 +47,17 @@ class Main:
 
                 Main.menuPrincipal()
 
-
             elif opcionSeleccionada == 2:
+                if Main.datos_ficticios_txt_agregados == 0:
+                    Main.generarDatosFicticiosTxt()
+                    print(Main.mensajes["succes_dummy_data"])
+                    Main.datos_ficticios_txt_agregados = 1
+                else:
+                    print(Main.mensajes["dummy_data_added"])
 
-                """Añadir datos desde txt"""
+                print(Main.datos_ficticios_txt_agregados)
 
+                Main.menuPrincipal()
             elif opcionSeleccionada == 3:
 
                 print(Main.mensajes["user_type"])
@@ -135,11 +142,53 @@ class Main:
         print(Main.mensajes["employee_login_menu"])
         breakOpciones = 0
 
-        pass
+        while breakOpciones == 0:
+            opcionSeleccionada = int(input("\n-> "))
+
+            if opcionSeleccionada == 1:
+                usuario_actual = Empleado()
+                operacion_completada = {}
+
+                email = input(Main.mensajes["user_email"])
+                password = input(Main.mensajes["user_password"])
+
+                usuario_actual.setEmail(email)
+                usuario_actual.setPassword(password)
+
+                operacion_completada = usuario_actual.iniciar_sesion(Main.empleados, Main.mensajes)
+
+                if operacion_completada["exitoso"] == True:
+                    print(operacion_completada["mensaje"])
+                    usuario_actual = operacion_completada["datos"]
+
+                    print("\n" + usuario_actual.getNombre() + Main.mensajes["employee_menu"])
+
+                    while breakOpciones == 0:
+                        opcionSeleccionada = int(input("\n-> "))
+
+                        if opcionSeleccionada == 1:
+                            print("hola")
+
+                else:
+                    print(operacion_completada["mensaje"])
+                    Main.menuEmpleados()
+            elsi
+
+    @staticmethod
+    def generarDatosFicticiosTxt():
+        archivo = open("empleados.txt", "r")
+
+        for linea in archivo:
+            datos = linea.split(";")
+
+            empleado = Empleado(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6], datos[7])
+            Main.empleados.append(empleado)
+        
+        archivo.close()
+        Main.menuPrincipal()
 
     @staticmethod
     def datosFicticios():
-
         e1 = Empleado()
         p1 = Producto(empleado=e1, nombre="Collar para perro", valor=10000,
                       descripcion="Un bonito collar verde para perro")

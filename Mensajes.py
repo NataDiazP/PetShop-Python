@@ -19,7 +19,9 @@ class Mensajes:
         "employee_menu": "1. Crear empleados \n2. Desactivar empleados \n3. Eliminar empleados \n4. Crear productos \n5. Buscar productos \n6. Actualizar producto \n7. Eliminar producto \n8. Anular pedidos \n9. Ver pedidos del día",
         "wrong_option": "\n----------------------------------------\nERROR\nOpción inválida. Por favor digite su seleccion nuevamente\n----------------------------------------",
         "email": "Correo electrónico: ",
-        "password": "Contraseña: "
+        "password": "Contraseña: ",
+        "empl_exists": "Ya existe un empleado con este correo electrónico, por favor intente con uno diferente.",
+        "empl_added": "El empleado fue creado exitosamente."
     }
 
     mensajes_eng = {
@@ -42,5 +44,7 @@ class Mensajes:
         "employee_menu": "1. Create employee \n2. Deactivate employee \n3. Delete employee \n4. Create product \n5. Search products \n6. Update product \n7. Delete product \n8. Cancel order \n9. See orders of the day",
         "wrong_option": "\n----------------------------------------\nERROR\nWrong option. Please enter a valid option\n----------------------------------------",
         "email": "Email: ",
-        "password": "Password: "
+        "password": "Password: ",
+        "empl_exists": "\n----------------------------------------\nERROR\nAn employee with this email already exists, please try again.\n----------------------------------------",
+        "empl_added": "\n----------------------------------------\nThe employee was created successfully.\n----------------------------------------"
     }
