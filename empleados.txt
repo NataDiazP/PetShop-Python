@@ -1,0 +1,2 @@
+1;Mateo;matmartinezpal@unal.edu.co;123;2897456;avenida siempreviva;True;True
+3;Natalia;natalia@gmail.com;123;2343223;cra123;True;True
