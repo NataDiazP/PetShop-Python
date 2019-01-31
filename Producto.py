@@ -4,8 +4,10 @@ class Producto():
         Atributos: id, nombre, descripcion, valor, cantidadInventario, empleado, pedidos, comentarios
     """
 
+    contadorIds=0
     def __init__(self, empleado, id=0, nombre="", descripcion="", valor=0, cantidadInventario=0):
-        self.setId(id)
+        Producto.contadorIds+=1
+        self.setId(Producto.contadorIds)
         self.setNombre(nombre)
         self.setDescripcion(descripcion)
         self.setValor(valor)
@@ -64,5 +66,18 @@ class Producto():
         return self._comentarios
 
     def listarProductos(self):
-        return "Nombre: " + self.getNombre() + "\nValor: " + str(
-            self.getValor()) + "\nDescripcion: " + self.getDescripcion()
+        return "id: " + str(self.getId()) + "\nNombre: " + self.getNombre() + "\nValor: " + str(
+            self.getValor()) + "\nDescripcion: " + self.getDescripcion() + "\nCantidad en Inventario: " + str(self.getCantidadInventario())
+
+    @staticmethod
+    def seleccionarProducto(numeroId,listaproductos):
+        for productoActual in listaproductos:
+            if productoActual.getId()== numeroId:
+                return {"Encontrado" : True,
+                        "Objeto": productoActual
+                }
+        return {"Encontrado": False,
+                "Objeto" : None
+        }
+
+

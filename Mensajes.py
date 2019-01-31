@@ -15,11 +15,13 @@ class Mensajes:
         "succes_login": "\n----------------------------------------\nHa iniciado sesion con exito\n----------------------------------------",
         "succes_register": "\n----------------------------------------\nSe ha registrado con exito\n----------------------------------------",
         "employee_login_menu": "\n1.Iniciar sesión\n2. Volver al menu principal",
-        "client_menu": ", Bienvenido PetShop, ¿Que desea hacer?\n\n1. Listar productos \n2. Seleccionar producto(s) \n3. Comentar producto \n4. Borrar comentario \n5. Ver carrito de compras \n6. Añadir producto a la lista de deseos \n7. Ver lista de deseos \n8. Listar pedidos realizados",
+        "client_menu": ", Bienvenido PetShop, ¿Que desea hacer?\n\n1. Listar productos \n2. Seleccionar producto(s) \n3. Comentar producto \n4. Borrar comentario \n5. Ver carrito de compras  \n6. Ver lista de deseos \n7. Listar pedidos realizados",
         "employee_menu": "1. Crear empleados \n2. Desactivar empleados \n3. Eliminar empleados \n4. Crear productos \n5. Buscar productos \n6. Actualizar producto \n7. Eliminar producto \n8. Anular pedidos \n9. Ver pedidos del día",
         "wrong_option": "\n----------------------------------------\nERROR\nOpción inválida. Por favor digite su seleccion nuevamente\n----------------------------------------",
         "email": "Correo electrónico: ",
-        "password": "Contraseña: "
+        "password": "Contraseña: ",
+        "select_product_menu" : "1. Agregar a lista de deseados\n2. Comprar\n3. Salir",
+        "product_not_found": "\nProducto no encontrado"
     }
 
     mensajes_eng = {
@@ -38,9 +40,12 @@ class Mensajes:
         "succes_login": "\n----------------------------------------\nYou have logged in successfully\n----------------------------------------",
         "succes_register": "\n----------------------------------------\nYou have registered successfully\n----------------------------------------",
         "employee_login_menu": "\n1.Login\n2. Go to the start menu",
-        "client_menu": ", Welcome to PetShop, What do you want to do?\n\n1. List products \n2. Select product(s) \n3. Comment product \n4. Delete comment \n5. See shopping car \n6. Add product to whish list \n7. See wish list \n8. List previous orders",
+        "client_menu": ", Welcome to PetShop, What do you want to do?\n\n1. List products \n2. Select product(s) \n3. Comment product \n4. Delete comment \n5. See shopping car \n6. See wish list \n7. List previous orders",
         "employee_menu": "1. Create employee \n2. Deactivate employee \n3. Delete employee \n4. Create product \n5. Search products \n6. Update product \n7. Delete product \n8. Cancel order \n9. See orders of the day",
         "wrong_option": "\n----------------------------------------\nERROR\nWrong option. Please enter a valid option\n----------------------------------------",
         "email": "Email: ",
-        "password": "Password: "
+        "password": "Password: ",
+        "select_product_menu": "1. Add to wish list\n2. Buy\n3. Exit",
+        "product_not_found": "\nProduct not found"
+
     }
