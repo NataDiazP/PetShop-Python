@@ -6,7 +6,7 @@ class Persona():
 
     contador_ids = 0
 
-    def __init__(self, id=0, nombre="", email="", telefono="", direccion="", password=""):
+    def __init__(self, nombre="", email="", telefono="", direccion="", password=""):
         Persona.contador_ids += 1
         self.setId(Persona.contador_ids)
         self.setNombre(nombre)
@@ -88,20 +88,34 @@ class Persona():
 
         lista_personas.append(self)
 
-        return {"exitoso": True,
-                "mensaje": mensajes["succes_register"]}
+        return {
+            "exitoso": True,
+            "mensaje": mensajes["succes_register"]
+        }
 
-    def iniciar_sesion(self, email, password, lista_personas, mensajes):
-
+    def iniciar_sesion(self, lista_personas, mensajes):
         for persona_actual in lista_personas:
-            if persona_actual.getEmail() == email and persona_actual.getPassword() == password:
-                return {"exitoso": True,
-                        "mensaje": mensajes["succes_login"]}
+            if persona_actual.getEmail() == self.getEmail() and persona_actual.getPassword() == self.getPassword():
 
-        return {"exitoso": False,
-                "mensaje": mensajes["error_login"]}
+                self.setId(persona_actual.getId())
+                self.setNombre(persona_actual.getNombre())
+                self.setTelefono(persona_actual.getTelefono())
+                self.setDireccion(persona_actual.getDireccion())
+                self.setListaDeseos(persona_actual.getListaDeseos())
+                self.setComentarios(persona_actual.getComentarios())
+                self.setPedidos(persona_actual.getPedidos())
 
-    def agregar_lista_deseos(self,producto):
+                return {
+                    "exitoso": True,
+                    "mensaje": mensajes["succes_login"]
+                }
+
+        return {
+            "exitoso": False,
+            "mensaje": mensajes["error_login"]
+        }
+
+    def agregar_lista_deseos(self, producto):
         self._listaDeseos.append(producto)
 
 

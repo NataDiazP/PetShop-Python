@@ -9,7 +9,7 @@ class Empleado(Persona):
     """
 
     def __init__(self, nombre="", email="", password="", telefono="", direccion="", admin=False, activo=True):
-        super().__init__(nombre, email, telefono, direccion)
+        super().__init__(nombre, email, telefono, direccion, password)
         self.setAdmin(admin)
         self.setActivo(activo)
         self.setProductos([])
@@ -41,17 +41,28 @@ class Empleado(Persona):
 
     def iniciar_sesion(self, empleados, mensajes):
         for empleado in empleados:
+            print (empleado.getEmail())
+            print (empleado.getPassword())
+
             if empleado.getEmail() == self.getEmail() and empleado.getPassword() == self.getPassword():
-                    return {
-                        "exitoso": False,
-                        "mensaje": mensajes["error_login"],
-                        "datos": empleado
-                    }
+
+                self.setId(empleado.getId())
+                self.setNombre(empleado.getNombre())
+                self.setTelefono(empleado.getTelefono())
+                self.setDireccion(empleado.getDireccion())
+                self.setAdmin(empleado.getAdmin())
+                self.setActivo(empleado.getActivo())
+                self.setProductos(empleado.getProductos())
+                self.setPedidosAnulados(empleado.getPedidosAnulados())
+
+                return {
+                    "exitoso": True,
+                    "mensaje": mensajes["succes_login"]
+                }
 
         return {
-            "exitoso": True,
-            "mensaje": mensajes["succes_login"],
-            "datos": empleado
+            "exitoso": False,
+            "mensaje": mensajes["error_login"]
         }
 
     def crearEmpleado(self, empleadosList, mensajes):
