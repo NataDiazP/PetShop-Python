@@ -1,6 +1,6 @@
 class Mensajes:
     mensajes_es = {
-        "welcome_menu": "\nBienvenido a Petshop \nSeleccione la opción deseada: \n\n1. Generar datos ficticios \n2. Generar datos ficticios desde un txt \n3. Iniciar sesión \n4. Salir",
+        "welcome_menu": "\nBienvenido a Petshop \nSeleccione la opción deseada: \n\n1. Generar datos ficticios \n2. Generar datos ficticios desde un txt \n3. Usuarios \n4. Salir",
         "user_type": "\nSeleccione el tipo de usuario: \n\n1. Cliente \n2. Empleado \n3. Volver al menu principal",
         "client_login_menu": "\nSelecciona una opcion\n\n1. Iniciar sesión \n2. Registrarse \n3. Volver al menu principal",
         "succes_dummy_data": "\nLos datos han sido añadidos con exito",
@@ -15,15 +15,20 @@ class Mensajes:
         "succes_login": "\n----------------------------------------\nHa iniciado sesion con exito\n----------------------------------------",
         "succes_register": "\n----------------------------------------\nSe ha registrado con exito\n----------------------------------------",
         "employee_login_menu": "\n1.Iniciar sesión\n2. Volver al menu principal",
-        "client_menu": ", Bienvenido PetShop, ¿Que desea hacer?\n\n1. Listar productos \n2. Seleccionar producto(s) \n3. Comentar producto \n4. Borrar comentario \n5. Ver carrito de compras \n6. Añadir producto a la lista de deseos \n7. Ver lista de deseos \n8. Listar pedidos realizados",
+        "client_menu": ", Bienvenido a PetShop, ¿Que desea hacer?\n\n1. Ver productos \n2. Seleccionar producto(s) \n3. Borrar comentario \n4. Ver carrito de compras  \n5. Ver lista de deseos \n6. Ver mis pedidos realizados",
         "employee_menu": "1. Crear empleados \n2. Desactivar empleados \n3. Eliminar empleados \n4. Crear productos \n5. Buscar productos \n6. Actualizar producto \n7. Eliminar producto \n8. Anular pedidos \n9. Ver pedidos del día",
         "wrong_option": "\n----------------------------------------\nERROR\nOpción inválida. Por favor digite su seleccion nuevamente\n----------------------------------------",
         "email": "Correo electrónico: ",
-        "password": "Contraseña: "
+        "password": "Contraseña: ",
+        "insert_product_id": "\nIngrese el ID del producto a buscar: ",
+        "select_product_menu" : "1. Agregar a lista de deseados\n2. Comprar\n3. Salir",
+        "product_not_found": "\n----------------------------------------\nProducto(s) no encontrado(s)\n----------------------------------------",
+        "go_back_press_any_key": "\nPara volver atras presione cualquier tecla: ",
+        "wish_list": "\n----------------------------------------\nLista de deseos\n----------------------------------------"
     }
 
     mensajes_eng = {
-        "welcome_menu": "\nWelcome to Petshop \nSelect the desired option: \n1. Generate dummy data \n2. Generate dummy data from a txt file \n3. Login \n4. Exit",
+        "welcome_menu": "\nWelcome to Petshop \nSelect the desired option: \n1. Generate dummy data \n2. Generate dummy data from a txt file \n3. Users \n4. Exit",
         "user_type": "\nSelect the user type: \n\n1. Client \n2. Employee \n3. Go to the start menu",
         "client_login_menu": "\nSelect the user option: \n\n1. Login \n2. Sign up \n3. Go back",
         "succes_dummy_data": "\nData added successfully",
@@ -38,9 +43,15 @@ class Mensajes:
         "succes_login": "\n----------------------------------------\nYou have logged in successfully\n----------------------------------------",
         "succes_register": "\n----------------------------------------\nYou have registered successfully\n----------------------------------------",
         "employee_login_menu": "\n1.Login\n2. Go to the start menu",
-        "client_menu": ", Welcome to PetShop, What do you want to do?\n\n1. List products \n2. Select product(s) \n3. Comment product \n4. Delete comment \n5. See shopping car \n6. Add product to whish list \n7. See wish list \n8. List previous orders",
+        "client_menu": ", Welcome to PetShop, What do you want to do?\n\n1. See products \n2. Select product(s) \n3. Delete comment \n4. See shopping car \n5. See wish list \n6. See my previous orders",
         "employee_menu": "1. Create employee \n2. Deactivate employee \n3. Delete employee \n4. Create product \n5. Search products \n6. Update product \n7. Delete product \n8. Cancel order \n9. See orders of the day",
         "wrong_option": "\n----------------------------------------\nERROR\nWrong option. Please enter a valid option\n----------------------------------------",
         "email": "Email: ",
-        "password": "Password: "
+        "password": "Password: ",
+        "insert_product_id": "\nInsert the product ID: ",
+        "select_product_menu": "1. Add to wish list\n2. Buy\n3. Exit",
+        "product_not_found": "\n----------------------------------------\nProduct(s) not found\n----------------------------------------",
+        "go_back_press_any_key": "\nTo go back press any key: ",
+        "wish_list": "\n----------------------------------------\nWish list\n----------------------------------------"
+
     }
