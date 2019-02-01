@@ -4,15 +4,17 @@ class Persona():
     	Atributos: id, nombre, email, telefono, direccion, comentarios, pedidos
     """
 
-    lista_personas = []
+    contador_ids = 0
 
     def __init__(self, id=0, nombre="", email="", telefono="", direccion="", password=""):
-        self.setId(id)
+        Persona.contador_ids += 1
+        self.setId(Persona.contador_ids)
         self.setNombre(nombre)
         self.setEmail(email)
         self.setTelefono(telefono)
         self.setDireccion(direccion)
         self.setPassword(password)
+        self.setListaDeseos([])
         self.setComentarios([])
         self.setPedidos([])
 
@@ -64,66 +66,43 @@ class Persona():
     def getPedidos(self):
         return self._pedidos
 
-    def registrarse(self, nombre, email, telefono, direccion, password, mensajes):
+    def setListaDeseos(self, listaDeseos):
+        self._listaDeseos = listaDeseos
 
-        archivo = open("usuarios.txt", "r")
-        usuario_existe = 0
+    def getListaDeseos(self):
+        return self._listaDeseos
 
-        for linea in archivo:
 
-            if linea.split(";")[0] == email:
-                archivo.close()
-                usuario_existe = 1
-                break
+    def registrarse(self, nombre, email, telefono, direccion, password, lista_personas, mensajes):
 
-        if usuario_existe == 0:
+        for persona_actual in lista_personas:
+            if persona_actual.getEmail() == email:
+                return {"exitoso": False,
+                        "mensaje": mensajes["error_register"]}
 
-            self.setNombre(nombre)
-            self.setEmail(email)
-            self.setTelefono(telefono)
-            self.setDireccion(direccion)
-            self.setPassword(password)
+        self.setNombre(nombre)
+        self.setEmail(email)
+        self.setTelefono(telefono)
+        self.setDireccion(direccion)
+        self.setPassword(password)
 
-            archivo = open("usuarios.txt", "a")
-            archivo.write(email + ";" + password + ";" + nombre + ";" + direccion + ";" + telefono + "\n")
-            archivo.close()
+        lista_personas.append(self)
 
-            self.lista_personas.append(self)
-            return {"exitoso": True,
-                    "mensaje": mensajes["succes_register"]}
+        return {"exitoso": True,
+                "mensaje": mensajes["succes_register"]}
 
-        else:
+    def iniciar_sesion(self, email, password, lista_personas, mensajes):
 
-            return {"exitoso": False,
-                    "mensaje": mensajes["error_register"]}
+        for persona_actual in lista_personas:
+            if persona_actual.getEmail() == email and persona_actual.getPassword() == password:
+                return {"exitoso": True,
+                        "mensaje": mensajes["succes_login"]}
 
-    def iniciar_sesion(self, email, password, mensajes):
+        return {"exitoso": False,
+                "mensaje": mensajes["error_login"]}
 
-        archivo = open("usuarios.txt", "r")
-        usuario_existe = 0
+    def agregar_lista_deseos(self,producto):
+        self._listaDeseos.append(producto)
 
-        for linea in archivo:
 
-            if linea.split(";")[0] == email:
 
-                if linea.split(";")[1] == password:
-                    archivo.close()
-
-                    datos = linea.split(";")
-                    self.setEmail(datos[0])
-                    self.setPassword(datos[1])
-                    self.setNombre(datos[2])
-                    self.setDireccion(datos[3])
-                    self.setTelefono(datos[4])
-                    usuario_existe = 1
-                    break
-
-        if usuario_existe == 0:
-
-            return {"exitoso": False,
-                    "mensaje": mensajes["error_login"]}
-
-        else:
-
-            return {"exitoso": True,
-                    "mensaje": mensajes["succes_login"]}
