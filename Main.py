@@ -3,7 +3,6 @@ from Producto import Producto
 from Empleado import Empleado
 from Mensajes import Mensajes
 
-
 class Main:
     personas = []
     productos = []
@@ -31,6 +30,7 @@ class Main:
 
     @staticmethod
     def menuPrincipal():
+
 
         print(Main.mensajes["welcome_menu"])
         breakOpciones = 0
