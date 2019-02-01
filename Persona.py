@@ -1,5 +1,3 @@
-from Producto import Producto
-
 class Persona():
     """
     	Persona: Información básica de usuarios y empleados
