@@ -172,7 +172,6 @@ class Main:
                 else:
                     print(operacion_completada["mensaje"])
                     Main.menuEmpleados()
-            elsi
 
     @staticmethod
     def generarDatosFicticiosTxt():
@@ -181,11 +180,10 @@ class Main:
         for linea in archivo:
             datos = linea.split(";")
 
-            empleado = Empleado(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6], datos[7])
+            empleado = Empleado(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6])
             Main.empleados.append(empleado)
-        
+
         archivo.close()
-        Main.menuPrincipal()
 
     @staticmethod
     def datosFicticios():

@@ -3,13 +3,13 @@ import sys
 from Persona import Persona
 
 class Empleado(Persona):
-
     """
         Empleado: Información de los trabajadores
         Atributos: admin, productos, pedidosAnulados
     """
-    def __init__(self, id=0, nombre="", email="", password="", telefono="", direccion="", admin=False, activo=True):
-        super().__init__(id, nombre, email, telefono, direccion)
+
+    def __init__(self, nombre="", email="", password="", telefono="", direccion="", admin=False, activo=True):
+        super().__init__(nombre, email, telefono, direccion)
         self.setAdmin(admin)
         self.setActivo(activo)
         self.setProductos([])
@@ -63,7 +63,7 @@ class Empleado(Persona):
     				mensaje: mensajes["empl_exists"]
     			}
 
-    	empleadosList.append(self)	
+    	empleadosList.append(self)
 
     	return {
     		exitoso: True,
