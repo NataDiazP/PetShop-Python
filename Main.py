@@ -199,8 +199,6 @@ class Main:
         while Main.breakOpciones == 0:
             opcionSeleccionada = int(input("\n-> "))
 
-            print(Main.empleados)
-
             if opcionSeleccionada == 1:
                 Main.usuario_actual = Empleado()
                 operacion_completada = {}
@@ -230,9 +228,20 @@ class Main:
         while Main.breakOpciones == 0:
             opcionSeleccionada = int(input("\n-> "))
 
-            if opcionSeleccionada == 1:
-                print("hola")
+            if opcionSeleccionada == 1 or opcionSeleccionada == 2:
+                print(Main.mensajes["enter_data_employee"])
 
+                nombre = input(Main.mensajes["user_name"])
+                email = input(Main.mensajes["email"])
+                password = input(Main.mensajes["user_password"])
+                telefono = input(Main.mensajes["user_phone"])
+                direccion = input(Main.mensajes["user_address"])
+                admin = opcionSeleccionada == 1
+
+                nuevo_empleado = Empleado(nombre, email, password, telefono, direccion, admin)
+                print(nuevo_empleado.crearEmpleado(Main.empleados, Main.mensajes)["mensaje"])
+
+            menuEmpleadosOpciones()
 
     @staticmethod
     def generarDatosFicticiosTxt():

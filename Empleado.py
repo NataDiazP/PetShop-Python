@@ -65,21 +65,27 @@ class Empleado(Persona):
             "mensaje": mensajes["error_login"]
         }
 
-    def crearEmpleado(self, empleadosList, mensajes):
-        # Esto debe ser guardado en un txt
-    	for empl in empleadosList:
-    		if(empl.getEmail() == self.getEmail()):
-    			return {
-    				exitoso: False,
-    				mensaje: mensajes["empl_exists"]
-    			}
+    def crearEmpleado(self, empleados, mensajes):
+        archivo = open("empleados.txt","r")
 
-    	empleadosList.append(self)
+        for linea in archivo:
+            if linea.split(";")[1] == self.getEmail():
+                archivo.close()
+                
+                return {
+                    "exitoso": False,
+                    "mensaje": mensaje["error_register"]
+                }
 
-    	return {
-    		exitoso: True,
-    		mensaje: mensajes["empl_added"],
-    		data: empleadosList
-    	}
+        archivo = open("empleados.txt","r")
+        archivo.write(self.getNombre() + ";" + self.getEmail() + ";" + self.getPassword() + ";" + self.getTelefono() + ";" + self.getDireccion() + ";"+ str(self.getAdmin()) + ";" + str(self.getActivo()) + "\n")
+        archivo.close()
+
+        empleados.append(self)
+
+        return {
+            "exitoso": True,
+            "mensaje": mensajes["empl_added"]
+        }
 
     # def EliminarEmpleado(self, empleadosList, mensajes):
