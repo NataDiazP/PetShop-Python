@@ -4,14 +4,15 @@ from Empleado import Empleado
 from Mensajes import Mensajes
 from Comentario import Comentario
 
-
 class Main:
     usuario_actual = None
     personas = []
     productos = []
+    empleados = []
     mensajes = None
     datos_ficticios_agregados = 0
     datos_ficticios_txt_agregados = 0
+    breakOpciones = 0
 
     @staticmethod
     def setIdioma():
@@ -32,11 +33,9 @@ class Main:
 
     @staticmethod
     def menuPrincipal():
-
         print(Main.mensajes["welcome_menu"])
-        breakOpciones = 0
 
-        while breakOpciones == 0:
+        while Main.breakOpciones == 0:
             opcionSeleccionada = int(input("\n-> "))
             if opcionSeleccionada == 1:
                 if Main.datos_ficticios_agregados == 0:
@@ -48,16 +47,22 @@ class Main:
 
                 Main.menuPrincipal()
 
-
             elif opcionSeleccionada == 2:
+                if Main.datos_ficticios_txt_agregados == 0:
+                    Main.generarDatosFicticiosTxt()
+                    print(Main.mensajes["succes_dummy_data"])
+                    Main.datos_ficticios_txt_agregados = 1
+                else:
+                    print(Main.mensajes["dummy_data_added"])
 
-                """Añadir datos desde txt"""
+                print(Main.datos_ficticios_txt_agregados)
 
+                Main.menuPrincipal()
             elif opcionSeleccionada == 3:
 
                 print(Main.mensajes["user_type"])
 
-                while breakOpciones == 0:
+                while Main.breakOpciones == 0:
 
                     opcionSeleccionada = int(input("\n-> "))
 
@@ -81,9 +86,8 @@ class Main:
     @staticmethod
     def menuUsuariosLogReg():
         print(Main.mensajes["client_login_menu"])
-        breakOpciones = 0
 
-        while breakOpciones == 0:
+        while Main.breakOpciones == 0:
             opcionSeleccionada = int(input("\n-> "))
 
             if opcionSeleccionada == 1 or opcionSeleccionada == 2:
@@ -91,15 +95,18 @@ class Main:
                 operacion_completada = {}
 
                 if opcionSeleccionada == 1:
-                    email = input(Main.mensajes["user_email"])
+                    email = input(Main.mensajes["email"])
                     password = input(Main.mensajes["user_password"])
 
-                    operacion_completada = Main.usuario_actual.iniciar_sesion(email, password, Main.personas, Main.mensajes)
+                    Main.usuario_actual.setEmail(email)
+                    Main.usuario_actual.setPassword(password)
+
+                    operacion_completada = Main.usuario_actual.iniciar_sesion(Main.personas, Main.mensajes)
 
                 elif opcionSeleccionada == 2:
 
                     nombre = input(Main.mensajes["user_name"])
-                    email = input(Main.mensajes["user_email"])
+                    email = input(Main.mensajes["email"])
                     telefono = input(Main.mensajes["user_phone"])
                     direccion = input(Main.mensajes["user_address"])
                     password = input(Main.mensajes["user_password"])
@@ -125,9 +132,8 @@ class Main:
     def menuUsuariosOpciones():
 
         print("\n" + Main.usuario_actual.getNombre() + Main.mensajes["client_menu"])
-        breakOpciones = 0
 
-        while breakOpciones == 0:
+        while Main.breakOpciones == 0:
             opcionSeleccionada = int(input("\n-> "))
 
             if opcionSeleccionada == 1:
@@ -189,14 +195,68 @@ class Main:
     def menuEmpleados():
 
         print(Main.mensajes["employee_login_menu"])
-        breakOpciones = 0
 
-        pass
+        while Main.breakOpciones == 0:
+            opcionSeleccionada = int(input("\n-> "))
 
+            if opcionSeleccionada == 1:
+                Main.usuario_actual = Empleado()
+                operacion_completada = {}
+
+                email = input(Main.mensajes["email"])
+                password = input(Main.mensajes["user_password"])
+
+                Main.usuario_actual.setEmail(email)
+                Main.usuario_actual.setPassword(password)
+
+                operacion_completada = Main.usuario_actual.iniciar_sesion(Main.empleados, Main.mensajes)
+
+                if operacion_completada["exitoso"] == True:
+                    print(operacion_completada["mensaje"])
+                    Main.menuEmpleadosOpciones()
+                    
+                else:
+                    print(operacion_completada["mensaje"])
+                    Main.menuEmpleados()
+            else:
+                Main.menuPrincipal()
+
+    @staticmethod
+    def menuEmpleadosOpciones():
+        print("\nBienvenid@ " + Main.usuario_actual.getNombre() + "\n" + Main.mensajes["employee_menu"])
+
+        while Main.breakOpciones == 0:
+            opcionSeleccionada = int(input("\n-> "))
+
+            if opcionSeleccionada == 1 or opcionSeleccionada == 2:
+                print(Main.mensajes["enter_data_employee"])
+
+                nombre = input(Main.mensajes["user_name"])
+                email = input(Main.mensajes["email"])
+                password = input(Main.mensajes["user_password"])
+                telefono = input(Main.mensajes["user_phone"])
+                direccion = input(Main.mensajes["user_address"])
+                admin = opcionSeleccionada == 1
+
+                nuevo_empleado = Empleado(nombre, email, password, telefono, direccion, admin)
+                print(nuevo_empleado.crearEmpleado(Main.empleados, Main.mensajes)["mensaje"])
+
+            menuEmpleadosOpciones()
+
+    @staticmethod
+    def generarDatosFicticiosTxt():
+        archivo = open("empleados.txt", "r")
+
+        for linea in archivo:
+            datos = linea.split(";")
+
+            empleado = Empleado(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6])
+            Main.empleados.append(empleado)
+
+        archivo.close()
 
     @staticmethod
     def datosFicticios():
-
         e1 = Empleado()
         p1 = Producto(empleado=e1, nombre="Collar para perro", valor=10000,
                       descripcion="Un bonito collar verde para perro")
