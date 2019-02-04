@@ -2,16 +2,16 @@ import sys
 
 from Persona import Persona
 
-
 class Empleado(Persona):
     """
         Empleado: Información de los trabajadores
         Atributos: admin, productos, pedidosAnulados
     """
 
-    def __init__(self, id=0, nombre="", email="", telefono="", direccion="", admin=False):
-        super().__init__(id, nombre, email, telefono, direccion)
+    def __init__(self, nombre="", email="", password="", telefono="", direccion="", admin=False, activo=True):
+        super().__init__(nombre, email, telefono, direccion, password)
         self.setAdmin(admin)
+        self.setActivo(activo)
         self.setProductos([])
         self.setPedidosAnulados([])
 
@@ -20,6 +20,12 @@ class Empleado(Persona):
 
     def getAdmin(self):
         return self._admin
+
+    def setActivo(self, activo):
+        self._activo = activo
+
+    def getActivo(self):
+        return self._activo
 
     def setProductos(self, productos):
         self._productos = productos
@@ -31,4 +37,55 @@ class Empleado(Persona):
         self._pedidosAnulados = pedidosAnulados
 
     def getPedidosAnulados(self):
-        return self._pedidosAnulados
+       return self._pedidosAnulados
+
+    def iniciar_sesion(self, empleados, mensajes):
+        for empleado in empleados:
+            print (empleado.getEmail())
+            print (empleado.getPassword())
+
+            if empleado.getEmail() == self.getEmail() and empleado.getPassword() == self.getPassword():
+
+                self.setId(empleado.getId())
+                self.setNombre(empleado.getNombre())
+                self.setTelefono(empleado.getTelefono())
+                self.setDireccion(empleado.getDireccion())
+                self.setAdmin(empleado.getAdmin())
+                self.setActivo(empleado.getActivo())
+                self.setProductos(empleado.getProductos())
+                self.setPedidosAnulados(empleado.getPedidosAnulados())
+
+                return {
+                    "exitoso": True,
+                    "mensaje": mensajes["succes_login"]
+                }
+
+        return {
+            "exitoso": False,
+            "mensaje": mensajes["error_login"]
+        }
+
+    def crearEmpleado(self, empleados, mensajes):
+        archivo = open("empleados.txt","r")
+
+        for linea in archivo:
+            if linea.split(";")[1] == self.getEmail():
+                archivo.close()
+                
+                return {
+                    "exitoso": False,
+                    "mensaje": mensaje["error_register"]
+                }
+
+        archivo = open("empleados.txt","r")
+        archivo.write(self.getNombre() + ";" + self.getEmail() + ";" + self.getPassword() + ";" + self.getTelefono() + ";" + self.getDireccion() + ";"+ str(self.getAdmin()) + ";" + str(self.getActivo()) + "\n")
+        archivo.close()
+
+        empleados.append(self)
+
+        return {
+            "exitoso": True,
+            "mensaje": mensajes["empl_added"]
+        }
+
+    # def EliminarEmpleado(self, empleadosList, mensajes):
