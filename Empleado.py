@@ -41,10 +41,12 @@ class Empleado(Persona):
 
     def iniciar_sesion(self, empleados, mensajes):
         for empleado in empleados:
-            print (empleado.getEmail())
-            print (empleado.getPassword())
-
             if empleado.getEmail() == self.getEmail() and empleado.getPassword() == self.getPassword():
+                if empleado.getActivo() == False:
+                    return {
+                        "exitoso": False,
+                        "mensaje": mensajes["deactivated_employee"]
+                    }
 
                 self.setId(empleado.getId())
                 self.setNombre(empleado.getNombre())
@@ -77,7 +79,7 @@ class Empleado(Persona):
                     "mensaje": mensaje["error_register"]
                 }
 
-        archivo = open("empleados.txt","r")
+        archivo = open("empleados.txt","a")
         archivo.write(self.getNombre() + ";" + self.getEmail() + ";" + self.getPassword() + ";" + self.getTelefono() + ";" + self.getDireccion() + ";"+ str(self.getAdmin()) + ";" + str(self.getActivo()) + "\n")
         archivo.close()
 
@@ -87,5 +89,20 @@ class Empleado(Persona):
             "exitoso": True,
             "mensaje": mensajes["empl_added"]
         }
+
+    def listarEmpleado(self, mensajes):
+        return mensajes["user_id"] + str(self.getId()) + mensajes["user_name"] + self.getNombre() + mensajes["email"] + self.getEmail() + mensajes["user_phone"] + self.getTelefono() + mensajes["user_address"] + self.getDireccion() + mensajes["user_active"] + self.getActivo()
+
+    @staticmethod
+    def cambiarEstadoEmpleado(id_empleado, empleados, mensajes):
+        for empleado in empleados:
+            if empleado.getId() == id_empleado:
+                estado_actual = empleado.getActivo()
+                empleado.setActivo(not estado_actual)
+
+        return {
+            "mensaje": (mensajes["deactivate_confirmation"] if estado_actual else mensajes["activate_confirmation"])
+        }
+
 
     # def EliminarEmpleado(self, empleadosList, mensajes):

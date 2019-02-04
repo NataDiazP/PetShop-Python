@@ -193,7 +193,6 @@ class Main:
 
     @staticmethod
     def menuEmpleados():
-
         print(Main.mensajes["employee_login_menu"])
 
         while Main.breakOpciones == 0:
@@ -213,13 +212,51 @@ class Main:
 
                 if operacion_completada["exitoso"] == True:
                     print(operacion_completada["mensaje"])
-                    Main.menuEmpleadosOpciones()
-                    
+
+                    if Main.usuario_actual.getAdmin() == True:    
+                        Main.menuEmpleadosAdminOpciones()
+                    else:
+                        Main.menuEmpleadosOpciones()
                 else:
                     print(operacion_completada["mensaje"])
                     Main.menuEmpleados()
             else:
                 Main.menuPrincipal()
+
+    @staticmethod
+    def menuEmpleadosAdminOpciones():
+        print("\nBienvenid@ " + Main.usuario_actual.getNombre() + "\n" + Main.mensajes["admin_menu"])
+
+        while Main.breakOpciones == 0:
+            opcionSeleccionada = int(input("\n-> "))
+            resultado_operacion = None
+
+            if opcionSeleccionada == 1 or opcionSeleccionada == 2:
+                print(Main.mensajes["enter_data_employee"])
+
+                nombre = input(Main.mensajes["user_name"])
+                email = input(Main.mensajes["email"])
+                password = input(Main.mensajes["user_password"])
+                telefono = input(Main.mensajes["user_phone"])
+                direccion = input(Main.mensajes["user_address"])
+                admin = opcionSeleccionada == 1
+
+                nuevo_empleado = Empleado(nombre, email, password, telefono, direccion, admin)
+                resultado_operacion = nuevo_empleado.crearEmpleado(Main.empleados, Main.mensajes)
+
+            elif opcionSeleccionada == 3:
+                for empleado in Main.empleados:
+                    print(empleado.listarEmpleado(Main.mensajes))
+                    print("------------------------------------------")
+
+                id_empleado = int(input(Main.mensajes["insert_employee_id"]))
+                resultado_operacion = Empleado.cambiarEstadoEmpleado(id_empleado, Main.empleados, Main.mensajes)
+
+            else:
+                pass #Agregar opciones de producto         
+
+            print(resultado_operacion["mensaje"])
+            Main.menuEmpleadosAdminOpciones()
 
     @staticmethod
     def menuEmpleadosOpciones():
@@ -241,7 +278,7 @@ class Main:
                 nuevo_empleado = Empleado(nombre, email, password, telefono, direccion, admin)
                 print(nuevo_empleado.crearEmpleado(Main.empleados, Main.mensajes)["mensaje"])
 
-            menuEmpleadosOpciones()
+            Main.menuEmpleadosOpciones()
 
     @staticmethod
     def generarDatosFicticiosTxt():
