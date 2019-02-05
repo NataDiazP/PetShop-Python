@@ -4,7 +4,6 @@ from Empleado import Empleado
 from Mensajes import Mensajes
 from Comentario import Comentario
 
-
 class Main:
     usuario_actual = None
     personas = []

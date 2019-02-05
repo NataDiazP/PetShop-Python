@@ -113,6 +113,7 @@ class Persona():
             "mensaje": mensajes["error_login"]
         }
 
+
     def agregar_lista_deseos(self, producto, mensajes):
         for productoActual in self._listaDeseos:
             if productoActual.getId() == producto.getId():
@@ -120,7 +121,9 @@ class Persona():
                     "exitoso": False,
                     "mensaje": mensajes["product_already_added"]
                 }
+
         self._listaDeseos.append(producto)
+        
         return {
             "exitoso": True,
             "mensaje": mensajes["product_added"]

@@ -39,3 +39,4 @@ class Comentario():
 		return self._producto
 
 	def crear_comentario(self):
+		pass

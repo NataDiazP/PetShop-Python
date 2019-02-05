@@ -79,5 +79,4 @@ class Mensajes:
         "product_to_search": "\nEnter the name of the product to search: ",
         "product_deleted": "\n----------------------------------\nProduct successfully deleted\n----------------------------------",
         "product_updated": "\n----------------------------------\nProduct successfully updated\n----------------------------------"
-
     }
