@@ -31,9 +31,12 @@ class Mensajes:
         "wish_list": "\n----------------------------------------\nLista de deseos\n----------------------------------------",
         "enter_data_employee": "\n----------------------------------\nPor favor ingrese los datos del empleado\n----------------------------------",
         "insert_employee_id": "\nIngrese el ID del empleado a desactivar o activar: ",
+        "insert_employee_id_delete": "\nIngrese el ID del empleado a eliminar: ",
         "deactivate_confirmation": "\nEl empleado fue desactivado exitosamente.",
         "activate_confirmation": "\nEl empleado fue activado exitosamente.",
-        "deactivated_employee": "\nEste empleado no tiene acceso a Petshop en este momento."
+        "deactivated_employee": "\nEste empleado no tiene acceso a Petshop en este momento.",
+        "delete_employee_confirmation": "\nEste empleado fue eliminado exitosamente.",
+        "employee_not_found": "\nNo existe un empleado con este ID, por favor intente nuevamente."
     }
 
     mensajes_eng = {
@@ -68,7 +71,10 @@ class Mensajes:
         "wish_list": "\n----------------------------------------\nWish list\n----------------------------------------",
         "enter_data_employee": "\n----------------------------------\nPlease enter the employee information\n----------------------------------",
         "insert_employee_id": "\nPlease enter the ID for the employee to activate or deactivate: ",
+        "insert_employee_id_delete": "\nPlease enter the ID for the employee to delete: ",
         "deactivate_confirmation": "\nThe employee was deactivated successfully.",
         "activate_confirmation": "\nThe employee was activated successfully.",
-        "deactivated_employee": "\nThis employee has no access to Petshop at this moment."
+        "deactivated_employee": "\nThis employee has no access to Petshop at this moment.",
+        "delete_employee_confirmation": "\nThis employee was deleted successfully.",
+        "employee_not_found": "\nAn employee with this ID does not exist. Please try again."
     }

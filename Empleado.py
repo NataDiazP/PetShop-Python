@@ -93,6 +93,20 @@ class Empleado(Persona):
     def listarEmpleado(self, mensajes):
         return mensajes["user_id"] + str(self.getId()) + mensajes["user_name"] + self.getNombre() + mensajes["email"] + self.getEmail() + mensajes["user_phone"] + self.getTelefono() + mensajes["user_address"] + self.getDireccion() + mensajes["user_active"] + self.getActivo()
 
+    def eliminarEmpleado(id_empleado, empleados, mensajes):
+        for index in range(len(empleados)): 
+            if empleados[index].getId() == id_empleado: 
+                del empleados[index] 
+
+                return {
+                    "mensaje": mensajes["delete_employee_confirmation"]
+                }
+            
+        return {
+            "mensaje": mensajes["employee_not_found"]
+        }
+        
+
     @staticmethod
     def cambiarEstadoEmpleado(id_empleado, empleados, mensajes):
         for empleado in empleados:
@@ -100,9 +114,10 @@ class Empleado(Persona):
                 estado_actual = empleado.getActivo()
                 empleado.setActivo(not estado_actual)
 
+                return {
+                    "mensaje": (mensajes["deactivate_confirmation"] if estado_actual else mensajes["activate_confirmation"])
+                }
+
         return {
-            "mensaje": (mensajes["deactivate_confirmation"] if estado_actual else mensajes["activate_confirmation"])
+            "mensaje": mensajes["employee_not_found"]
         }
-
-
-    # def EliminarEmpleado(self, empleadosList, mensajes):

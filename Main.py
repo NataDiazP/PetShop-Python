@@ -224,6 +224,13 @@ class Main:
                 Main.menuPrincipal()
 
     @staticmethod
+    def printEmpleados():
+        for empleado in Main.empleados:
+            if empleado.getEmail() != Main.usuario_actual.getEmail():
+                print(empleado.listarEmpleado(Main.mensajes))
+                print("------------------------------------------")
+
+    @staticmethod
     def menuEmpleadosAdminOpciones():
         print("\nBienvenid@ " + Main.usuario_actual.getNombre() + "\n" + Main.mensajes["admin_menu"])
 
@@ -245,12 +252,15 @@ class Main:
                 resultado_operacion = nuevo_empleado.crearEmpleado(Main.empleados, Main.mensajes)
 
             elif opcionSeleccionada == 3:
-                for empleado in Main.empleados:
-                    print(empleado.listarEmpleado(Main.mensajes))
-                    print("------------------------------------------")
+                Main.printEmpleados()
 
                 id_empleado = int(input(Main.mensajes["insert_employee_id"]))
                 resultado_operacion = Empleado.cambiarEstadoEmpleado(id_empleado, Main.empleados, Main.mensajes)
+            elif opcionSeleccionada == 4:
+                Main.printEmpleados()
+
+                id_empleado = int(input(Main.mensajes["insert_employee_id_delete"]))
+                resultado_operacion = BEmpleado.eliminarEmpleado(id_empleado, Main.empleados, Main.mensajes)
 
             else:
                 pass #Agregar opciones de producto         
