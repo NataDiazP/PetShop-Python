@@ -146,12 +146,11 @@ class Main:
 
                     for producto_actual in Main.productos:
                         print("------------------------------------------")
-                        print(producto_actual.listarProductos())
+                        print(producto_actual.listarProductos(Main.mensajes))
                         print("------------------------------------------")
 
                     input(Main.mensajes["go_back_press_any_key"])
                     Main.menuUsuariosOpciones()
-
 
             elif opcionSeleccionada == 2:
                 if len(Main.productos) == 0:
@@ -169,26 +168,33 @@ class Main:
                         opcionSeleccionada = int(input("\n-> "))
 
                         if opcionSeleccionada == 1:
-                            Main.usuario_actual.agregar_lista_deseos(info_produ_selec["objeto"])
+                            info_lista_deseos = Main.usuario_actual.agregar_lista_deseos(info_produ_selec["objeto"],
+                                                                                         Main.mensajes)
+                            print(info_lista_deseos["mensaje"])
+                            input(Main.mensajes["go_back_press_any_key"])
                             Main.menuUsuariosOpciones()
+
                     else:
                         print(Main.mensajes["product_not_found"])
                         input(Main.mensajes["go_back_press_any_key"])
                         Main.menuUsuariosOpciones()
-
 
             elif opcionSeleccionada == 5:
                 print(Main.mensajes["wish_list"])
                 lista_deseos = Main.usuario_actual.getListaDeseos()
                 for producto_actual in lista_deseos:
                     print("------------------------------------------")
-                    print(producto_actual.listarProductos())
+                    print(producto_actual.listarProductos(Main.mensajes))
                     print("------------------------------------------")
                 input(Main.mensajes["go_back_press_any_key"])
                 Main.menuUsuariosOpciones()
 
+            elif opcionSeleccionada == 7:
+                Main.usuario_actual = None
+                Main.menuPrincipal()
+
             else:
-                print(Main.mensajes["product_not_found"])
+                print(Main.mensajes["wrong_option"])
                 Main.menuUsuariosOpciones()
 
     @staticmethod
@@ -213,7 +219,7 @@ class Main:
                 if operacion_completada["exitoso"] == True:
                     print(operacion_completada["mensaje"])
 
-                    if Main.usuario_actual.getAdmin() == True:    
+                    if Main.usuario_actual.getAdmin() == True:
                         Main.menuEmpleadosAdminOpciones()
                     else:
                         Main.menuEmpleadosOpciones()
@@ -263,30 +269,85 @@ class Main:
                 resultado_operacion = BEmpleado.eliminarEmpleado(id_empleado, Main.empleados, Main.mensajes)
 
             else:
-                pass #Agregar opciones de producto         
+                Main.menuEmpleadosOpciones(4, opcionSeleccionada)
 
             print(resultado_operacion["mensaje"])
             Main.menuEmpleadosAdminOpciones()
 
     @staticmethod
-    def menuEmpleadosOpciones():
-        print("\nBienvenid@ " + Main.usuario_actual.getNombre() + "\n" + Main.mensajes["employee_menu"])
+    def menuEmpleadosOpciones(opcion_inicial = 0, opcionSeleccionada = 0):
+        if opcionSeleccionada == 0:
+            print("\nBienvenid@ " + Main.usuario_actual.getNombre() + "\n" + Main.mensajes["employee_menu"])
 
         while Main.breakOpciones == 0:
-            opcionSeleccionada = int(input("\n-> "))
+            if opcionSeleccionada == 0:
+                opcionSeleccionada = int(input("\n-> "))
 
-            if opcionSeleccionada == 1 or opcionSeleccionada == 2:
-                print(Main.mensajes["enter_data_employee"])
+            if opcionSeleccionada == (1 + opcion_inicial):
+                print(Main.mensajes["enter_product_info"])
+                nombre_producto = input(Main.mensajes["user_name"])
+                valor_producto = float(input(Main.mensajes["value"]))
+                descripcion_producto = input(Main.mensajes["description"])
+                cantidad_inventario_producto = int(input(Main.mensajes["amount_inventory"]))
 
-                nombre = input(Main.mensajes["user_name"])
-                email = input(Main.mensajes["email"])
-                password = input(Main.mensajes["user_password"])
-                telefono = input(Main.mensajes["user_phone"])
-                direccion = input(Main.mensajes["user_address"])
-                admin = opcionSeleccionada == 1
+                producto = Producto(empleado=Main.usuario_actual, nombre=nombre_producto, valor=valor_producto,
+                                    descripcion=descripcion_producto, cantidadInventario=cantidad_inventario_producto)
+                print(producto.crearProducto(Main.productos, Main.mensajes))
 
-                nuevo_empleado = Empleado(nombre, email, password, telefono, direccion, admin)
-                print(nuevo_empleado.crearEmpleado(Main.empleados, Main.mensajes)["mensaje"])
+                input(Main.mensajes["go_back_press_any_key"])
+                Main.menuEmpleadosOpciones()
+
+            elif opcionSeleccionada == (2 + opcion_inicial):
+                nombre_producto = input(print(Main.mensajes["product_to_search"]))
+                lista_productos_buscados = Producto.buscarProductoNombre(nombre_producto, Main.productos)
+
+                if len(lista_productos_buscados) > 0:
+                    for producto_actual in lista_productos_buscados:
+                        print("------------------------------------------")
+                        print(producto_actual.listarProductos(Main.mensajes))
+                        print("------------------------------------------")
+                    input(Main.mensajes["go_back_press_any_key"])
+                    Main.menuEmpleadosOpciones()
+                else:
+                    print(Main.mensajes["product_not_found"])
+                    input(Main.mensajes["go_back_press_any_key"])
+                    Main.menuEmpleadosOpciones()
+
+            elif opcionSeleccionada == (3 + opcion_inicial):
+                id_producto_buscar = int(input(Main.mensajes["insert_product_id"]))
+                info_produ_selec = Producto.seleccionarProducto(id_producto_buscar, Main.productos)
+
+                if info_produ_selec["encontrado"] == True:
+
+                    print(Main.mensajes["enter_product_info"])
+                    nombre_producto = input(Main.mensajes["user_name"])
+                    valor_producto = float(input(Main.mensajes["value"]))
+                    descripcion_producto = input(Main.mensajes["description"])
+                    cantidad_inventario_producto = int(input(Main.mensajes["amount_inventory"]))
+
+                    info_produ_selec["objeto"].actualizarProducto(nombre_producto, valor_producto, descripcion_producto,
+                                                                  cantidad_inventario_producto)
+                    print(Main.mensajes["product_updated"])
+
+                    input(Main.mensajes["go_back_press_any_key"])
+                    Main.menuEmpleadosOpciones()
+
+                else:
+                    print(Main.mensajes["product_not_found"])
+                    input(Main.mensajes["go_back_press_any_key"])
+                    Main.menuEmpleadosOpciones()
+
+            elif opcionSeleccionada == (4 + opcion_inicial):
+                id_producto_borrar = int(input(Main.mensajes["insert_product_id"]))
+                print(Producto.borrarProducto(id_producto_borrar, Main.productos, Main.mensajes))
+                input(Main.mensajes["go_back_press_any_key"])
+                Main.menuEmpleadosOpciones()
+
+            # TODO: Añadir las tres opciones que faltan aqui
+
+            elif opcionSeleccionada == (7 + opcion_inicial):
+                Main.usuario_actual = None
+                Main.menuPrincipal()
 
             Main.menuEmpleadosOpciones()
 

@@ -72,7 +72,6 @@ class Persona():
     def getListaDeseos(self):
         return self._listaDeseos
 
-
     def registrarse(self, nombre, email, telefono, direccion, password, lista_personas, mensajes):
 
         for persona_actual in lista_personas:
@@ -96,7 +95,6 @@ class Persona():
     def iniciar_sesion(self, lista_personas, mensajes):
         for persona_actual in lista_personas:
             if persona_actual.getEmail() == self.getEmail() and persona_actual.getPassword() == self.getPassword():
-
                 self.setId(persona_actual.getId())
                 self.setNombre(persona_actual.getNombre())
                 self.setTelefono(persona_actual.getTelefono())
@@ -115,8 +113,18 @@ class Persona():
             "mensaje": mensajes["error_login"]
         }
 
-    def agregar_lista_deseos(self, producto):
+
+    def agregar_lista_deseos(self, producto, mensajes):
+        for productoActual in self._listaDeseos:
+            if productoActual.getId() == producto.getId():
+                return {
+                    "exitoso": False,
+                    "mensaje": mensajes["product_already_added"]
+                }
+
         self._listaDeseos.append(producto)
-
-
-
+        
+        return {
+            "exitoso": True,
+            "mensaje": mensajes["product_added"]
+        }
