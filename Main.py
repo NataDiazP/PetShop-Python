@@ -174,7 +174,6 @@ class Main:
                             input(Main.mensajes["go_back_press_any_key"])
                             Main.menuUsuariosOpciones()
 
-
                         elif opcionSeleccionada == 2:
                             info_lista_carrito = Main.usuario_actual.agregar_lista_carrito(info_produ_selec["objeto"],
                                                                                          Main.mensajes)
@@ -185,7 +184,7 @@ class Main:
                         else:
                             Main.menuUsuariosOpciones()
                             pass
-
+                          
                     else:
                         print(Main.mensajes["product_not_found"])
                         input(Main.mensajes["go_back_press_any_key"])
