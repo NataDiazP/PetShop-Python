@@ -47,7 +47,10 @@ class Mensajes:
         "activate_confirmation": "\nEl empleado fue activado exitosamente.",
         "deactivated_employee": "\nEste empleado no tiene acceso a Petshop en este momento.",
         "delete_employee_confirmation": "\nEste empleado fue eliminado exitosamente.",
-        "employee_not_found": "\nNo existe un empleado con este ID, por favor intente nuevamente."
+        "employee_not_found": "\nNo existe un empleado con este ID, por favor intente nuevamente.",
+        "success_add": "\n----------------------------------------\nAgregado exitosamente a Carrito de Compras\n----------------------------------------",
+        "product_already_added_carrito": "\n----------------------------------------\nERROR\nYa existe este producto en su carrito de compras\n----------------------------------------",
+        "wish_list_carrito": "\n------------------------------------------\nCarrito de Compras:\n------------------------------------------"
     }
 
     mensajes_eng = {
@@ -98,5 +101,8 @@ class Mensajes:
         "activate_confirmation": "\nThe employee was activated successfully.",
         "deactivated_employee": "\nThis employee has no access to Petshop at this moment.",
         "delete_employee_confirmation": "\nThis employee was deleted successfully.",
-        "employee_not_found": "\nAn employee with this ID does not exist. Please try again."
+        "employee_not_found": "\nAn employee with this ID does not exist. Please try again.",
+        "success_add": "\n Successfully added to your shopping car",
+        "product_already_added_carrito": "\n----------------------------------------\nERROR\nThis product is already added to your shopping car\n----------------------------------------",
+        "wish_list_carrito": "\n------------------------------------------\nShopping Car:\n------------------------------------------"
     }

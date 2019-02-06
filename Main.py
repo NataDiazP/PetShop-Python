@@ -174,10 +174,31 @@ class Main:
                             input(Main.mensajes["go_back_press_any_key"])
                             Main.menuUsuariosOpciones()
 
+                        elif opcionSeleccionada == 2:
+                            info_lista_carrito = Main.usuario_actual.agregar_lista_carrito(info_produ_selec["objeto"],
+                                                                                         Main.mensajes)
+                            print(info_lista_carrito["mensaje"])
+                            input(Main.mensajes["go_back_press_any_key"])
+                            Main.menuUsuariosOpciones()
+
+                        else:
+                            Main.menuUsuariosOpciones()
+                            pass
+                          
                     else:
                         print(Main.mensajes["product_not_found"])
                         input(Main.mensajes["go_back_press_any_key"])
                         Main.menuUsuariosOpciones()
+
+            elif opcionSeleccionada == 4:
+                print(Main.mensajes["wish_list_carrito"])
+                lista_carrito = Main.usuario_actual.getListaCarrito()
+                for producto_actual in lista_carrito:
+                    print("------------------------------------------")
+                    print(producto_actual.listarProductos(Main.mensajes))
+                    print("------------------------------------------")
+                input(Main.mensajes["go_back_press_any_key"])
+                Main.menuUsuariosOpciones()
 
             elif opcionSeleccionada == 5:
                 print(Main.mensajes["wish_list"])
