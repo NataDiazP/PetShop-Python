@@ -4,15 +4,18 @@ class Persona():
     	Atributos: id, nombre, email, telefono, direccion, comentarios, pedidos
     """
 
-    lista_personas = []
+    contador_ids = 0
 
-    def __init__(self, id=0, nombre="", email="", telefono="", direccion="", password=""):
-        self.setId(id)
+    def __init__(self, nombre="", email="", telefono="", direccion="", password=""):
+        Persona.contador_ids += 1
+        self.setId(Persona.contador_ids)
         self.setNombre(nombre)
         self.setEmail(email)
         self.setTelefono(telefono)
         self.setDireccion(direccion)
         self.setPassword(password)
+        self.setListaDeseos([])
+        self.setListaCarrito([])
         self.setComentarios([])
         self.setPedidos([])
 
@@ -64,66 +67,86 @@ class Persona():
     def getPedidos(self):
         return self._pedidos
 
-    def registrarse(self, nombre, email, telefono, direccion, password, mensajes):
+    def setListaDeseos(self, listaDeseos):
+        self._listaDeseos = listaDeseos
 
-        archivo = open("usuarios.txt", "r")
-        usuario_existe = 0
+    def getListaDeseos(self):
+        return self._listaDeseos
 
-        for linea in archivo:
+    def setListaCarrito(self, listaCarrito):
+        self._listaCarrito = listaCarrito
 
-            if linea.split(";")[0] == email:
-                archivo.close()
-                usuario_existe = 1
-                break
+    def getListaCarrito(self):
+        return self._listaCarrito
 
-        if usuario_existe == 0:
+    def registrarse(self, nombre, email, telefono, direccion, password, lista_personas, mensajes):
 
-            self.setNombre(nombre)
-            self.setEmail(email)
-            self.setTelefono(telefono)
-            self.setDireccion(direccion)
-            self.setPassword(password)
+        for persona_actual in lista_personas:
+            if persona_actual.getEmail() == email:
+                return {"exitoso": False,
+                        "mensaje": mensajes["error_register"]}
 
-            archivo = open("usuarios.txt", "a")
-            archivo.write(email + ";" + password + ";" + nombre + ";" + direccion + ";" + telefono + "\n")
-            archivo.close()
+        self.setNombre(nombre)
+        self.setEmail(email)
+        self.setTelefono(telefono)
+        self.setDireccion(direccion)
+        self.setPassword(password)
 
-            self.lista_personas.append(self)
-            return {"exitoso": True,
-                    "mensaje": mensajes["succes_register"]}
+        lista_personas.append(self)
 
-        else:
+        return {
+            "exitoso": True,
+            "mensaje": mensajes["succes_register"]
+        }
 
-            return {"exitoso": False,
-                    "mensaje": mensajes["error_register"]}
+    def iniciar_sesion(self, lista_personas, mensajes):
+        for persona_actual in lista_personas:
+            if persona_actual.getEmail() == self.getEmail() and persona_actual.getPassword() == self.getPassword():
+                self.setId(persona_actual.getId())
+                self.setNombre(persona_actual.getNombre())
+                self.setTelefono(persona_actual.getTelefono())
+                self.setDireccion(persona_actual.getDireccion())
+                self.setListaDeseos(persona_actual.getListaDeseos())
+                self.setComentarios(persona_actual.getComentarios())
+                self.setPedidos(persona_actual.getPedidos())
 
-    def iniciar_sesion(self, email, password, mensajes):
+                return {
+                    "exitoso": True,
+                    "mensaje": mensajes["succes_login"]
+                }
 
-        archivo = open("usuarios.txt", "r")
-        usuario_existe = 0
+        return {
+            "exitoso": False,
+            "mensaje": mensajes["error_login"]
+        }
 
-        for linea in archivo:
 
-            if linea.split(";")[0] == email:
+    def agregar_lista_deseos(self, producto, mensajes):
+        for productoActual in self._listaDeseos:
+            if productoActual.getId() == producto.getId():
+                return {
+                    "exitoso": False,
+                    "mensaje": mensajes["product_already_added"]
+                }
 
-                if linea.split(";")[1] == password:
-                    archivo.close()
+        self._listaDeseos.append(producto)
+        
+        return {
+            "exitoso": True,
+            "mensaje": mensajes["product_added"]
+        }
 
-                    datos = linea.split(";")
-                    self.setEmail(datos[0])
-                    self.setPassword(datos[1])
-                    self.setNombre(datos[2])
-                    self.setDireccion(datos[3])
-                    self.setTelefono(datos[4])
-                    usuario_existe = 1
-                    break
+    def agregar_lista_carrito(self, producto, mensajes):
+        for productoActual in self._listaCarrito:
+            if productoActual.getId() == producto.getId():
+                return {
+                    "exitoso": False,
+                    "mensaje": mensajes["product_already_added_carrito"]
+                }
 
-        if usuario_existe == 0:
+        self._listaCarrito.append(producto)
 
-            return {"exitoso": False,
-                    "mensaje": mensajes["error_login"]}
-
-        else:
-
-            return {"exitoso": True,
-                    "mensaje": mensajes["succes_login"]}
+        return {
+            "exitoso": True,
+            "mensaje": mensajes["success_add"]
+        }
