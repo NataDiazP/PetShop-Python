@@ -40,7 +40,7 @@ class Mensajes:
         "product_already_added": "\n----------------------------------------\nERROR\nYa existe este producto en su lista de deseos\n----------------------------------------",
         "product_to_search": "\nIngrese el nombre de los productos a buscar: ",
         "product_deleted": "\n----------------------------------\nProducto borrado con exito\n----------------------------------",
-        "product_updated": "\n----------------------------------\nProducto actualizado con exito\n----------------------------------"
+        "product_updated": "\n----------------------------------\nProducto actualizado con exito\n----------------------------------",
         "insert_employee_id": "\nIngrese el ID del empleado a desactivar o activar: ",
         "insert_employee_id_delete": "\nIngrese el ID del empleado a eliminar: ",
         "deactivate_confirmation": "\nEl empleado fue desactivado exitosamente.",
@@ -91,7 +91,7 @@ class Mensajes:
         "product_already_added": "\n----------------------------------------\nERROR\nThis product is already in your wish list\n----------------------------------------",
         "product_to_search": "\nEnter the name of the product to search: ",
         "product_deleted": "\n----------------------------------\nProduct successfully deleted\n----------------------------------",
-        "product_updated": "\n----------------------------------\nProduct successfully updated\n----------------------------------"
+        "product_updated": "\n----------------------------------\nProduct successfully updated\n----------------------------------",
         "insert_employee_id": "\nPlease enter the ID for the employee to activate or deactivate: ",
         "insert_employee_id_delete": "\nPlease enter the ID for the employee to delete: ",
         "deactivate_confirmation": "\nThe employee was deactivated successfully.",

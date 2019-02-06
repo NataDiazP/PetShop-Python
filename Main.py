@@ -266,7 +266,7 @@ class Main:
                 Main.printEmpleados()
 
                 id_empleado = int(input(Main.mensajes["insert_employee_id_delete"]))
-                resultado_operacion = BEmpleado.eliminarEmpleado(id_empleado, Main.empleados, Main.mensajes)
+                resultado_operacion = Empleado.eliminarEmpleado(id_empleado, Main.empleados, Main.mensajes)
 
             else:
                 Main.menuEmpleadosOpciones(4, opcionSeleccionada)
@@ -295,7 +295,6 @@ class Main:
                 print(producto.crearProducto(Main.productos, Main.mensajes))
 
                 input(Main.mensajes["go_back_press_any_key"])
-                Main.menuEmpleadosOpciones()
 
             elif opcionSeleccionada == (2 + opcion_inicial):
                 nombre_producto = input(print(Main.mensajes["product_to_search"]))
@@ -307,11 +306,9 @@ class Main:
                         print(producto_actual.listarProductos(Main.mensajes))
                         print("------------------------------------------")
                     input(Main.mensajes["go_back_press_any_key"])
-                    Main.menuEmpleadosOpciones()
                 else:
                     print(Main.mensajes["product_not_found"])
                     input(Main.mensajes["go_back_press_any_key"])
-                    Main.menuEmpleadosOpciones()
 
             elif opcionSeleccionada == (3 + opcion_inicial):
                 id_producto_buscar = int(input(Main.mensajes["insert_product_id"]))
@@ -330,18 +327,15 @@ class Main:
                     print(Main.mensajes["product_updated"])
 
                     input(Main.mensajes["go_back_press_any_key"])
-                    Main.menuEmpleadosOpciones()
 
                 else:
                     print(Main.mensajes["product_not_found"])
                     input(Main.mensajes["go_back_press_any_key"])
-                    Main.menuEmpleadosOpciones()
 
             elif opcionSeleccionada == (4 + opcion_inicial):
                 id_producto_borrar = int(input(Main.mensajes["insert_product_id"]))
                 print(Producto.borrarProducto(id_producto_borrar, Main.productos, Main.mensajes))
                 input(Main.mensajes["go_back_press_any_key"])
-                Main.menuEmpleadosOpciones()
 
             # TODO: Añadir las tres opciones que faltan aqui
 
@@ -349,7 +343,10 @@ class Main:
                 Main.usuario_actual = None
                 Main.menuPrincipal()
 
-            Main.menuEmpleadosOpciones()
+            if opcion_inicial == 0:
+                Main.menuEmpleadosOpciones()
+            else:
+                Main.menuEmpleadosAdminOpciones()
 
     @staticmethod
     def generarDatosFicticiosTxt():
@@ -358,7 +355,7 @@ class Main:
         for linea in archivo:
             datos = linea.split(";")
 
-            empleado = Empleado(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6])
+            empleado = Empleado(datos[0], datos[1], datos[2], datos[3], datos[4], bool(datos[5]), bool(datos[6]))
             Main.empleados.append(empleado)
 
         archivo.close()
@@ -372,7 +369,6 @@ class Main:
 
         Main.productos.append(p1)
         Main.productos.append(p2)
-
 
 if __name__ == "__main__":
     Main.setIdioma()

@@ -91,7 +91,7 @@ class Empleado(Persona):
         }
 
     def listarEmpleado(self, mensajes):
-        return mensajes["user_id"] + str(self.getId()) + mensajes["user_name"] + self.getNombre() + mensajes["email"] + self.getEmail() + mensajes["user_phone"] + self.getTelefono() + mensajes["user_address"] + self.getDireccion() + mensajes["user_active"] + self.getActivo()
+        return mensajes["user_id"] + str(self.getId()) + mensajes["user_name"] + self.getNombre() + mensajes["email"] + self.getEmail() + mensajes["user_phone"] + self.getTelefono() + mensajes["user_address"] + self.getDireccion() + mensajes["user_active"] + str(self.getActivo())
 
     def eliminarEmpleado(id_empleado, empleados, mensajes):
         for empleado in empleados:
