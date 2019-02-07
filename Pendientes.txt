@@ -1,0 +1,19 @@
+Pendientes:
+
+- Clase para datos ficticios -> Util.py
+- Siempre que se reciba una lista como parametro, inicializarla -> lista = []
+- Poner comentarios con los nombres reales de los atributos en todos los constructores
+- Poner el label de "Por favor seleccione un idioma"
+- Quitar eliminarEmpleado y dejar solo el activar/desactivar
+- En pedido, inicializar los valores como en Persona y eliminar el atributo de empleadoAnulador
+- En Producto, eliminar el atributo de empleado, no es necesario saber quien lo creo
+- Revisar la relacion de producto y pedido/producto, ya que en este momento lo tenemos relacionado es con Pedido y eso está mal
+- Las funciones de listar en Persona, Empleado y Producto deberían llamarse toString, ya que solo están imprimiendo los valores
+- Revisar crearProducto y las demás, ya que las funciones de crear de crear deberían usar directamente el constructor. Para las validaciones necesarias podemos crear métodos de instancia dentro de las classes que verifiquen los valores que necesitemos
+- Mover las listas de la BD a cada una de las clases que correspondan
+- Revisar el return de seleccionarProducto, se puede simplificar más
+- Actualizar los diagramas de clases y objetos
+
+Recomendaciones:
+
+- Nunca importar el Main en las clases del diagrama
