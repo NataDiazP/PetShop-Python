@@ -184,7 +184,7 @@ class Main:
                         else:
                             Main.menuUsuariosOpciones()
                             pass
-                          
+
                     else:
                         print(Main.mensajes["product_not_found"])
                         input(Main.mensajes["go_back_press_any_key"])
@@ -283,14 +283,9 @@ class Main:
 
                 id_empleado = int(input(Main.mensajes["insert_employee_id"]))
                 resultado_operacion = Empleado.cambiarEstadoEmpleado(id_empleado, Main.empleados, Main.mensajes)
-            elif opcionSeleccionada == 4:
-                Main.printEmpleados()
-
-                id_empleado = int(input(Main.mensajes["insert_employee_id_delete"]))
-                resultado_operacion = Empleado.eliminarEmpleado(id_empleado, Main.empleados, Main.mensajes)
 
             else:
-                Main.menuEmpleadosOpciones(4, opcionSeleccionada)
+                Main.menuEmpleadosOpciones(3, opcionSeleccionada)
 
             print(resultado_operacion["mensaje"])
             Main.menuEmpleadosAdminOpciones()
