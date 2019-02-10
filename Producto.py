@@ -4,19 +4,18 @@ from difflib import SequenceMatcher
 class Producto():
     """
         Producto: Información de los productos ofertados en la tienda
-        Atributos: id, nombre, descripcion, valor, cantidadInventario, empleado, pedidos, comentarios
+        Atributos: id, nombre, descripcion, valor, cantidadInventario, pedidos, comentarios
     """
 
     contadorIds = 0
 
-    def __init__(self, empleado, id=0, nombre="", descripcion="", valor=0, cantidadInventario=0):
+    def __init__(self, id=0, nombre="", descripcion="", valor=0, cantidadInventario=0):
         Producto.contadorIds += 1
         self.setId(Producto.contadorIds)
         self.setNombre(nombre)
         self.setDescripcion(descripcion)
         self.setValor(valor)
         self.setCantidadInventario(cantidadInventario)
-        self.setEmpleado(empleado)
         self.setPedidos([])
         self.setComentarios([])
 
@@ -50,13 +49,6 @@ class Producto():
     def getCantidadInventario(self):
         return self._cantidadInventario
 
-    def setEmpleado(self, empleado):
-        self._empleado = empleado
-        self._empleado.getProductos().append(self)
-
-    def getEmpleado(self):
-        return self._empleado
-
     def setPedidos(self, pedidos):
         self._pedidos = pedidos
 
@@ -78,6 +70,7 @@ class Producto():
         for productoActual in listaproductos:
             if productoActual.getNombre().lower() == self.getNombre().lower():
                 return listamensajes["product_with_same_name"]
+
         listaproductos.append(self)
         return listamensajes["product_added"]
 
@@ -99,12 +92,9 @@ class Producto():
     def seleccionarProducto(numeroId, listaproductos):
         for productoActual in listaproductos:
             if productoActual.getId() == numeroId:
-                return {"encontrado": True,
-                        "objeto": productoActual
-                        }
-        return {"encontrado": False,
-                "objeto": None
-                }
+                return productoActual
+
+        return None
 
     @staticmethod
     def borrarProducto(numeroId, listaproductos, mensajes):

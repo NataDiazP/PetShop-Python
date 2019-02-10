@@ -161,22 +161,20 @@ class Main:
 
                 else:
                     id_producto_buscar = int(input(Main.mensajes["insert_product_id"]))
-                    info_produ_selec = Producto.seleccionarProducto(id_producto_buscar, Main.productos)
+                    producto_seleccionado = Producto.seleccionarProducto(id_producto_buscar, Main.productos)
 
-                    if info_produ_selec["encontrado"] == True:
+                    if producto_seleccionado != None:
                         print(Main.mensajes["select_product_menu"])
                         opcionSeleccionada = int(input("\n-> "))
 
                         if opcionSeleccionada == 1:
-                            info_lista_deseos = Main.usuario_actual.agregar_lista_deseos(info_produ_selec["objeto"],
-                                                                                         Main.mensajes)
+                            info_lista_deseos = Main.usuario_actual.agregar_lista_deseos(producto_seleccionado, Main.mensajes)
                             print(info_lista_deseos["mensaje"])
                             input(Main.mensajes["go_back_press_any_key"])
                             Main.menuUsuariosOpciones()
 
                         elif opcionSeleccionada == 2:
-                            info_lista_carrito = Main.usuario_actual.agregar_lista_carrito(info_produ_selec["objeto"],
-                                                                                         Main.mensajes)
+                            info_lista_carrito = Main.usuario_actual.agregar_lista_carrito(producto_seleccionado, Main.mensajes)
                             print(info_lista_carrito["mensaje"])
                             input(Main.mensajes["go_back_press_any_key"])
                             Main.menuUsuariosOpciones()
@@ -328,9 +326,9 @@ class Main:
 
             elif opcionSeleccionada == (3 + opcion_inicial):
                 id_producto_buscar = int(input(Main.mensajes["insert_product_id"]))
-                info_produ_selec = Producto.seleccionarProducto(id_producto_buscar, Main.productos)
+                producto_seleccionado = Producto.seleccionarProducto(id_producto_buscar, Main.productos)
 
-                if info_produ_selec["encontrado"] == True:
+                if producto_seleccionado != None:
 
                     print(Main.mensajes["enter_product_info"])
                     nombre_producto = input(Main.mensajes["user_name"])
@@ -338,7 +336,7 @@ class Main:
                     descripcion_producto = input(Main.mensajes["description"])
                     cantidad_inventario_producto = int(input(Main.mensajes["amount_inventory"]))
 
-                    info_produ_selec["objeto"].actualizarProducto(nombre_producto, valor_producto, descripcion_producto,
+                    producto_seleccionado["objeto"].actualizarProducto(nombre_producto, valor_producto, descripcion_producto,
                                                                   cantidad_inventario_producto)
                     print(Main.mensajes["product_updated"])
 
