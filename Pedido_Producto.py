@@ -6,7 +6,7 @@ class Pedido_Producto():
 		Pedido_Producto: Productos ordenados en un pedido
 		Atributos: id, cantidad, subtotal, pedido, producto
 	"""
-	def __init__(self, id, cantidad, subtotal, pedido, producto):
+	def __init__(self, cantidad, pedido, producto, subtotal = 0):
 		self.setId(id)
 		self.setCantidad(cantidad)
 		self.setSubtotal(subtotal)

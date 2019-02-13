@@ -136,7 +136,7 @@ class Persona():
             "mensaje": mensajes["product_added"]
         }
 
-    def agregar_lista_carrito(self, producto, mensajes):
+    def agregar_lista_carrito(self, producto, mensajes, cantidadventa):
         for productoActual in self._listaCarrito:
             if productoActual.getId() == producto.getId():
                 return {
