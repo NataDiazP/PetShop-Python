@@ -6,12 +6,16 @@ class Pedido():
 		Pedido: Datos del pedido realizado por el usuario
 		Atributos: id, fecha, valorTotal, persona, productos
 	"""
+
+	contadorIds = 0
+
 	def __init__(self, fecha, persona, valorTotal = 0):
-		self.setId(id)
+		Pedido.contadorIds += 1
+        self.setId(Pedido.contadorIds)
 		self.setFecha(fecha)
 		self.setValorTotal(valorTotal)
 		self.setPersona(persona)
-		self.setProductos([])
+		self.setPedidoProductos([])
 
 	def setId(self, id):
 		self._id = id
@@ -38,11 +42,11 @@ class Pedido():
 	def getPersona(self):
 		return self._persona
 
-	def setProductos(self, productos):
-		self._productos = productos
+	def setPedidoProductos(self, pedido_productos):
+		self._pedido_productos = pedido_productos
 
-	def getProductos(self):
-		return self._productos
+	def getPedidoProductos(self):
+		return self._pedido_productos
 
 	def crear_pedido(self):
 		pass

@@ -52,7 +52,7 @@ class Mensajes:
         "product_already_added_carrito": "\n----------------------------------------\nERROR\nYa existe este producto en su carrito de compras\n----------------------------------------",
         "wish_list_carrito": "\n------------------------------------------\nCarrito de Compras:\n------------------------------------------",
         "make_order": "\n1. Realizar Pedido\n2. Borrar producto",
-        "howmanyunities": "\n Cuantas unidades del producto desea agregar al carrito?"
+        "product_quantity": "\n ¿Cuántas unidades del producto desea agregar al carrito?"
     }
 
     mensajes_eng = {
@@ -108,5 +108,5 @@ class Mensajes:
         "product_already_added_carrito": "\n----------------------------------------\nERROR\nThis product is already added to your shopping car\n----------------------------------------",
         "wish_list_carrito": "\n------------------------------------------\nShopping Car:\n------------------------------------------",
         "make_order": "\n1. Make order \n2. delete product",
-        "howmanyunities": "\n How many unities of the product would you like?"
+        "product_quantity": "\n How many unities of the product would you like?"
     }

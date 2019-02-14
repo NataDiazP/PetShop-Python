@@ -16,6 +16,7 @@ class Main:
     datos_ficticios_agregados = 0
     datos_ficticios_txt_agregados = 0
     breakOpciones = 0
+    pedido_pendiente = None
 
     @staticmethod
     def setIdioma():
@@ -177,11 +178,18 @@ class Main:
                             Main.menuUsuariosOpciones()
 
                         elif opcionSeleccionada == 2:
-                            pedido1=Pedido(datetime.date.today(), Main.usuario_actual)
-                            cantidadventa = input(Main.mensajes["howmanyunities"])
-                            if producto_seleccionado.getCantidadInventario() >= cantidadventa:
-                                pedidoproducto1 = Pedido_Producto(cantidadventa, pedido1, producto_seleccionado)
-                            info_lista_carrito = Main.usuario_actual.agregar_lista_carrito(producto_seleccionado, Main.mensajes, cantidadventa)
+                            if Main.pedido_pendiente == None:
+                                Main.pedido_pendiente = Pedido(datetime.date.today(), Main.usuario_actual)
+
+                            cantidad_venta = input(Main.mensajes["product_quantity"])
+
+                            if producto_seleccionado.getCantidadInventario() >= cantidad_venta:
+                                Pedido_Producto(cantidad_venta, Main.pedido_pendiente, producto_seleccionado)
+
+                            info_agregar_al_carrito = Main.usuario_actual.actualizarCarrito(Main.pedido_pendiente)
+
+                            # Continuar aqui
+
                             print(info_lista_carrito["mensaje"])
                             input(Main.mensajes["go_back_press_any_key"])
                             Main.menuUsuariosOpciones()
