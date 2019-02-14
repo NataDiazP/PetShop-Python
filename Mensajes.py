@@ -24,7 +24,7 @@ class Mensajes:
         "employee_login_menu": "\n1.Iniciar sesión\n2. Volver al menu principal",
         "client_menu": ", Bienvenido a PetShop, ¿Que desea hacer?\n\n1. Ver productos \n2. Seleccionar producto(s) \n3. Borrar comentario \n4. Ver carrito de compras  \n5. Ver lista de deseos \n6. Ver mis pedidos realizados \n7. Desconectarme",
         "employee_menu": "1. Crear productos \n2. Buscar productos \n3. Actualizar producto \n4. Eliminar producto \n5. Anular pedidos \n6. Ver pedidos del día \n7. Desconectarse",
-        "admin_menu": "1. Crear administrador \n2. Crear empleados \n3. Desactivar o activar empleado \n4. Eliminar empleados \n5. Crear productos \n6. Buscar productos \n7. Actualizar producto \n8. Eliminar producto \n9. Anular pedidos \n10. Ver pedidos del día \n11. Desconectarse",
+        "admin_menu": "1. Crear administrador \n2. Crear empleados \n3. Desactivar o activar empleado \n4. Crear productos \n5. Buscar productos \n6. Actualizar producto \n7. Eliminar producto \n8. Anular pedidos \n9. Ver pedidos del día \n10. Desconectarse",
         "wrong_option": "\n----------------------------------------\nERROR\nOpción inválida. Por favor digite su seleccion nuevamente\n----------------------------------------",
         "empl_exists": "Ya existe un empleado con este correo electrónico, por favor intente con uno diferente.",
         "empl_added": "El empleado fue creado exitosamente.",
@@ -47,7 +47,12 @@ class Mensajes:
         "activate_confirmation": "\nEl empleado fue activado exitosamente.",
         "deactivated_employee": "\nEste empleado no tiene acceso a Petshop en este momento.",
         "delete_employee_confirmation": "\nEste empleado fue eliminado exitosamente.",
-        "employee_not_found": "\nNo existe un empleado con este ID, por favor intente nuevamente."
+        "employee_not_found": "\nNo existe un empleado con este ID, por favor intente nuevamente.",
+        "success_add": "\n----------------------------------------\nAgregado exitosamente a Carrito de Compras\n----------------------------------------",
+        "product_already_added_carrito": "\n----------------------------------------\nERROR\nYa existe este producto en su carrito de compras\n----------------------------------------",
+        "wish_list_carrito": "\n------------------------------------------\nCarrito de Compras:\n------------------------------------------",
+        "make_order": "\n1. Realizar Pedido\n2. Borrar producto",
+        "howmanyunities": "\n Cuantas unidades del producto desea agregar al carrito?"
     }
 
     mensajes_eng = {
@@ -75,7 +80,7 @@ class Mensajes:
         "employee_login_menu": "\n1.Login\n2. Go to the start menu",
         "client_menu": ", Welcome to PetShop, What do you want to do?\n\n1. See products \n2. Select product(s) \n3. Delete comment \n4. See shopping car \n5. See wish list \n6. See my previous orders \n7. Logout",
         "employee_menu": "1. Create product \n2. Search products \n3. Update product \n4. Delete product \n5. Cancel order \n6. See orders of the day \n7. Logout",
-        "admin_menu": "1. Create administrator \n2. Create employee \n3. Deactivate or activate employee \n4. Delete employee \n5. Create product \n6. Search products \n7. Update product \n8. Delete product \n9. Cancel order \n10. See orders of the day \n11. Logout",
+        "admin_menu": "1. Create administrator \n2. Create employee \n3. Deactivate or activate employee \n4. Create product \n5. Search products \n6. Update product \n7. Delete product \n8. Cancel order \n9. See orders of the day \n10. Logout",
         "wrong_option": "\n----------------------------------------\nERROR\nWrong option. Please enter a valid option\n----------------------------------------",
         "empl_exists": "\n----------------------------------------\nERROR\nAn employee with this email already exists, please try again.\n----------------------------------------",
         "empl_added": "\n----------------------------------------\nThe employee was created successfully.\n----------------------------------------",
@@ -98,5 +103,10 @@ class Mensajes:
         "activate_confirmation": "\nThe employee was activated successfully.",
         "deactivated_employee": "\nThis employee has no access to Petshop at this moment.",
         "delete_employee_confirmation": "\nThis employee was deleted successfully.",
-        "employee_not_found": "\nAn employee with this ID does not exist. Please try again."
+        "employee_not_found": "\nAn employee with this ID does not exist. Please try again.",
+        "success_add": "\n Successfully added to your shopping car",
+        "product_already_added_carrito": "\n----------------------------------------\nERROR\nThis product is already added to your shopping car\n----------------------------------------",
+        "wish_list_carrito": "\n------------------------------------------\nShopping Car:\n------------------------------------------",
+        "make_order": "\n1. Make order \n2. delete product",
+        "howmanyunities": "\n How many unities of the product would you like?"
     }
