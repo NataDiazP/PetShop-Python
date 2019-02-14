@@ -46,5 +46,3 @@ class Pedido():
 
 	def crear_pedido(self):
 		pass
-
-	def valortotaldecompra:

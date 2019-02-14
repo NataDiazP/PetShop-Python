@@ -5,15 +5,13 @@ from Persona import Persona
 class Empleado(Persona):
     """
         Empleado: Información de los trabajadores
-        Atributos: admin, productos, pedidosAnulados
+        Atributos: _admin, _activo
     """
 
     def __init__(self, nombre="", email="", password="", telefono="", direccion="", admin=False, activo=True):
         super().__init__(nombre, email, telefono, direccion, password)
         self.setAdmin(admin)
         self.setActivo(activo)
-        self.setProductos([])
-        self.setPedidosAnulados([])
 
     def setAdmin(self, admin):
         self._admin = admin
@@ -26,18 +24,6 @@ class Empleado(Persona):
 
     def getActivo(self):
         return self._activo
-
-    def setProductos(self, productos):
-        self._productos = productos
-
-    def getProductos(self):
-        return self._productos
-
-    def setPedidosAnulados(self, pedidosAnulados):
-        self._pedidosAnulados = pedidosAnulados
-
-    def getPedidosAnulados(self):
-       return self._pedidosAnulados
 
     def iniciar_sesion(self, empleados, mensajes):
         for empleado in empleados:
@@ -54,8 +40,6 @@ class Empleado(Persona):
                 self.setDireccion(empleado.getDireccion())
                 self.setAdmin(empleado.getAdmin())
                 self.setActivo(empleado.getActivo())
-                self.setProductos(empleado.getProductos())
-                self.setPedidosAnulados(empleado.getPedidosAnulados())
 
                 return {
                     "exitoso": True,
@@ -92,19 +76,6 @@ class Empleado(Persona):
 
     def listarEmpleado(self, mensajes):
         return mensajes["user_id"] + str(self.getId()) + mensajes["user_name"] + self.getNombre() + mensajes["email"] + self.getEmail() + mensajes["user_phone"] + self.getTelefono() + mensajes["user_address"] + self.getDireccion() + mensajes["user_active"] + str(self.getActivo())
-
-    def eliminarEmpleado(id_empleado, empleados, mensajes):
-        for empleado in empleados:
-            if empleado.getId() == id_empleado:
-                empleados.remove(empleado)
-
-                return {
-                    "mensaje": mensajes["delete_employee_confirmation"]
-                }
-
-        return {
-            "mensaje": mensajes["employee_not_found"]
-        }
 
     @staticmethod
     def cambiarEstadoEmpleado(id_empleado, empleados, mensajes):

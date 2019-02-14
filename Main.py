@@ -1,11 +1,11 @@
+import datetime
 from Persona import Persona
 from Producto import Producto
 from Empleado import Empleado
 from Mensajes import Mensajes
 from Comentario import Coment
-import datetime
-import Pedido
-import Pedido_Producto
+from Pedido import Pedido
+from Pedido_Producto import Pedido_Producto
 
 class Main:
     usuario_actual = None
