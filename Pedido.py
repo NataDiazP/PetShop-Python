@@ -9,12 +9,13 @@ class Pedido():
 
 	contadorIds = 0
 
-	def __init__(self, fecha, persona, valorTotal = 0):
+	def __init__(self, fecha, persona, valorTotal = 0, estado="pendiente"):
 		Pedido.contadorIds += 1
         self.setId(Pedido.contadorIds)
 		self.setFecha(fecha)
-		self.setValorTotal(valorTotal)
 		self.setPersona(persona)
+		self.setValorTotal(valorTotal)
+		self.estado(estado)
 		self.setPedidoProductos([])
 
 	def setId(self, id):
