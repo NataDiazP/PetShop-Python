@@ -1,22 +1,25 @@
-from difflib import SequenceMatcher
-
-
 class Producto():
     """
         Producto: Información de los productos ofertados en la tienda
-        Atributos: id, nombre, descripcion, valor, cantidadInventario, empleado, pedidos, comentarios
+        Atributos: id, nombre, descripcion, valor, cantidadInventario, pedidos, comentarios
     """
+    productos = []
+    contador_ids = 0
 
-    contadorIds = 0
-
-    def __init__(self, empleado, id=0, nombre="", descripcion="", valor=0, cantidadInventario=0):
-        Producto.contadorIds += 1
-        self.setId(Producto.contadorIds)
+    def __init__(self, nombre="", descripcion="", valor=0, cantidadInventario=0):
+        """
+            Id: self._id
+            Name: self._nombre
+            Description: self._descripcion
+            Price: self._valor
+            Amount in inventory: self._cantidadInventario
+        """
+        Producto.contador_ids += 1
+        self.setId(Producto.contador_ids)
         self.setNombre(nombre)
         self.setDescripcion(descripcion)
         self.setValor(valor)
         self.setCantidadInventario(cantidadInventario)
-        self.setEmpleado(empleado)
         self.setPedidos([])
         self.setComentarios([])
 
@@ -50,13 +53,6 @@ class Producto():
     def getCantidadInventario(self):
         return self._cantidadInventario
 
-    def setEmpleado(self, empleado):
-        self._empleado = empleado
-        self._empleado.getProductos().append(self)
-
-    def getEmpleado(self):
-        return self._empleado
-
     def setPedidos(self, pedidos):
         self._pedidos = pedidos
 
@@ -69,16 +65,17 @@ class Producto():
     def getComentarios(self):
         return self._comentarios
 
-    def listarProductos(self, mensajes):
+    def toString(self, mensajes):
         return mensajes["ID"] + str(self.getId()) + mensajes["user_name"] + self.getNombre() + mensajes["value"] + str(
             self.getValor()) + mensajes["description"] + self.getDescripcion() + mensajes["amount_inventory"] + str(
             self.getCantidadInventario())
 
-    def crearProducto(self, listaproductos, listamensajes):
-        for productoActual in listaproductos:
+    def validarExistenciaEnLista(self, listamensajes):
+        for productoActual in Producto.productos:
             if productoActual.getNombre().lower() == self.getNombre().lower():
                 return listamensajes["product_with_same_name"]
-        listaproductos.append(self)
+
+        Producto.productos.append(self)
         return listamensajes["product_added"]
 
     def actualizarProducto(self, nombre, valor, descripcion, cantidadInventario):
@@ -88,29 +85,26 @@ class Producto():
         self._cantidadInventario = cantidadInventario
 
     @staticmethod
-    def buscarProductoNombre(nombreBuscar, listaproductos):
+    def buscarProductoNombre(nombreBuscar):
         listadoProductosBuscados = []
-        for productoActual in listaproductos:
+        for productoActual in Producto.productos:
             if productoActual.getNombre().lower().find(nombreBuscar.lower()) != -1:
                 listadoProductosBuscados.append(productoActual)
         return listadoProductosBuscados
 
     @staticmethod
-    def seleccionarProducto(numeroId, listaproductos):
-        for productoActual in listaproductos:
+    def seleccionarProducto(numeroId):
+        for productoActual in Producto.productos:
             if productoActual.getId() == numeroId:
-                return {"encontrado": True,
-                        "objeto": productoActual
-                        }
-        return {"encontrado": False,
-                "objeto": None
-                }
+                return productoActual
+
+        return None
 
     @staticmethod
-    def borrarProducto(numeroId, listaproductos, mensajes):
-        for productoActual in listaproductos:
+    def borrarProducto(numeroId, mensajes):
+        for productoActual in Producto.productos:
             if productoActual.getId() == numeroId:
-                listaproductos.remove(productoActual)
+                Producto.productos.remove(productoActual)
                 return mensajes["product_deleted"]
 
         return mensajes["product_not_found"]

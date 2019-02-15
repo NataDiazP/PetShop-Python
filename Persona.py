@@ -4,9 +4,18 @@ class Persona():
     	Atributos: id, nombre, email, telefono, direccion, comentarios, pedidos
     """
 
+    personas = []
     contador_ids = 0
 
     def __init__(self, nombre="", email="", telefono="", direccion="", password=""):
+        """
+            Id: self._id
+            Name: self._nombre
+            Email: self._email
+            Telephone: self._telefono
+            Address: self._direccion
+            Password: self._password
+        """
         Persona.contador_ids += 1
         self.setId(Persona.contador_ids)
         self.setNombre(nombre)
@@ -15,6 +24,7 @@ class Persona():
         self.setDireccion(direccion)
         self.setPassword(password)
         self.setListaDeseos([])
+        self.setListaCarrito([])
         self.setComentarios([])
         self.setPedidos([])
 
@@ -72,9 +82,15 @@ class Persona():
     def getListaDeseos(self):
         return self._listaDeseos
 
-    def registrarse(self, nombre, email, telefono, direccion, password, lista_personas, mensajes):
+    def setListaCarrito(self, listaCarrito):
+        self._listaCarrito = listaCarrito
 
-        for persona_actual in lista_personas:
+    def getListaCarrito(self):
+        return self._listaCarrito
+
+    def registrarse(self, nombre, email, telefono, direccion, password, mensajes):
+
+        for persona_actual in Persona.personas:
             if persona_actual.getEmail() == email:
                 return {"exitoso": False,
                         "mensaje": mensajes["error_register"]}
@@ -85,15 +101,15 @@ class Persona():
         self.setDireccion(direccion)
         self.setPassword(password)
 
-        lista_personas.append(self)
+        Persona.personas.append(self)
 
         return {
             "exitoso": True,
             "mensaje": mensajes["succes_register"]
         }
 
-    def iniciar_sesion(self, lista_personas, mensajes):
-        for persona_actual in lista_personas:
+    def iniciar_sesion(self,  mensajes):
+        for persona_actual in Persona.personas:
             if persona_actual.getEmail() == self.getEmail() and persona_actual.getPassword() == self.getPassword():
                 self.setId(persona_actual.getId())
                 self.setNombre(persona_actual.getNombre())
@@ -127,4 +143,19 @@ class Persona():
         return {
             "exitoso": True,
             "mensaje": mensajes["product_added"]
+        }
+
+    def agregar_lista_carrito(self, producto, mensajes):
+        for productoActual in self._listaCarrito:
+            if productoActual.getId() == producto.getId():
+                return {
+                    "exitoso": False,
+                    "mensaje": mensajes["product_already_added_carrito"]
+                }
+
+        self._listaCarrito.append(producto)
+
+        return {
+            "exitoso": True,
+            "mensaje": mensajes["success_add"]
         }
