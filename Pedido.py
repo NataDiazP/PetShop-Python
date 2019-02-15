@@ -43,11 +43,14 @@ class Pedido():
 	def getPersona(self):
 		return self._persona
 
+	def setEstado(self, estado):
+		self._estado = estado
+
+	def getEstado(self):
+		return self._estado
+
 	def setPedidoProductos(self, pedido_productos):
 		self._pedido_productos = pedido_productos
 
 	def getPedidoProductos(self):
 		return self._pedido_productos
-
-	def crear_pedido(self):
-		pass
