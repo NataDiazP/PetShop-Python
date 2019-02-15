@@ -15,7 +15,7 @@ class Pedido_Producto():
 		self.setCantidad(cantidad)
 		self.setPedido(pedido)
 		self.setProducto(producto)
-		self.setSubtotal(subtotal)
+		self.setSubtotal(cantidad * producto.getValor())
 
 	def setId(self, id):
 		self._id = id
