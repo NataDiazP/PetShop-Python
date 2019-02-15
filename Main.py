@@ -1,8 +1,11 @@
+import datetime
 from Persona import Persona
 from Producto import Producto
 from Empleado import Empleado
 from Mensajes import Mensajes
-from Comentario import Comentario
+from Comentario import Coment
+from Pedido import Pedido
+from Pedido_Producto import Pedido_Producto
 
 class Main:
     usuario_actual = None
@@ -13,6 +16,7 @@ class Main:
     datos_ficticios_agregados = 0
     datos_ficticios_txt_agregados = 0
     breakOpciones = 0
+    pedido_pendiente = None
 
     @staticmethod
     def setIdioma():
@@ -174,7 +178,18 @@ class Main:
                             Main.menuUsuariosOpciones()
 
                         elif opcionSeleccionada == 2:
-                            info_lista_carrito = Main.usuario_actual.agregar_lista_carrito(producto_seleccionado, Main.mensajes)
+                            if Main.pedido_pendiente == None:
+                                Main.pedido_pendiente = Pedido(datetime.date.today(), Main.usuario_actual)
+
+                            cantidad_venta = input(Main.mensajes["product_quantity"])
+
+                            if producto_seleccionado.getCantidadInventario() >= cantidad_venta:
+                                Pedido_Producto(cantidad_venta, Main.pedido_pendiente, producto_seleccionado)
+
+                            info_agregar_al_carrito = Main.usuario_actual.actualizarCarrito(Main.pedido_pendiente)
+
+                            # Continuar aqui
+
                             print(info_lista_carrito["mensaje"])
                             input(Main.mensajes["go_back_press_any_key"])
                             Main.menuUsuariosOpciones()
@@ -195,8 +210,14 @@ class Main:
                     print("------------------------------------------")
                     print(producto_actual.listarProductos(Main.mensajes))
                     print("------------------------------------------")
+                opcionSeleccionada = input(Main.mensajes["make_order"])
+                while Main.breakOpciones == 0:
+
+                    if opcionSeleccionada == 1:
+                        print("total compra = "+ valortotalcompra)
                 input(Main.mensajes["go_back_press_any_key"])
                 Main.menuUsuariosOpciones()
+
 
             elif opcionSeleccionada == 5:
                 print(Main.mensajes["wish_list"])
@@ -304,8 +325,8 @@ class Main:
                 descripcion_producto = input(Main.mensajes["description"])
                 cantidad_inventario_producto = int(input(Main.mensajes["amount_inventory"]))
 
-                producto = Producto(empleado=Main.usuario_actual, nombre=nombre_producto, valor=valor_producto,
-                                    descripcion=descripcion_producto, cantidadInventario=cantidad_inventario_producto)
+                producto = Producto(nombre_producto, valor_producto,
+                                    descripcion_producto, cantidad_inventario_producto)
                 print(producto.crearProducto(Main.productos, Main.mensajes))
 
                 input(Main.mensajes["go_back_press_any_key"])
@@ -376,13 +397,15 @@ class Main:
 
     @staticmethod
     def datosFicticios():
-        e1 = Empleado()
-        p1 = Producto(empleado=e1, nombre="Collar para perro", valor=10000,
-                      descripcion="Un bonito collar verde para perro")
-        p2 = Producto(empleado=e1, nombre="Gimnasio para gato", valor=54000, descripcion="Una cosa de locos ")
+
+        p1 = Producto("Collar para perro", 10000,
+                      "Un bonito collar verde para perro ", 20)
+        p2 = Producto("Gimnasio para gato", 54000, "Una cosa de locos", 50)
+        p3 = Producto("Chunky", 2300, "para gatos fit ", 100)
 
         Main.productos.append(p1)
         Main.productos.append(p2)
+        Main.productos.append(p3)
 
 if __name__ == "__main__":
     Main.setIdioma()

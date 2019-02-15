@@ -50,7 +50,9 @@ class Mensajes:
         "employee_not_found": "\nNo existe un empleado con este ID, por favor intente nuevamente.",
         "success_add": "\n----------------------------------------\nAgregado exitosamente a Carrito de Compras\n----------------------------------------",
         "product_already_added_carrito": "\n----------------------------------------\nERROR\nYa existe este producto en su carrito de compras\n----------------------------------------",
-        "wish_list_carrito": "\n------------------------------------------\nCarrito de Compras:\n------------------------------------------"
+        "wish_list_carrito": "\n------------------------------------------\nCarrito de Compras:\n------------------------------------------",
+        "make_order": "\n1. Realizar Pedido\n2. Borrar producto",
+        "product_quantity": "\n ¿Cuántas unidades del producto desea agregar al carrito?"
     }
 
     mensajes_eng = {
@@ -104,5 +106,7 @@ class Mensajes:
         "employee_not_found": "\nAn employee with this ID does not exist. Please try again.",
         "success_add": "\n Successfully added to your shopping car",
         "product_already_added_carrito": "\n----------------------------------------\nERROR\nThis product is already added to your shopping car\n----------------------------------------",
-        "wish_list_carrito": "\n------------------------------------------\nShopping Car:\n------------------------------------------"
+        "wish_list_carrito": "\n------------------------------------------\nShopping Car:\n------------------------------------------",
+        "make_order": "\n1. Make order \n2. delete product",
+        "product_quantity": "\n How many unities of the product would you like?"
     }
