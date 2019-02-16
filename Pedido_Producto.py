@@ -11,7 +11,7 @@ class Pedido_Producto():
 
 	def __init__(self, cantidad, pedido, producto, subtotal = 0):
 		Pedido_Producto.contadorIds += 1
-        self.setId(Pedido_Producto.contadorIds)
+		self.setId(Pedido_Producto.contadorIds)
 		self.setCantidad(cantidad)
 		self.setPedido(pedido)
 		self.setProducto(producto)
