@@ -156,7 +156,13 @@ class Main:
                     Main.menuUsuariosOpciones()
 
                 else:
-                    id_producto_buscar = int(input(Main.mensajes["insert_product_id"]))
+                    for producto_actual in Producto.productos:
+                        if producto_actual.getCantidadInventario() > 0:
+                            print("------------------------------------------")
+                            print(producto_actual.toString(Main.mensajes))
+                            print("------------------------------------------")
+
+                    id_producto_buscar = int(input(Main.mensajes["insert_product_id_select"]))
                     producto_seleccionado = Producto.seleccionarProducto(id_producto_buscar)
 
                     if producto_seleccionado != None:
@@ -165,7 +171,7 @@ class Main:
 
                         if opcionSeleccionada == 1:
                             info_lista_deseos = Main.usuario_actual.agregar_lista_deseos(producto_seleccionado, Main.mensajes)
-                            print(info_lista_deseos["mensaje"])
+                            print(infol_ista_deseos["mensaje"])
                             input(Main.mensajes["go_back_press_any_key"])
                             Main.menuUsuariosOpciones()
 
@@ -173,16 +179,12 @@ class Main:
                             if Main.pedido_pendiente == None:
                                 Main.pedido_pendiente = Pedido(datetime.date.today(), Main.usuario_actual)
 
-                            cantidad_venta = input(Main.mensajes["product_quantity"])
+                            cantidad_venta = int(input(Main.mensajes["product_quantity"]))
 
-                            if producto_seleccionado.getCantidadInventario() >= cantidad_venta:
-                                Pedido_Producto(cantidad_venta, Main.pedido_pendiente, producto_seleccionado)
+                            resultado = Pedido_Producto.agregarProductoACarritoCompras(cantidad_venta, Main.pedido_pendiente, 
+                                                                                         producto_seleccionado, Main.usuario_actual, Main.mensajes)
 
-                            info_agregar_al_carrito = Main.usuario_actual.actualizarCarrito(Main.pedido_pendiente)
-
-                            # Continuar aqui
-
-                            print(info_lista_carrito["mensaje"])
+                            print(resultado["mensaje"])
                             input(Main.mensajes["go_back_press_any_key"])
                             Main.menuUsuariosOpciones()
 
@@ -369,30 +371,6 @@ class Main:
                 Main.menuEmpleadosOpciones()
             else:
                 Main.menuEmpleadosAdminOpciones()
-
-    @staticmethod
-    def generarDatosFicticiosTxt():
-        archivo = open("empleados.txt", "r")
-
-        for linea in archivo:
-            datos = linea.split(";")
-
-            empleado = Empleado(datos[0], datos[1], datos[2], datos[3], datos[4], bool(datos[5]), bool(datos[6]))
-            Main.empleados.append(empleado)
-
-        archivo.close()
-
-    @staticmethod
-    def datosFicticios():
-
-        p1 = Producto("Collar para perro", 10000,
-                      "Un bonito collar verde para perro ", 20)
-        p2 = Producto("Gimnasio para gato", 54000, "Una cosa de locos", 50)
-        p3 = Producto("Chunky", 2300, "para gatos fit ", 100)
-
-        Main.productos.append(p1)
-        Main.productos.append(p2)
-        Main.productos.append(p3)
 
 if __name__ == "__main__":
     Main.setIdioma()

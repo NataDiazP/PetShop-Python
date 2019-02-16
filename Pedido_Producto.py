@@ -48,3 +48,39 @@ class Pedido_Producto():
 
 	def getProducto(self):
 		return self._producto
+
+	@staticmethod
+	def agregarProductoACarritoCompras(cantidad_venta, pedido_pendiente, producto_seleccionado, usuario_actual, mensajes):
+		for item_carrito in pedido_pendiente.getPedidoProductos():
+			if item_carrito.getProducto().getId() == producto_seleccionado.getId():
+				if item_carrito.getProducto().validarCantidadInventario(cantidad_venta):
+					item_carrito.setCantidad(cantidad_venta)
+					item_carrito.setSubtotal(cantidad_venta * producto_seleccionado.getValor())
+
+					return {
+						"exitoso": True,
+						"mensaje": mensajes["success_cart_add"]
+					}
+
+				else:
+					return {
+						"exitoso": False,
+						"mensaje": mensajes["product_sold_out"] + item_carrito.getProducto().getCantidadInventario()
+					}
+
+		if producto_seleccionado.validarCantidadInventario(cantidad_venta):
+			Pedido_Producto(cantidad_venta, pedido_pendiente, producto_seleccionado)
+            # usuario_actual.actualizarCarrito(Main.pedido_pendiente)
+
+			return {
+				"exitoso": True,
+				"mensaje": mensajes["success_cart_add"]
+			}
+		else: 
+			return {
+				"exitoso": False,
+				"mensaje": mensajes["product_sold_out"] + producto_seleccionado.getCantidadInventario()
+			}
+
+
+

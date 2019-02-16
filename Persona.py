@@ -146,18 +146,3 @@ class Persona():
 
         self._pedidos.append(pedido_pendiente)
         # return  mensaje de producto agregado a carrito
-
-    # def agregar_lista_carrito(self, producto, mensajes, cantidadventa):
-    #     for productoActual in self._listaCarrito:
-    #         if productoActual.getId() == producto.getId():
-    #             return {
-    #                 "exitoso": False,
-    #                 "mensaje": mensajes["product_already_added_carrito"]
-    #             }
-    #
-    #     self._listaCarrito.append(producto)
-    #
-    #     return {
-    #         "exitoso": True,
-    #         "mensaje": mensajes["success_add"]
-    #     }

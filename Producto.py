@@ -86,6 +86,9 @@ class Producto():
         self._descripcion = descripcion
         self._cantidad_inventario = cantidad_inventario
 
+    def validarCantidadInventario(self, cantidad_venta):
+        return self._cantidad_inventario >= cantidad_venta 
+
     @staticmethod
     def buscarProductoNombre(nombreBuscar):
         listadoProductosBuscados = []

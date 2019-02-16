@@ -15,13 +15,13 @@ class Pedido():
 			Persona: self._persona
 			Estado: self._estado
 		"""
-		
+
 		Pedido.contadorIds += 1
 		self.setId(Pedido.contadorIds)
 		self.setFecha(fecha)
 		self.setPersona(persona)
 		self.setValorTotal(valorTotal)
-		self.estado(estado)
+		self.setEstado(estado)
 		self.setPedidoProductos([])
 
 	def setId(self, id):
