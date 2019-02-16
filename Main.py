@@ -3,7 +3,7 @@ from Persona import Persona
 from Producto import Producto
 from Empleado import Empleado
 from Mensajes import Mensajes
-from Comentario import Coment
+from Comentario import Comentario
 from Pedido import Pedido
 from Pedido_Producto import Pedido_Producto
 from Util import  Util
