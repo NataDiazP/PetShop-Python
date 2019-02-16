@@ -1,5 +1,3 @@
-import sys
-
 from Persona import Persona
 
 class Empleado(Persona):
@@ -8,7 +6,19 @@ class Empleado(Persona):
         Atributos: _admin, _activo
     """
 
+    empleados = []
+
     def __init__(self, nombre="", email="", password="", telefono="", direccion="", admin=False, activo=True):
+        """
+            Id: self._id
+            Name: self._nombre
+            Email: self._email
+            Telephone: self._telefono
+            Address: self._direccion
+            Password: self._password
+            Admin (True-False): self._admin
+            Active (True-False): self._activo
+        """
         super().__init__(nombre, email, telefono, direccion, password)
         self.setAdmin(admin)
         self.setActivo(activo)
@@ -25,8 +35,8 @@ class Empleado(Persona):
     def getActivo(self):
         return self._activo
 
-    def iniciar_sesion(self, empleados, mensajes):
-        for empleado in empleados:
+    def iniciar_sesion(self, mensajes):
+        for empleado in Empleado.empleados:
             if empleado.getEmail() == self.getEmail() and empleado.getPassword() == self.getPassword():
                 if empleado.getActivo() == False:
                     return {
@@ -51,7 +61,7 @@ class Empleado(Persona):
             "mensaje": mensajes["error_login"]
         }
 
-    def crearEmpleado(self, empleados, mensajes):
+    def guardarEmpleadoTxt(self, mensajes):
         archivo = open("empleados.txt","r")
 
         for linea in archivo:
@@ -60,26 +70,26 @@ class Empleado(Persona):
 
                 return {
                     "exitoso": False,
-                    "mensaje": mensaje["error_register"]
+                    "mensaje": mensajes["error_register"]
                 }
 
         archivo = open("empleados.txt","a")
         archivo.write(self.getNombre() + ";" + self.getEmail() + ";" + self.getPassword() + ";" + self.getTelefono() + ";" + self.getDireccion() + ";"+ str(self.getAdmin()) + ";" + str(self.getActivo()) + "\n")
         archivo.close()
 
-        empleados.append(self)
+        Empleado.empleados.append(self)
 
         return {
             "exitoso": True,
             "mensaje": mensajes["empl_added"]
         }
 
-    def listarEmpleado(self, mensajes):
+    def toString(self, mensajes):
         return mensajes["user_id"] + str(self.getId()) + mensajes["user_name"] + self.getNombre() + mensajes["email"] + self.getEmail() + mensajes["user_phone"] + self.getTelefono() + mensajes["user_address"] + self.getDireccion() + mensajes["user_active"] + str(self.getActivo())
 
     @staticmethod
-    def cambiarEstadoEmpleado(id_empleado, empleados, mensajes):
-        for empleado in empleados:
+    def cambiarEstadoEmpleado(id_empleado, mensajes):
+        for empleado in Empleado.empleados:
             if empleado.getId() == id_empleado:
                 estado_actual = empleado.getActivo()
                 empleado.setActivo(not estado_actual)

@@ -1,6 +1,3 @@
-from difflib import SequenceMatcher
-
-
 class Producto():
     """
         Producto: Información de los productos ofertados en la tienda
@@ -8,8 +5,17 @@ class Producto():
     """
 
     contadorIds = 0
+    productos = []
 
     def __init__(self, nombre="", valor=0, descripcion="", cantidad_inventario=0):
+        """
+            Id: self._id
+            Name: self._nombre
+            Description: self._descripcion
+            Price: self._valor
+            Amount in inventory: self._cantidadInventario
+        """
+
         Producto.contadorIds += 1
         self.setId(Producto.contadorIds)
         self.setNombre(nombre)
@@ -61,15 +67,17 @@ class Producto():
     def getComentarios(self):
         return self._comentarios
 
-    def listarProductos(self, mensajes):
-        return mensajes["ID"] + str(self.getId()) + mensajes["user_name"] + str(self.getNombre()) + mensajes["value"] + str(self.getValor()) + mensajes["description"] + str(self.getDescripcion()) + mensajes["amount_inventory"] + str(self.getCantidadInventario())
+    def toString(self, mensajes):
+        return mensajes["ID"] + str(self.getId()) + mensajes["user_name"] + self.getNombre() + mensajes["value"] + str(
+            self.getValor()) + mensajes["description"] + self.getDescripcion() + mensajes["amount_inventory"] + str(
+            self.getCantidadInventario())
 
-    def crearProducto(self, listaproductos, listamensajes):
-        for productoActual in listaproductos:
+    def validarExistenciaEnLista(self, listamensajes):
+        for productoActual in Producto.productos:
             if productoActual.getNombre().lower() == self.getNombre().lower():
                 return listamensajes["product_with_same_name"]
 
-        listaproductos.append(self)
+        Producto.productos.append(self)
         return listamensajes["product_added"]
 
     def actualizarProducto(self, nombre, valor, descripcion, cantidad_inventario):
@@ -79,26 +87,26 @@ class Producto():
         self._cantidad_inventario = cantidad_inventario
 
     @staticmethod
-    def buscarProductoNombre(nombreBuscar, listaproductos):
+    def buscarProductoNombre(nombreBuscar):
         listadoProductosBuscados = []
-        for productoActual in listaproductos:
+        for productoActual in Producto.productos:
             if productoActual.getNombre().lower().find(nombreBuscar.lower()) != -1:
                 listadoProductosBuscados.append(productoActual)
         return listadoProductosBuscados
 
     @staticmethod
-    def seleccionarProducto(numeroId, listaproductos):
-        for productoActual in listaproductos:
+    def seleccionarProducto(numeroId):
+        for productoActual in Producto.productos:
             if productoActual.getId() == numeroId:
                 return productoActual
 
         return None
 
     @staticmethod
-    def borrarProducto(numeroId, listaproductos, mensajes):
-        for productoActual in listaproductos:
+    def borrarProducto(numeroId, mensajes):
+        for productoActual in Producto.productos:
             if productoActual.getId() == numeroId:
-                listaproductos.remove(productoActual)
+                Producto.productos.remove(productoActual)
                 return mensajes["product_deleted"]
 
         return mensajes["product_not_found"]

@@ -6,12 +6,10 @@ from Mensajes import Mensajes
 from Comentario import Coment
 from Pedido import Pedido
 from Pedido_Producto import Pedido_Producto
+from Util import  Util
 
 class Main:
     usuario_actual = None
-    personas = []
-    productos = []
-    empleados = []
     mensajes = None
     datos_ficticios_agregados = 0
     datos_ficticios_txt_agregados = 0
@@ -21,10 +19,7 @@ class Main:
     @staticmethod
     def setIdioma():
 
-        print("""
-			1. Español
-			2. Inglés
-		""")
+        print("\nLanguage:\n\n1. Español\n2. Inglés")
 
         lang = int(input("\n-> "))
 
@@ -43,7 +38,7 @@ class Main:
             opcionSeleccionada = int(input("\n-> "))
             if opcionSeleccionada == 1:
                 if Main.datos_ficticios_agregados == 0:
-                    Main.datosFicticios()
+                    Util.generarDatosFicticios()
                     print(Main.mensajes["succes_dummy_data"])
                     Main.datos_ficticios_agregados = 1
                 else:
@@ -53,13 +48,11 @@ class Main:
 
             elif opcionSeleccionada == 2:
                 if Main.datos_ficticios_txt_agregados == 0:
-                    Main.generarDatosFicticiosTxt()
+                    Util.generarDatosFicticiosTxt()
                     print(Main.mensajes["succes_dummy_data"])
                     Main.datos_ficticios_txt_agregados = 1
                 else:
                     print(Main.mensajes["dummy_data_added"])
-
-                print(Main.datos_ficticios_txt_agregados)
 
                 Main.menuPrincipal()
             elif opcionSeleccionada == 3:
@@ -105,7 +98,7 @@ class Main:
                     Main.usuario_actual.setEmail(email)
                     Main.usuario_actual.setPassword(password)
 
-                    operacion_completada = Main.usuario_actual.iniciar_sesion(Main.personas, Main.mensajes)
+                    operacion_completada = Main.usuario_actual.iniciar_sesion(Main.mensajes)
 
                 elif opcionSeleccionada == 2:
 
@@ -115,8 +108,7 @@ class Main:
                     direccion = input(Main.mensajes["user_address"])
                     password = input(Main.mensajes["user_password"])
 
-                    operacion_completada = Main.usuario_actual.registrarse(nombre, email, telefono, direccion, password, Main.personas,
-                                                                      Main.mensajes)
+                    operacion_completada = Main.usuario_actual.registrarse(nombre, email, telefono, direccion, password, Main.mensajes)
 
                 if operacion_completada["exitoso"] == True:
                     print(operacion_completada["mensaje"])
@@ -141,23 +133,23 @@ class Main:
             opcionSeleccionada = int(input("\n-> "))
 
             if opcionSeleccionada == 1:
-                if len(Main.productos) == 0:
+                if len(Producto.productos) == 0:
                     print(Main.mensajes["product_not_found"])
                     input(Main.mensajes["go_back_press_any_key"])
                     Main.menuUsuariosOpciones()
 
                 else:
 
-                    for producto_actual in Main.productos:
+                    for producto_actual in Producto.productos:
                         print("------------------------------------------")
-                        print(producto_actual.listarProductos(Main.mensajes))
+                        print(producto_actual.toString(Main.mensajes))
                         print("------------------------------------------")
 
                     input(Main.mensajes["go_back_press_any_key"])
                     Main.menuUsuariosOpciones()
 
             elif opcionSeleccionada == 2:
-                if len(Main.productos) == 0:
+                if len(Producto.productos) == 0:
 
                     print(Main.mensajes["product_not_found"])
                     input(Main.mensajes["go_back_press_any_key"])
@@ -165,7 +157,7 @@ class Main:
 
                 else:
                     id_producto_buscar = int(input(Main.mensajes["insert_product_id"]))
-                    producto_seleccionado = Producto.seleccionarProducto(id_producto_buscar, Main.productos)
+                    producto_seleccionado = Producto.seleccionarProducto(id_producto_buscar)
 
                     if producto_seleccionado != None:
                         print(Main.mensajes["select_product_menu"])
@@ -208,23 +200,18 @@ class Main:
                 lista_carrito = Main.usuario_actual.getListaCarrito()
                 for producto_actual in lista_carrito:
                     print("------------------------------------------")
-                    print(producto_actual.listarProductos(Main.mensajes))
+                    print(producto_actual.toString(Main.mensajes))
                     print("------------------------------------------")
-                opcionSeleccionada = input(Main.mensajes["make_order"])
-                while Main.breakOpciones == 0:
 
-                    if opcionSeleccionada == 1:
-                        print("total compra = "+ valortotalcompra)
                 input(Main.mensajes["go_back_press_any_key"])
                 Main.menuUsuariosOpciones()
-
 
             elif opcionSeleccionada == 5:
                 print(Main.mensajes["wish_list"])
                 lista_deseos = Main.usuario_actual.getListaDeseos()
                 for producto_actual in lista_deseos:
                     print("------------------------------------------")
-                    print(producto_actual.listarProductos(Main.mensajes))
+                    print(producto_actual.toString(Main.mensajes))
                     print("------------------------------------------")
                 input(Main.mensajes["go_back_press_any_key"])
                 Main.menuUsuariosOpciones()
@@ -254,7 +241,7 @@ class Main:
                 Main.usuario_actual.setEmail(email)
                 Main.usuario_actual.setPassword(password)
 
-                operacion_completada = Main.usuario_actual.iniciar_sesion(Main.empleados, Main.mensajes)
+                operacion_completada = Main.usuario_actual.iniciar_sesion(Main.mensajes)
 
                 if operacion_completada["exitoso"] == True:
                     print(operacion_completada["mensaje"])
@@ -271,9 +258,9 @@ class Main:
 
     @staticmethod
     def printEmpleados():
-        for empleado in Main.empleados:
+        for empleado in Empleado.empleados:
             if empleado.getEmail() != Main.usuario_actual.getEmail():
-                print(empleado.listarEmpleado(Main.mensajes))
+                print(empleado.toString(Main.mensajes))
                 print("------------------------------------------")
 
     @staticmethod
@@ -295,13 +282,13 @@ class Main:
                 admin = opcionSeleccionada == 1
 
                 nuevo_empleado = Empleado(nombre, email, password, telefono, direccion, admin)
-                resultado_operacion = nuevo_empleado.crearEmpleado(Main.empleados, Main.mensajes)
+                resultado_operacion = nuevo_empleado.guardarEmpleadoTxt(Main.mensajes)
 
             elif opcionSeleccionada == 3:
                 Main.printEmpleados()
 
                 id_empleado = int(input(Main.mensajes["insert_employee_id"]))
-                resultado_operacion = Empleado.cambiarEstadoEmpleado(id_empleado, Main.empleados, Main.mensajes)
+                resultado_operacion = Empleado.cambiarEstadoEmpleado(id_empleado, Main.mensajes)
 
             else:
                 Main.menuEmpleadosOpciones(3, opcionSeleccionada)
@@ -327,18 +314,18 @@ class Main:
 
                 producto = Producto(nombre_producto, valor_producto,
                                     descripcion_producto, cantidad_inventario_producto)
-                print(producto.crearProducto(Main.productos, Main.mensajes))
+                print(producto.validarExistenciaEnLista(Main.mensajes))
 
                 input(Main.mensajes["go_back_press_any_key"])
 
             elif opcionSeleccionada == (2 + opcion_inicial):
                 nombre_producto = input(print(Main.mensajes["product_to_search"]))
-                lista_productos_buscados = Producto.buscarProductoNombre(nombre_producto, Main.productos)
+                lista_productos_buscados = Producto.buscarProductoNombre(nombre_producto)
 
                 if len(lista_productos_buscados) > 0:
                     for producto_actual in lista_productos_buscados:
                         print("------------------------------------------")
-                        print(producto_actual.listarProductos(Main.mensajes))
+                        print(producto_actual.toString(Main.mensajes))
                         print("------------------------------------------")
                     input(Main.mensajes["go_back_press_any_key"])
                 else:
@@ -347,7 +334,7 @@ class Main:
 
             elif opcionSeleccionada == (3 + opcion_inicial):
                 id_producto_buscar = int(input(Main.mensajes["insert_product_id"]))
-                producto_seleccionado = Producto.seleccionarProducto(id_producto_buscar, Main.productos)
+                producto_seleccionado = Producto.seleccionarProducto(id_producto_buscar)
 
                 if producto_seleccionado != None:
 
@@ -369,7 +356,7 @@ class Main:
 
             elif opcionSeleccionada == (4 + opcion_inicial):
                 id_producto_borrar = int(input(Main.mensajes["insert_product_id"]))
-                print(Producto.borrarProducto(id_producto_borrar, Main.productos, Main.mensajes))
+                print(Producto.borrarProducto(id_producto_borrar, Main.mensajes))
                 input(Main.mensajes["go_back_press_any_key"])
 
             # TODO: Añadir las tres opciones que faltan aqui

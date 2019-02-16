@@ -1,15 +1,20 @@
-import sys
-
 class Pedido():
 
 	"""
 		Pedido: Datos del pedido realizado por el usuario
-		Atributos: id, fecha, valorTotal, persona, productos
+		Atributos: id, fecha, valorTotal, persona, pedido_productos, estado
 	"""
 
 	contadorIds = 0
 
 	def __init__(self, fecha, persona, valorTotal = 0, estado="pendiente"):
+		"""
+			Id: self._id
+			Fecha: self._fecha
+			Valor Total: self._valorTotal
+			Persona: self._persona
+			Estado: self._estado
+		"""
 		Pedido.contadorIds += 1
         self.setId(Pedido.contadorIds)
 		self.setFecha(fecha)
