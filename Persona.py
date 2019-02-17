@@ -24,7 +24,6 @@ class Persona():
         self.setDireccion(direccion)
         self.setPassword(password)
         self.setListaDeseos([])
-        self.setListaCarrito([])
         self.setComentarios([])
         self.setPedidos([])
 
@@ -82,12 +81,6 @@ class Persona():
     def getListaDeseos(self):
         return self._listaDeseos
 
-    def setListaCarrito(self, listaCarrito):
-        self._listaCarrito = listaCarrito
-
-    def getListaCarrito(self):
-        return self._listaCarrito
-
     def registrarse(self, nombre, email, telefono, direccion, password, mensajes):
 
         for persona_actual in Persona.personas:
@@ -139,23 +132,17 @@ class Persona():
                 }
 
         self._listaDeseos.append(producto)
-        
+
         return {
             "exitoso": True,
             "mensaje": mensajes["product_added"]
         }
 
-    def agregar_lista_carrito(self, producto, mensajes):
-        for productoActual in self._listaCarrito:
-            if productoActual.getId() == producto.getId():
-                return {
-                    "exitoso": False,
-                    "mensaje": mensajes["product_already_added_carrito"]
-                }
+    def actualizarCarrito(self, pedido_pendiente):
+        for pedido in self._pedidos:
+            if pedido.getId() == pedido_pendiente.getId():
+                pedido.setPedidoProductos(pedido_pendiente.getPedidoProductos())
+                # return  mensaje de producto agregado a carrito
 
-        self._listaCarrito.append(producto)
-
-        return {
-            "exitoso": True,
-            "mensaje": mensajes["success_add"]
-        }
+        self._pedidos.append(pedido_pendiente)
+        # return  mensaje de producto agregado a carrito

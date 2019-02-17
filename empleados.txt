@@ -3,3 +3,4 @@ Natalia;natalia@gmail.com;123;2343223;cra123;True;True
 Hola;hola@hola.com;123;123456;cll 123;True;True
 Empl1;empl1@gmail.com;123456;1234567;cll 123;False;False
 emanuel;emanuel@gmail.com;123;29284284;avenida siempre viva;False;True
+Juan;juan@gmail.com;123;123;123;False;True

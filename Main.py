@@ -1,9 +1,12 @@
+import datetime
 from Persona import Persona
 from Producto import Producto
 from Empleado import Empleado
 from Mensajes import Mensajes
-from Util import  Util
 from Comentario import Comentario
+from Pedido import Pedido
+from Pedido_Producto import Pedido_Producto
+from Util import  Util
 
 class Main:
     usuario_actual = None
@@ -11,6 +14,7 @@ class Main:
     datos_ficticios_agregados = 0
     datos_ficticios_txt_agregados = 0
     breakOpciones = 0
+    pedido_pendiente = None
 
     @staticmethod
     def setIdioma():
@@ -152,7 +156,13 @@ class Main:
                     Main.menuUsuariosOpciones()
 
                 else:
-                    id_producto_buscar = int(input(Main.mensajes["insert_product_id"]))
+                    for producto_actual in Producto.productos:
+                        if producto_actual.getCantidadInventario() > 0:
+                            print("------------------------------------------")
+                            print(producto_actual.toString(Main.mensajes))
+                            print("------------------------------------------")
+
+                    id_producto_buscar = int(input(Main.mensajes["insert_product_id_select"]))
                     producto_seleccionado = Producto.seleccionarProducto(id_producto_buscar)
 
                     if producto_seleccionado != None:
@@ -166,8 +176,16 @@ class Main:
                             Main.menuUsuariosOpciones()
 
                         elif opcionSeleccionada == 2:
-                            info_lista_carrito = Main.usuario_actual.agregar_lista_carrito(producto_seleccionado, Main.mensajes)
-                            print(info_lista_carrito["mensaje"])
+                            if Main.pedido_pendiente == None:
+                                Main.pedido_pendiente = Pedido(datetime.date.today(), Main.usuario_actual)
+
+                            print(Main.mensajes["product_quantity"])
+                            cantidad_venta = int(input("\n-> "))
+
+                            resultado = Pedido_Producto.agregarProductoACarritoCompras(cantidad_venta, Main.pedido_pendiente, 
+                                                                                         producto_seleccionado, Main.usuario_actual, Main.mensajes)
+
+                            print(resultado["mensaje"])
                             input(Main.mensajes["go_back_press_any_key"])
                             Main.menuUsuariosOpciones()
 
@@ -181,22 +199,56 @@ class Main:
                         Main.menuUsuariosOpciones()
 
             elif opcionSeleccionada == 4:
-                print(Main.mensajes["wish_list_carrito"])
-                lista_carrito = Main.usuario_actual.getListaCarrito()
-                for producto_actual in lista_carrito:
+
+                if Main.pedido_pendiente != None:
+                    print(Main.mensajes["wish_list_carrito"])
+                    total = 0
+                    for pedido_producto in Main.pedido_pendiente.getPedidoProductos():
+                        producto_seleccionado = pedido_producto.getProducto()
+                        print("------------------------------------------")
+                        print(Main.mensajes["ID"],producto_seleccionado.getId(),Main.mensajes["user_name"],producto_seleccionado.getNombre(),Main.mensajes["description"],producto_seleccionado.getDescripcion(),Main.mensajes["value"],producto_seleccionado.getValor(),pedido_producto.toString(Main.mensajes))
+                        total += pedido_producto.getSubtotal()
+                        print("------------------------------------------")
                     print("------------------------------------------")
-                    print(producto_actual.toString(Main.mensajes))
+                    print("Total:",total)
                     print("------------------------------------------")
-                input(Main.mensajes["go_back_press_any_key"])
-                Main.menuUsuariosOpciones()
+                    print(Main.mensajes["buy_menu"])
+                    opcionSeleccionada = int(input("\n-> "))
+                    if opcionSeleccionada == 1:
+                        Main.pedido_pendiente.comprar(total)
+                        Main.pedido_pendiente = None
+                        print(Main.mensajes["order_successfully"])
+                        Main.menuUsuariosOpciones()
+                    elif opcionSeleccionada == 2:
+                        pass
+                    elif opcionSeleccionada == 3:
+                        Main.menuUsuariosOpciones()
+                else:
+                    print(Main.mensajes["empty_shopping_cart"])
+                    input(Main.mensajes["go_back_press_any_key"])
+                    Main.menuUsuariosOpciones()
+
 
             elif opcionSeleccionada == 5:
+
                 print(Main.mensajes["wish_list"])
                 lista_deseos = Main.usuario_actual.getListaDeseos()
                 for producto_actual in lista_deseos:
                     print("------------------------------------------")
                     print(producto_actual.toString(Main.mensajes))
                     print("------------------------------------------")
+
+            elif opcionSeleccionada == 6:
+
+                print(Main.mensajes["previous_orders"])
+                for pedido_actual in Pedido.pedidos:
+                    if pedido_actual.getEstado() == "finalizado":
+                        print("------------------------------------------")
+                        print(Main.mensajes["order_number"],pedido_actual.getId(),Main.mensajes["date"],str(pedido_actual.getFecha()),"\nTotal:",pedido_actual.getValorTotal(),Main.mensajes["details"])
+                        for pedido_producto in pedido_actual.getPedidoProductos():
+                            producto_seleccionado = pedido_producto.getProducto()
+                            print("\n"+str(Main.mensajes["ID"]), producto_seleccionado.getId(), Main.mensajes["user_name"],producto_seleccionado.getNombre(), Main.mensajes["description"],producto_seleccionado.getDescripcion(), Main.mensajes["value"],producto_seleccionado.getValor(), pedido_producto.toString(Main.mensajes))
+                        print("------------------------------------------")
                 input(Main.mensajes["go_back_press_any_key"])
                 Main.menuUsuariosOpciones()
 
@@ -296,8 +348,8 @@ class Main:
                 descripcion_producto = input(Main.mensajes["description"])
                 cantidad_inventario_producto = int(input(Main.mensajes["amount_inventory"]))
 
-                producto = Producto(nombre=nombre_producto, valor=valor_producto,
-                                    descripcion=descripcion_producto, cantidadInventario=cantidad_inventario_producto)
+                producto = Producto(nombre_producto, valor_producto,
+                                    descripcion_producto, cantidad_inventario_producto)
                 print(producto.validarExistenciaEnLista(Main.mensajes))
 
                 input(Main.mensajes["go_back_press_any_key"])

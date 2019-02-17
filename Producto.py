@@ -1,12 +1,13 @@
 class Producto():
     """
         Producto: Información de los productos ofertados en la tienda
-        Atributos: id, nombre, descripcion, valor, cantidadInventario, pedidos, comentarios
+        Atributos: id, nombre, descripcion, valor, cantidad_inventario, pedidos_producto, comentarios
     """
-    productos = []
-    contador_ids = 0
 
-    def __init__(self, nombre="", descripcion="", valor=0, cantidadInventario=0):
+    contadorIds = 0
+    productos = []
+
+    def __init__(self, nombre="", valor=0, descripcion="", cantidad_inventario=0):
         """
             Id: self._id
             Name: self._nombre
@@ -14,13 +15,14 @@ class Producto():
             Price: self._valor
             Amount in inventory: self._cantidadInventario
         """
-        Producto.contador_ids += 1
-        self.setId(Producto.contador_ids)
+
+        Producto.contadorIds += 1
+        self.setId(Producto.contadorIds)
         self.setNombre(nombre)
         self.setDescripcion(descripcion)
         self.setValor(valor)
-        self.setCantidadInventario(cantidadInventario)
-        self.setPedidos([])
+        self.setCantidadInventario(cantidad_inventario)
+        self.setPedidosProducto([])
         self.setComentarios([])
 
     def setId(self, id):
@@ -47,17 +49,17 @@ class Producto():
     def getValor(self):
         return self._valor
 
-    def setCantidadInventario(self, cantidadInventario):
-        self._cantidadInventario = cantidadInventario
+    def setCantidadInventario(self, cantidad_inventario):
+        self._cantidad_inventario = cantidad_inventario
 
     def getCantidadInventario(self):
-        return self._cantidadInventario
+        return self._cantidad_inventario
 
-    def setPedidos(self, pedidos):
-        self._pedidos = pedidos
+    def setPedidosProducto(self, pedidos_producto):
+        self._pedidos_producto = pedidos_producto
 
-    def getPedidos(self):
-        return self._pedidos
+    def getPedidosProducto(self):
+        return self._pedidos_producto
 
     def setComentarios(self, comentarios):
         self._comentarios = comentarios
@@ -78,11 +80,14 @@ class Producto():
         Producto.productos.append(self)
         return listamensajes["product_added"]
 
-    def actualizarProducto(self, nombre, valor, descripcion, cantidadInventario):
+    def actualizarProducto(self, nombre, valor, descripcion, cantidad_inventario):
         self._nombre = nombre
         self._valor = valor
         self._descripcion = descripcion
-        self._cantidadInventario = cantidadInventario
+        self._cantidad_inventario = cantidad_inventario
+
+    def validarCantidadInventario(self, cantidad_venta):
+        return self._cantidad_inventario >= cantidad_venta 
 
     @staticmethod
     def buscarProductoNombre(nombreBuscar):
