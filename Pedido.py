@@ -11,7 +11,7 @@ class Pedido():
 	pedidos = []
 	contadorIds = 0
 
-	def __init__(self, fecha, persona, valorTotal = 0, estado="pendiente"):
+	def __init__(self, fecha, persona, valorTotal = 0, estado="Pendiente"):
 		"""
 			Id: self._id
 			Fecha: self._fecha
@@ -69,13 +69,20 @@ class Pedido():
 	def comprar(self, total):
 		for pedido_producto in self.getPedidoProductos():
 			producto_seleccionado = pedido_producto.getProducto()
-			for producto_buscado in Producto.productos:
-				if producto_seleccionado == producto_buscado:
-					producto_buscado.setCantidadInventario(
-						producto_buscado.getCantidadInventario() - pedido_producto.getCantidad())
+			producto_seleccionado.setCantidadInventario(producto_seleccionado.getCantidadInventario() - pedido_producto.getCantidad())
 
 		self.setFecha(datetime.date.today())
 		self.setValorTotal(total)
-		self.setEstado("finalizado")
+		self.setEstado("Realizado")
 
+	@staticmethod
+	def anularPedido(id_pedido, mensajes):
+		for pedido_actual in Pedido.pedidos:
+			if pedido_actual.getId() == id_pedido:
+				for pedido_producto in pedido_actual.getPedidoProductos():
+					producto_seleccionado = pedido_producto.getProducto()
+					producto_seleccionado.setCantidadInventario(producto_seleccionado.getCantidadInventario() + pedido_producto.getCantidad())
 
+				pedido_actual.setEstado("Anulado")
+				return mensajes["order_successfully_cancel"]
+		return mensajes["order_to_cancel_not_found"]
