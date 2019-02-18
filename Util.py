@@ -18,14 +18,20 @@ class Util:
 
     @staticmethod
     def generarDatosFicticios():
-        p1 = Producto("Collar para perro", 10000, "Un bonito collar verde para perro ", 20)
-        p2 = Producto("Gimnasio para gato", 54000, "Una cosa de locos")
-        p3 = Producto("Chunky", 2300, "para gatos fit ", 100)
+        p1 = Producto("Lana de oveja virgen", 10000, "Bufandas?", 20)
+        p2 = Producto("Escroto de tigre afgano", 54000, "Reinel, por qué pusiste esto aqui?")
+        p3 = Producto("Bigotes de lemur lampiño", 2300, "Calvo pero serio", 100)
+        p4 = Producto("Aceite omega 3 de bagre", 50000, "Del cauca lo mejor", 5)
+        p5 = Producto("Colita de Pinscher", 1000000, "Recien cortada", 1)
+        p6 = Producto("Caminador para tortuga paralitica", 30000, "Useless", 50)
+
 
         Producto.productos.append(p1)
         Producto.productos.append(p2)
         Producto.productos.append(p3)
-
+        Producto.productos.append(p4)
+        Producto.productos.append(p5)
+        Producto.productos.append(p6)
 
         u1 = Persona("prueba", "prueba@gmail.com", "123", "123", "123")
 

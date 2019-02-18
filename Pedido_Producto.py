@@ -1,5 +1,3 @@
-import sys
-
 class Pedido_Producto():
 
 	"""
@@ -49,8 +47,11 @@ class Pedido_Producto():
 	def getProducto(self):
 		return self._producto
 
+	def toString(self, mensajes):
+		return mensajes["amount"]+str(self.getCantidad())+mensajes["subtotal"]+str(self.getSubtotal())
+
 	@staticmethod
-	def agregarProductoACarritoCompras(cantidad_venta, pedido_pendiente, producto_seleccionado, usuario_actual, mensajes):
+	def agregarProductoACarritoCompras(cantidad_venta, pedido_pendiente, producto_seleccionado, mensajes):
 		for item_carrito in pedido_pendiente.getPedidoProductos():
 			if item_carrito.getProducto().getId() == producto_seleccionado.getId():
 				if item_carrito.getProducto().validarCantidadInventario(cantidad_venta):
@@ -70,17 +71,22 @@ class Pedido_Producto():
 
 		if producto_seleccionado.validarCantidadInventario(cantidad_venta):
 			Pedido_Producto(cantidad_venta, pedido_pendiente, producto_seleccionado)
-            # usuario_actual.actualizarCarrito(Main.pedido_pendiente)
 
 			return {
 				"exitoso": True,
 				"mensaje": mensajes["success_cart_add"]
 			}
-		else: 
+		else:
 			return {
 				"exitoso": False,
-				"mensaje": mensajes["product_sold_out"] + producto_seleccionado.getCantidadInventario()
+				"mensaje": mensajes["product_sold_out"] + str(producto_seleccionado.getCantidadInventario())
 			}
 
+	@staticmethod
+	def borrarProductoDeCarritoCompras(id_producto, pedido_pendiente, mensajes):
+		for item_carrito in pedido_pendiente.getPedidoProductos():
+			if item_carrito.getProducto().getId() == id_producto:
+				pedido_pendiente.getPedidoProductos().remove(item_carrito)
+				return mensajes["product_deleted"]
 
-
+		return mensajes["product_not_found"]
