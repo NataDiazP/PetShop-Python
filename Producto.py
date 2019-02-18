@@ -72,6 +72,9 @@ class Producto():
             self.getValor()) + mensajes["description"] + self.getDescripcion() + mensajes["amount_inventory"] + str(
             self.getCantidadInventario())
 
+    def toStringCarrito(self, mensajes):
+        return mensajes["ID"] + str(self.getId()) + mensajes["user_name"] + self.getNombre() + mensajes["description"] + self.getDescripcion() + mensajes["value"] + str(self.getValor())
+
     def validarExistenciaEnLista(self, listamensajes):
         for productoActual in Producto.productos:
             if productoActual.getNombre().lower() == self.getNombre().lower():
@@ -87,7 +90,7 @@ class Producto():
         self._cantidad_inventario = cantidad_inventario
 
     def validarCantidadInventario(self, cantidad_venta):
-        return self._cantidad_inventario >= cantidad_venta 
+        return self._cantidad_inventario >= cantidad_venta
 
     @staticmethod
     def buscarProductoNombre(nombreBuscar):

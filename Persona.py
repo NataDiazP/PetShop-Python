@@ -137,12 +137,3 @@ class Persona():
             "exitoso": True,
             "mensaje": mensajes["product_added"]
         }
-
-    def actualizarCarrito(self, pedido_pendiente):
-        for pedido in self._pedidos:
-            if pedido.getId() == pedido_pendiente.getId():
-                pedido.setPedidoProductos(pedido_pendiente.getPedidoProductos())
-                # return  mensaje de producto agregado a carrito
-
-        self._pedidos.append(pedido_pendiente)
-        # return  mensaje de producto agregado a carrito

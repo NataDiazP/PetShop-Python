@@ -182,7 +182,7 @@ class Main:
                             print(Main.mensajes["product_quantity"])
                             cantidad_venta = int(input("\n-> "))
 
-                            resultado = Pedido_Producto.agregarProductoACarritoCompras(cantidad_venta, Main.pedido_pendiente, 
+                            resultado = Pedido_Producto.agregarProductoACarritoCompras(cantidad_venta, Main.pedido_pendiente,
                                                                                          producto_seleccionado, Main.mensajes)
 
                             print(resultado["mensaje"])
@@ -202,20 +202,14 @@ class Main:
 
                 if Main.pedido_pendiente != None and len(Main.pedido_pendiente.getPedidoProductos()) > 0:
                     print(Main.mensajes["wish_list_carrito"])
-                    total = 0
-                    for pedido_producto in Main.pedido_pendiente.getPedidoProductos():
-                        producto_seleccionado = pedido_producto.getProducto()
-                        print("------------------------------------------")
-                        print(Main.mensajes["ID"],producto_seleccionado.getId(),Main.mensajes["user_name"],producto_seleccionado.getNombre(),Main.mensajes["description"],producto_seleccionado.getDescripcion(),Main.mensajes["value"],producto_seleccionado.getValor(),pedido_producto.toString(Main.mensajes))
-                        total += pedido_producto.getSubtotal()
-                        print("------------------------------------------")
-                    print("------------------------------------------")
-                    print("Total:",total)
-                    print("------------------------------------------")
+                    print(Main.pedido_pendiente.toStringProductosCarrito(Main.mensajes))
+
+                    # Menu carrito de compras
                     print(Main.mensajes["buy_menu"])
                     opcionSeleccionada = int(input("\n-> "))
+
                     if opcionSeleccionada == 1:
-                        Main.pedido_pendiente.comprar(total)
+                        Main.pedido_pendiente.comprar()
                         Main.pedido_pendiente = None
                         print(Main.mensajes["order_successfully"])
                         Main.menuUsuariosOpciones()
@@ -248,12 +242,7 @@ class Main:
                     print(Main.mensajes["previous_orders"])
                     for pedido_actual in Pedido.pedidos:
                         if pedido_actual.getEstado() == "Realizado" or pedido_actual.getEstado() == "Anulado":
-                            print("------------------------------------------")
-                            print(Main.mensajes["order_number"],pedido_actual.getId(),Main.mensajes["state"],pedido_actual.getEstado(),Main.mensajes["date"],str(pedido_actual.getFecha()),"\nTotal:",pedido_actual.getValorTotal(),Main.mensajes["details"])
-                            for pedido_producto in pedido_actual.getPedidoProductos():
-                                producto_seleccionado = pedido_producto.getProducto()
-                                print("\n"+str(Main.mensajes["ID"]), producto_seleccionado.getId(), Main.mensajes["user_name"],producto_seleccionado.getNombre(), Main.mensajes["description"],producto_seleccionado.getDescripcion(), Main.mensajes["value"],producto_seleccionado.getValor(), pedido_producto.toString(Main.mensajes))
-                            print("------------------------------------------")
+                            print(pedido_actual.toString(Main.mensajes))
                 else:
                     print(Main.mensajes["order_not_found"])
 
@@ -404,33 +393,24 @@ class Main:
                 input(Main.mensajes["go_back_press_any_key"])
 
             elif opcionSeleccionada == (5 + opcion_inicial):
+                # Anular pedidos
                 for pedido_actual in Pedido.pedidos:
-                    if pedido_actual.getEstado != "Anulado":
-                        print("------------------------------------------")
-                        print(Main.mensajes["order_number"],pedido_actual.getId(),Main.mensajes["autor"],pedido_actual.getPersona().getNombre(),Main.mensajes["date"],str(pedido_actual.getFecha()),"\nTotal:",pedido_actual.getValorTotal(),Main.mensajes["details"])
-                        for pedido_producto in pedido_actual.getPedidoProductos():
-                            producto_seleccionado = pedido_producto.getProducto()
-                            print("\n"+str(Main.mensajes["ID"]), producto_seleccionado.getId(), Main.mensajes["user_name"],producto_seleccionado.getNombre(), Main.mensajes["description"],producto_seleccionado.getDescripcion(), Main.mensajes["value"],producto_seleccionado.getValor(), pedido_producto.toString(Main.mensajes))
-                        print("------------------------------------------")
+                    if pedido_actual.getEstado() != "Anulado":
+                        print(pedido_actual.toString(Main.mensajes))
+
                 id_pedido_anular = int(input(Main.mensajes["id_order_to_cancel"]))
                 resultado = Pedido.anularPedido(id_pedido_anular,Main.mensajes)
                 print(resultado)
+
                 input(Main.mensajes["go_back_press_any_key"])
                 Main.menuEmpleadosOpciones()
 
             elif opcionSeleccionada == (6 + opcion_inicial):
                 for pedido_actual in Pedido.pedidos:
                     if pedido_actual.getFecha() == datetime.date.today():
-                        print("------------------------------------------")
-                        print(Main.mensajes["order_number"],pedido_actual.getId(),Main.mensajes["state"],pedido_actual.getEstado(),Main.mensajes["autor"],pedido_actual.getPersona().getNombre(),Main.mensajes["date"],str(pedido_actual.getFecha()),"\nTotal:",pedido_actual.getValorTotal(),Main.mensajes["details"])
-                        for pedido_producto in pedido_actual.getPedidoProductos():
-                            producto_seleccionado = pedido_producto.getProducto()
-                            print("\n"+str(Main.mensajes["ID"]), producto_seleccionado.getId(), Main.mensajes["user_name"],producto_seleccionado.getNombre(), Main.mensajes["description"],producto_seleccionado.getDescripcion(), Main.mensajes["value"],producto_seleccionado.getValor(), pedido_producto.toString(Main.mensajes))
-                        print("------------------------------------------")
+                        print(pedido_actual.toString(Main.mensajes))
 
                 input(Main.mensajes["go_back_press_any_key"])
-
-            # TODO: Añadir las tres opciones que faltan aqui
 
             elif opcionSeleccionada == (7 + opcion_inicial):
                 Main.usuario_actual = None

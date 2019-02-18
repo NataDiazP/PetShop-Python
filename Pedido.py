@@ -21,13 +21,14 @@ class Pedido():
 		"""
 
 		Pedido.contadorIds += 1
-		Pedido.pedidos.append(self)
 		self.setId(Pedido.contadorIds)
 		self.setFecha(fecha)
 		self.setPersona(persona)
 		self.setValorTotal(valorTotal)
 		self.setEstado(estado)
 		self.setPedidoProductos([])
+
+		Pedido.pedidos.append(self)
 
 	def setId(self, id):
 		self._id = id
@@ -66,13 +67,49 @@ class Pedido():
 	def getPedidoProductos(self):
 		return self._pedido_productos
 
-	def comprar(self, total):
+	def toString(self, mensajes):
+		resumen_pedido = "------------------------------------------"
+
+		resumen_pedido += "\n"+mensajes["order_number"] + str(self.getId()) + mensajes["state"] + self.getEstado() + mensajes["date"] + str(
+			self.getFecha()) + mensajes["order_total_value"] + str(self.getValorTotal()) + mensajes["details"]
+
+		for pedido_producto in self._pedido_productos:
+			producto_seleccionado = pedido_producto.getProducto()
+			resumen_pedido += "\n\n" + producto_seleccionado.toStringCarrito(mensajes) + pedido_producto.toString(mensajes)
+
+		resumen_pedido += "\n------------------------------------------"
+
+		return resumen_pedido
+
+	def toStringProductosCarrito(self, mensajes):
+		resumen_pedido = ""
+
+		for pedido_producto in self._pedido_productos:
+			producto_seleccionado = pedido_producto.getProducto()
+			resumen_pedido += "------------------------------------------\n"
+			resumen_pedido += producto_seleccionado.toStringCarrito(mensajes) + pedido_producto.toString(mensajes)
+			resumen_pedido += "\n------------------------------------------\n"
+
+		resumen_pedido += "------------------------------------------"
+		resumen_pedido += mensajes["order_total_value"] + str(self.getValorTotal())
+		resumen_pedido += "\n------------------------------------------"
+
+		return resumen_pedido
+
+	def calcularValorTotal(self):
+		valor_total = 0
+
+		for pedido_producto in self._pedido_productos:
+			valor_total += pedido_producto.getSubtotal()
+
+		self.setValorTotal(valor_total)
+
+	def comprar(self):
 		for pedido_producto in self.getPedidoProductos():
 			producto_seleccionado = pedido_producto.getProducto()
 			producto_seleccionado.setCantidadInventario(producto_seleccionado.getCantidadInventario() - pedido_producto.getCantidad())
 
 		self.setFecha(datetime.date.today())
-		self.setValorTotal(total)
 		self.setEstado("Realizado")
 
 	@staticmethod
