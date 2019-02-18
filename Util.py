@@ -25,7 +25,6 @@ class Util:
         p5 = Producto("Colita de Pinscher", 1000000, "Recien cortada", 1)
         p6 = Producto("Caminador para tortuga paralitica", 30000, "Useless", 50)
 
-
         Producto.productos.append(p1)
         Producto.productos.append(p2)
         Producto.productos.append(p3)

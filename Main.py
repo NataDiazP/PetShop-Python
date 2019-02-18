@@ -209,7 +209,7 @@ class Main:
                     opcionSeleccionada = int(input("\n-> "))
 
                     if opcionSeleccionada == 1:
-                        Main.pedido_pendiente.comprar(total)
+                        Main.pedido_pendiente.comprar()
                         Main.pedido_pendiente = None
                         print(Main.mensajes["order_successfully"])
                         Main.menuUsuariosOpciones()

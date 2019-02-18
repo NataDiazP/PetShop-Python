@@ -96,13 +96,20 @@ class Pedido():
 
 		return resumen_pedido
 
-	def comprar(self, total):
+	def calcularValorTotal(self):
+		valor_total = 0
+
+		for pedido_producto in self._pedido_productos:
+			total += pedido_producto.getSubtotal
+
+		self.setValorTotal(valor_total)
+
+	def comprar(self):
 		for pedido_producto in self.getPedidoProductos():
 			producto_seleccionado = pedido_producto.getProducto()
 			producto_seleccionado.setCantidadInventario(producto_seleccionado.getCantidadInventario() - pedido_producto.getCantidad())
 
 		self.setFecha(datetime.date.today())
-		self.setValorTotal(total)
 		self.setEstado("Realizado")
 
 	@staticmethod
