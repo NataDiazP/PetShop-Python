@@ -68,16 +68,16 @@ class Pedido():
 		return self._pedido_productos
 
 	def toString(self, mensajes):
-		resumen_pedido = "\n------------------------------------------"
+		resumen_pedido = "------------------------------------------"
 
-		resumen_pedido += mensajes["order_number"] + self.getId() + mensajes["state"] + self.getEstado() + mensajes["date"] + str(
-			self.getFecha()) + mensajes["order_total_value"] + self.getValorTotal() + mensajes["details"]
+		resumen_pedido += "\n" + mensajes["order_number"] + str(self.getId()) + mensajes["state"] + self.getEstado() + mensajes["date"] + str(
+			self.getFecha()) + mensajes["order_total_value"] + str(self.getValorTotal()) + mensajes["details"]
 
 		for pedido_producto in self._pedido_productos:
-            producto_seleccionado = pedido_producto.getProducto()
-            resumen_pedido += producto_seleccionado.toStringCarrito() + pedido_producto.toString(Main.mensajes)
+			producto_seleccionado = pedido_producto.getProducto()
+			resumen_pedido += "\n\n" + producto_seleccionado.toStringCarrito(mensajes) + pedido_producto.toString(mensajes)
 
-		resumen_pedido = "\n------------------------------------------"
+		resumen_pedido += "\n------------------------------------------"
 
 		return resumen_pedido
 
@@ -86,12 +86,12 @@ class Pedido():
 
 		for pedido_producto in self._pedido_productos:
 			producto_seleccionado = pedido_producto.getProducto()
-			resumen_pedido += "\n------------------------------------------"
-			resumen_pedido += producto_seleccionado.toStringCarrito() + pedido_producto.toString(Main.mensajes)
-			resumen_pedido += "\n------------------------------------------"
+			resumen_pedido += "------------------------------------------\n"
+			resumen_pedido += producto_seleccionado.toStringCarrito(mensajes) + pedido_producto.toString(mensajes)
+			resumen_pedido += "\n------------------------------------------\n"
 
-		resumen_pedido += "\n------------------------------------------"
-		resumen_pedido += mensajes["order_total_value"] + self.getValorTotal()
+		resumen_pedido += "------------------------------------------"
+		resumen_pedido += mensajes["order_total_value"] + str(self.getValorTotal())
 		resumen_pedido += "\n------------------------------------------"
 
 		return resumen_pedido
@@ -100,7 +100,7 @@ class Pedido():
 		valor_total = 0
 
 		for pedido_producto in self._pedido_productos:
-			total += pedido_producto.getSubtotal
+			valor_total += pedido_producto.getSubtotal()
 
 		self.setValorTotal(valor_total)
 

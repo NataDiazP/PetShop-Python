@@ -202,7 +202,7 @@ class Main:
 
                 if Main.pedido_pendiente != None and len(Main.pedido_pendiente.getPedidoProductos()) > 0:
                     print(Main.mensajes["wish_list_carrito"])
-                    print(Main.pedido_pendiente.toStringProductosCarrito(Main.mensajes)
+                    print(Main.pedido_pendiente.toStringProductosCarrito(Main.mensajes))
 
                     # Menu carrito de compras
                     print(Main.mensajes["buy_menu"])
@@ -396,7 +396,7 @@ class Main:
                 # Anular pedidos
                 for pedido_actual in Pedido.pedidos:
                     if pedido_actual.getEstado() != "Anulado":
-                        pedido_actual.toString(Main.mensajes)
+                        print(pedido_actual.toString(Main.mensajes))
 
                 id_pedido_anular = int(input(Main.mensajes["id_order_to_cancel"]))
                 resultado = Pedido.anularPedido(id_pedido_anular,Main.mensajes)
@@ -408,7 +408,7 @@ class Main:
             elif opcionSeleccionada == (6 + opcion_inicial):
                 for pedido_actual in Pedido.pedidos:
                     if pedido_actual.getFecha() == datetime.date.today():
-                        pedido_actual.toString(Main.mensajes)
+                        print(pedido_actual.toString(Main.mensajes))
 
                 input(Main.mensajes["go_back_press_any_key"])
 
