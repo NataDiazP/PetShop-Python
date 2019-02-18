@@ -19,7 +19,7 @@ class Util:
     @staticmethod
     def generarDatosFicticios():
         p1 = Producto("Lana de oveja virgen", 10000, "Bufandas?", 20)
-        p2 = Producto("Escroto de tigre afgano", 54000, "Reinel, por qué pusiste esto aqui?")
+        p2 = Producto("Cosas de tigre afgano", 54000, "Reinel, por qué pusiste esto aqui?")
         p3 = Producto("Bigotes de lemur lampiño", 2300, "Calvo pero serio", 100)
         p4 = Producto("Aceite omega 3 de bagre", 50000, "Del cauca lo mejor", 5)
         p5 = Producto("Colita de Pinscher", 1000000, "Recien cortada", 1)

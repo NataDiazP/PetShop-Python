@@ -67,6 +67,35 @@ class Pedido():
 	def getPedidoProductos(self):
 		return self._pedido_productos
 
+	def toString(self, mensajes):
+		resumen_pedido = "\n------------------------------------------"
+
+		resumen_pedido += mensajes["order_number"] + self.getId() + mensajes["state"] + self.getEstado() + mensajes["date"] + str(
+			self.getFecha()) + mensajes["order_total_value"] + self.getValorTotal() + mensajes["details"]
+
+		for pedido_producto in self._pedido_productos:
+            producto_seleccionado = pedido_producto.getProducto()
+            resumen_pedido += producto_seleccionado.toStringCarrito() + pedido_producto.toString(Main.mensajes)
+
+		resumen_pedido = "\n------------------------------------------"
+
+		return resumen_pedido
+
+	def toStringProductosCarrito(self, mensajes):
+		resumen_pedido = ""
+
+		for pedido_producto in self._pedido_productos:
+			producto_seleccionado = pedido_producto.getProducto()
+			resumen_pedido += "\n------------------------------------------"
+			resumen_pedido += producto_seleccionado.toStringCarrito() + pedido_producto.toString(Main.mensajes)
+			resumen_pedido += "\n------------------------------------------"
+
+		resumen_pedido += "\n------------------------------------------"
+		resumen_pedido += mensajes["order_total_value"] + self.getValorTotal()
+		resumen_pedido += "\n------------------------------------------"
+
+		return resumen_pedido
+
 	def comprar(self, total):
 		for pedido_producto in self.getPedidoProductos():
 			producto_seleccionado = pedido_producto.getProducto()

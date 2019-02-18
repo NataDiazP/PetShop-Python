@@ -48,7 +48,7 @@ class Pedido_Producto():
 		return self._producto
 
 	def toString(self, mensajes):
-		return mensajes["amount"]+str(self.getCantidad())+mensajes["subtotal"]+str(self.getSubtotal())
+		return mensajes["amount"] + str(self.getCantidad()) + mensajes["subtotal"] + str(self.getSubtotal())
 
 	@staticmethod
 	def agregarProductoACarritoCompras(cantidad_venta, pedido_pendiente, producto_seleccionado, mensajes):
