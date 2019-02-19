@@ -1,5 +1,4 @@
 import sys
-from Pedido import Pedido
 
 class Comentario():
 
@@ -45,7 +44,3 @@ class Comentario():
 
 	def toString(self):
 		return "\n#"+str(self.getId())+" - "+self.getPersona().getNombre()+ ": " +self.getDescripcion()
-
-
-
-
