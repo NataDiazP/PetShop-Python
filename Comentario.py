@@ -1,4 +1,5 @@
 import sys
+from Pedido import Pedido
 
 class Comentario():
 
@@ -6,8 +7,12 @@ class Comentario():
 		Comentario: Opiniones sobre los productos
 		Atributos: id, descripcion, persona, producto
 	"""
-	def __init__(self, id, descripcion, persona, producto):
-		self.setId(id)
+
+	contador_ids=0
+	def __init__(self, descripcion, persona, producto):
+		Comentario.contador_ids+=1
+
+		self.setId(Comentario.contador_ids)
 		self.setDescripcion(descripcion)
 		self.setPersona(persona)
 		self.setProducto(producto)
@@ -38,5 +43,9 @@ class Comentario():
 	def getProducto(self):
 		return self._producto
 
-	def crear_comentario(self):
-		pass
+	def toString(self):
+		return "\n#"+str(self.getId())+" - "+self.getPersona().getNombre()+ ": " +self.getDescripcion()
+
+
+
+

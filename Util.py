@@ -1,6 +1,10 @@
+import datetime
 from Empleado import Empleado
 from Producto import Producto
 from Persona import Persona
+from Pedido import Pedido
+from Comentario import Comentario
+from Pedido_Producto import Pedido_Producto
 
 class Util:
 
@@ -18,20 +22,36 @@ class Util:
 
     @staticmethod
     def generarDatosFicticios():
+
+        u1 = Persona("Prueba", "prueba@gmail.com", "3089647558", "Avenida siempre viva", "123")
+        u2 = Persona("Prueba2", "prueba2@gmail.com", "4541694", "Cerro el volador", "123")
+
         p1 = Producto("Lana de oveja virgen", 10000, "Bufandas?", 20)
-        p2 = Producto("Cosas de tigre afgano", 54000, "Reinel, por qué pusiste esto aqui?")
-        p3 = Producto("Bigotes de lemur lampiño", 2300, "Calvo pero serio", 100)
-        p4 = Producto("Aceite omega 3 de bagre", 50000, "Del cauca lo mejor", 5)
-        p5 = Producto("Colita de Pinscher", 1000000, "Recien cortada", 1)
-        p6 = Producto("Caminador para tortuga paralitica", 30000, "Useless", 50)
+        p2 = Producto("Bigotes de lemur lampiño", 2300, "Calvo pero serio", 100)
+        p3 = Producto("Aceite omega 3 de bagre", 50000, "Del cauca lo mejor", 5)
+        p4 = Producto("Colita de Pinscher", 1000000, "Recien cortada", 1)
+        p5 = Producto("Caminador para tortuga", 30000, "Useless", 50)
+
+        c1 = Comentario("Me sirvio para rebajar.", u1, p3)
+        c2 = Comentario("No sirve para nada!!!!!!!!.", u2, p3)
+        c3 = Comentario("Me hice tremendo almuerzo con esto.", u1, p4)
+
+        ped1 = Pedido(datetime.date.today(), u1, 0, "Pendiente")
+
+        ped_pro1 = Pedido_Producto(5, ped1, p1)
+        ped_pro2 = Pedido_Producto(10, ped1, p2)
+        ped_pro3 = Pedido_Producto(2, ped1, p3)
+        ped_pro4 = Pedido_Producto(1, ped1, p4)
+        ped_pro5 = Pedido_Producto(30, ped1, p5)
+
+        ped1.calcularValorTotal()
+        ped1.comprar()
+
+        Persona.personas.append(u1)
+        Persona.personas.append(u2)
 
         Producto.productos.append(p1)
         Producto.productos.append(p2)
         Producto.productos.append(p3)
         Producto.productos.append(p4)
         Producto.productos.append(p5)
-        Producto.productos.append(p6)
-
-        u1 = Persona("prueba", "prueba@gmail.com", "123", "123", "123")
-
-        Persona.personas.append(u1)

@@ -68,9 +68,21 @@ class Producto():
         return self._comentarios
 
     def toString(self, mensajes):
-        return mensajes["ID"] + str(self.getId()) + mensajes["user_name"] + self.getNombre() + mensajes["value"] + str(
-            self.getValor()) + mensajes["description"] + self.getDescripcion() + mensajes["amount_inventory"] + str(
-            self.getCantidadInventario())
+        info_producto = mensajes["ID"] + str(self.getId()) + mensajes["user_name"] + self.getNombre() + mensajes["value"] + str(
+                        self.getValor()) + mensajes["description"] + self.getDescripcion() + mensajes["amount_inventory"] + str(
+                        self.getCantidadInventario())
+
+        if len(self.getComentarios()) > 0:
+            acumComentarios = "\n-------------------------"
+
+            for comentario_actual in self.getComentarios():
+                acumComentarios += comentario_actual.toString()
+
+            acumComentarios += "\n-------------------------"
+
+            return info_producto + mensajes["comments"] + acumComentarios
+
+        return info_producto
 
     def toStringCarrito(self, mensajes):
         return mensajes["ID"] + str(self.getId()) + mensajes["user_name"] + self.getNombre() + mensajes["description"] + self.getDescripcion() + mensajes["value"] + str(self.getValor())
@@ -116,3 +128,9 @@ class Producto():
                 return mensajes["product_deleted"]
 
         return mensajes["product_not_found"]
+    @staticmethod
+    def validarIdEnListaproductosAcomentar (id, lista):
+        for producto_v in lista:
+            if id == producto_v.getId():
+                return True
+        return False

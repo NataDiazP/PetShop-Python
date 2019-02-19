@@ -68,7 +68,7 @@ class Pedido():
 		return self._pedido_productos
 
 	def toString(self, mensajes):
-		resumen_pedido = "------------------------------------------"
+		resumen_pedido = "-------------------------------------------------"
 
 		resumen_pedido += "\n" + mensajes["order_number"] + str(self.getId()) + mensajes["state"] + self.getEstado() + mensajes["date"] + str(
 			self.getFecha()) + mensajes["order_total_value"] + str(self.getValorTotal()) + mensajes["details"]
@@ -77,7 +77,7 @@ class Pedido():
 			producto_seleccionado = pedido_producto.getProducto()
 			resumen_pedido += "\n\n" + producto_seleccionado.toStringCarrito(mensajes) + pedido_producto.toString(mensajes)
 
-		resumen_pedido += "\n------------------------------------------"
+		resumen_pedido += "\n-------------------------------------------------"
 
 		return resumen_pedido
 
@@ -86,13 +86,13 @@ class Pedido():
 
 		for pedido_producto in self._pedido_productos:
 			producto_seleccionado = pedido_producto.getProducto()
-			resumen_pedido += "------------------------------------------\n"
+			resumen_pedido += "\n-------------------------------------------------\n"
 			resumen_pedido += producto_seleccionado.toStringCarrito(mensajes) + pedido_producto.toString(mensajes)
-			resumen_pedido += "\n------------------------------------------\n"
+			resumen_pedido += "\n-------------------------------------------------\n"
 
-		resumen_pedido += "------------------------------------------"
+		resumen_pedido += "\n-------------------------------------------------"
 		resumen_pedido += mensajes["order_total_value"] + str(self.getValorTotal())
-		resumen_pedido += "\n------------------------------------------"
+		resumen_pedido += "\n-------------------------------------------------"
 
 		return resumen_pedido
 
@@ -123,3 +123,25 @@ class Pedido():
 				pedido_actual.setEstado("Anulado")
 				return mensajes["order_successfully_cancel"]
 		return mensajes["order_to_cancel_not_found"]
+
+	@staticmethod
+	def productosAcomentar(usuario_actual):
+		lista_productos_a_comentar = []
+		producto_agregado = False
+
+		for pedido_actual in Pedido.pedidos:
+			if pedido_actual.getEstado()=="Realizado" and pedido_actual.getPersona() == usuario_actual:
+				for pedido_producto in pedido_actual.getPedidoProductos():
+					producto_actual = pedido_producto.getProducto()
+
+					for prod in lista_productos_a_comentar:
+						if prod.getId() == producto_actual.getId():
+							producto_agregado = True
+							break
+
+					if producto_agregado == False:
+						lista_productos_a_comentar.append(producto_actual)
+					else:
+						producto_agregado = False
+
+		return lista_productos_a_comentar
