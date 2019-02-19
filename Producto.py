@@ -1,22 +1,28 @@
-from difflib import SequenceMatcher
-
-
 class Producto():
     """
         Producto: Información de los productos ofertados en la tienda
-        Atributos: id, nombre, descripcion, valor, cantidadInventario, pedidos, comentarios
+        Atributos: id, nombre, descripcion, valor, cantidad_inventario, pedidos_producto, comentarios
     """
 
     contadorIds = 0
+    productos = []
 
-    def __init__(self, nombre="", valor=0, descripcion="", cantidadInventario=0):
+    def __init__(self, nombre="", valor=0, descripcion="", cantidad_inventario=0):
+        """
+            Id: self._id
+            Name: self._nombre
+            Description: self._descripcion
+            Price: self._valor
+            Amount in inventory: self._cantidadInventario
+        """
+
         Producto.contadorIds += 1
         self.setId(Producto.contadorIds)
         self.setNombre(nombre)
         self.setDescripcion(descripcion)
         self.setValor(valor)
-        self.setCantidadInventario(cantidadInventario)
-        self.setPedidos([])
+        self.setCantidadInventario(cantidad_inventario)
+        self.setPedidosProducto([])
         self.setComentarios([])
 
     def setId(self, id):
@@ -43,17 +49,17 @@ class Producto():
     def getValor(self):
         return self._valor
 
-    def setCantidadInventario(self, cantidadInventario):
-        self._cantidadInventario = cantidadInventario
+    def setCantidadInventario(self, cantidad_inventario):
+        self._cantidad_inventario = cantidad_inventario
 
     def getCantidadInventario(self):
-        return self._cantidadInventario
+        return self._cantidad_inventario
 
-    def setPedidos(self, pedidos):
-        self._pedidos = pedidos
+    def setPedidosProducto(self, pedidos_producto):
+        self._pedidos_producto = pedidos_producto
 
-    def getPedidos(self):
-        return self._pedidos
+    def getPedidosProducto(self):
+        return self._pedidos_producto
 
     def setComentarios(self, comentarios):
         self._comentarios = comentarios
@@ -61,46 +67,73 @@ class Producto():
     def getComentarios(self):
         return self._comentarios
 
-    def listarProductos(self, mensajes):
-        return mensajes["ID"] + str(self.getId()) + mensajes["user_name"] + str(self.getNombre()) + mensajes["value"] + str(self.getValor()) + mensajes["description"] + str(self.getDescripcion()) + mensajes["amount_inventory"] + str(self.getCantidadInventario())
+    def toString(self, mensajes):
+
+        info_producto = mensajes["ID"] + str(self.getId()) + mensajes["user_name"] + self.getNombre() + mensajes["value"] + str(
+                        self.getValor()) + mensajes["description"] + self.getDescripcion() + mensajes["amount_inventory"] + str(
+                        self.getCantidadInventario())
+
+        if len(self.getComentarios()) > 0:
+
+            acumComentarios = "\n-------------------------"
+            for comentario_actual in self.getComentarios():
+                acumComentarios+=comentario_actual.toString()
+            acumComentarios+="\n-------------------------"
 
 
+            return info_producto + mensajes["comments"] +  acumComentarios
+        else:
 
-    def crearProducto(self, listaproductos, listamensajes):
-        for productoActual in listaproductos:
+            return info_producto
+
+    def toStringCarrito(self, mensajes):
+        return mensajes["ID"] + str(self.getId()) + mensajes["user_name"] + self.getNombre() + mensajes["description"] + self.getDescripcion() + mensajes["value"] + str(self.getValor())
+
+    def validarExistenciaEnLista(self, listamensajes):
+        for productoActual in Producto.productos:
             if productoActual.getNombre().lower() == self.getNombre().lower():
                 return listamensajes["product_with_same_name"]
 
-        listaproductos.append(self)
+        Producto.productos.append(self)
         return listamensajes["product_added"]
 
-    def actualizarProducto(self, nombre, valor, descripcion, cantidadInventario):
+    def actualizarProducto(self, nombre, valor, descripcion, cantidad_inventario):
         self._nombre = nombre
         self._valor = valor
         self._descripcion = descripcion
-        self._cantidadInventario = cantidadInventario
+        self._cantidad_inventario = cantidad_inventario
+
+    def validarCantidadInventario(self, cantidad_venta):
+        return self._cantidad_inventario >= cantidad_venta
 
     @staticmethod
-    def buscarProductoNombre(nombreBuscar, listaproductos):
+    def buscarProductoNombre(nombreBuscar):
         listadoProductosBuscados = []
-        for productoActual in listaproductos:
+        for productoActual in Producto.productos:
             if productoActual.getNombre().lower().find(nombreBuscar.lower()) != -1:
                 listadoProductosBuscados.append(productoActual)
         return listadoProductosBuscados
 
     @staticmethod
-    def seleccionarProducto(numeroId, listaproductos):
-        for productoActual in listaproductos:
+    def seleccionarProducto(numeroId):
+        for productoActual in Producto.productos:
             if productoActual.getId() == numeroId:
                 return productoActual
 
         return None
 
     @staticmethod
-    def borrarProducto(numeroId, listaproductos, mensajes):
-        for productoActual in listaproductos:
+    def borrarProducto(numeroId, mensajes):
+        for productoActual in Producto.productos:
             if productoActual.getId() == numeroId:
-                listaproductos.remove(productoActual)
+                Producto.productos.remove(productoActual)
                 return mensajes["product_deleted"]
 
         return mensajes["product_not_found"]
+    @staticmethod
+    def validarIdEnListaproductosAcomentar (id, lista):
+        for producto_v in lista:
+            if id == producto_v.getId():
+                return True
+        return False
+
