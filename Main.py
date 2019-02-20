@@ -136,6 +136,7 @@ class Main:
             opcionSeleccionada = int(input("\n-> "))
 
             if opcionSeleccionada == 1:
+                #VER PRODUCTOS
                 if len(Producto.productos) == 0:
                     print(Main.mensajes["product_not_found"])
                     input(Main.mensajes["go_back_press_any_key"])
@@ -152,6 +153,7 @@ class Main:
                     Main.menuUsuariosOpciones()
 
             elif opcionSeleccionada == 2:
+                #SELECCIONAR PRODUCTOS
                 if len(Producto.productos) == 0:
 
                     print(Main.mensajes["product_not_found"])
@@ -204,7 +206,7 @@ class Main:
                         Main.menuUsuariosOpciones()
 
             elif opcionSeleccionada == 3:
-
+                #cREAR COMENTARIO
                 listaproductoscomentar = Pedido.productosAcomentar(Main.usuario_actual)
                 for producto_actual in listaproductoscomentar:
                     print("\n-------------------------------------------------")
@@ -225,7 +227,7 @@ class Main:
 
 
             elif opcionSeleccionada == 4:
-
+                #VER CARRITO COMPRAS
                 if Main.pedido_pendiente != None and len(Main.pedido_pendiente.getPedidoProductos()) > 0:
                     print(Main.mensajes["wish_list_carrito"])
                     print(Main.pedido_pendiente.toStringProductosCarrito(Main.mensajes))
@@ -254,16 +256,71 @@ class Main:
 
 
             elif opcionSeleccionada == 5:
+                #VER LISTA DE DESEADOS
+                if len(Main.usuario_actual.getListaDeseos())== 0:
+                    print(Main.mensajes["empty_wish_list"])
+                    input(Main.mensajes["go_back_press_any_key"])
+                    Main.menuUsuariosOpciones()
 
-                print(Main.mensajes["wish_list"])
-                lista_deseos = Main.usuario_actual.getListaDeseos()
-                for producto_actual in lista_deseos:
-                    print("\n-------------------------------------------------")
-                    print(producto_actual.toString(Main.mensajes))
-                    print("-------------------------------------------------")
+                else:
+                    print(Main.mensajes["wish_list"])
+                    lista_deseos = Main.usuario_actual.getListaDeseos()
+                    for producto_actual in lista_deseos:
+                        print("\n-------------------------------------------------")
+                        print(producto_actual.toString(Main.mensajes))
+                        print("-------------------------------------------------")
+                    validadorcompra=int(input(Main.mensajes["wish_list_menu"]))
+                    if validadorcompra == 1:
+                        #COMPRAR
+                        id_producto_agregar = int(input(Main.mensajes["insert_product_id_buy"]))
+                        producto_seleccionado = Producto.seleccionarProducto(id_producto_agregar)
+                        if producto_seleccionado != None:
+                            for prod_actual in Main.usuario_actual.getListaDeseos():
+                                if prod_actual.getId() == id_producto_agregar:
+                                    if Main.pedido_pendiente == None:
+                                        Main.pedido_pendiente = Pedido(datetime.date.today(), Main.usuario_actual)
 
+                                    print(Main.mensajes["product_quantity"])
+                                    cantidad_venta = int(input("\n-> "))
+
+                                    resultado = Pedido_Producto.agregarProductoACarritoCompras(cantidad_venta,
+                                                                                            Main.pedido_pendiente,
+                                                                                            producto_seleccionado, Main.mensajes)
+
+                                    print(resultado["mensaje"])
+                                    input(Main.mensajes["go_back_press_any_key"])
+                                    Main.menuUsuariosOpciones()
+                                else:
+                                    print(Main.mensajes["product_not_found_in_wish_list"])
+                                    input(Main.mensajes["go_back_press_any_key"])
+                                    Main.menuUsuariosOpciones()
+                        else:
+                            print(Main.mensajes["product_not_found"])
+                            input(Main.mensajes["go_back_press_any_key"])
+                            Main.menuUsuariosOpciones()
+
+
+                    elif validadorcompra == 2:
+                        #ELIMINAR
+                        lista_deseos1 = Main.usuario_actual.getListaDeseos()
+                        auxiliar = 0
+                        queproducto = int(input(Main.mensajes["insert_product_id_delete"]))
+                        for producto_en_lista in lista_deseos1:
+                            if producto_en_lista.getId() == queproducto:
+                                lista_deseos1.remove(producto_en_lista)
+                                auxiliar = 1
+                        if auxiliar == 1:
+                             print(Main.mensajes["product_deleted"])
+                        else:
+                             print(Main.mensajes["product_not_found_in_wish_list"])
+                        input(Main.mensajes["go_back_press_any_key"])
+                        Main.menuUsuariosOpciones()
+                    elif validadorcompra == 3:
+                        #SALIR A MENU
+                        Main.menuUsuariosOpciones()
 
             elif opcionSeleccionada == 6:
+                #VER PEDIDOS REALIZADOS
                 if len(Pedido.pedidos) > 0:
                     print(Main.mensajes["previous_orders"])
                     for pedido_actual in Pedido.pedidos:
@@ -276,6 +333,7 @@ class Main:
                 Main.menuUsuariosOpciones()
 
             elif opcionSeleccionada == 7:
+                #DESCONECTARSE
                 Main.usuario_actual = None
                 Main.menuPrincipal()
 
