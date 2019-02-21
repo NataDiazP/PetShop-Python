@@ -428,6 +428,10 @@ class Main:
                         print(pedido_actual.toString(Main.mensajes))
 
             elif opcionSeleccionada == (7 + opcion_inicial):
+                # Promedio ventas del día
+                print(Main.mensajes["average_sales"] + Pedido.valorPromedioVentasDia())
+
+            elif opcionSeleccionada == (8 + opcion_inicial):
                 Main.usuario_actual = None
                 Main.menuPrincipal()
 

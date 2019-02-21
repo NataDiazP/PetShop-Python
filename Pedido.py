@@ -145,3 +145,16 @@ class Pedido():
 						producto_agregado = False
 
 		return lista_productos_a_comentar
+
+	@staticmethod
+	def valorPromedioVentasDia():
+		valor_total_dia = 0
+		contador = 0
+
+		for pedido_actual in Pedido.pedidos:
+			if pedido_actual.getFecha() == datetime.date.today():
+				for pedido_producto in pedido_actual.getPedidoProductos():
+					valor_total_dia += pedido_producto.getSubtotal()
+					contador += 1
+
+		return (valor_total_dia / contador) if contador > 0 else 0

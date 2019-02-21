@@ -28,8 +28,8 @@ class Mensajes:
         "succes_register": "\n----------------------------------------\nSe ha registrado con exito\n----------------------------------------",
         "employee_login_menu": "\nSelecciona una opcion\n\n1. Iniciar sesión\n2. Volver al menu principal",
         "client_menu": ", Bienvenido a PetShop, ¿Que desea hacer?\n\n1. Ver productos \n2. Seleccionar producto(s) \n3. Crear comentario \n4. Ver carrito de compras  \n5. Ver lista de deseos \n6. Ver mis pedidos realizados \n7. Desconectarme",
-        "employee_menu": "\n1. Crear productos \n2. Buscar productos \n3. Actualizar producto \n4. Eliminar producto \n5. Anular pedidos \n6. Ver pedidos del día \n7. Desconectarse",
-        "admin_menu": "\n1. Crear administrador \n2. Crear empleados \n3. Desactivar o activar empleado \n4. Crear productos \n5. Buscar productos \n6. Actualizar producto \n7. Eliminar producto \n8. Anular pedidos \n9. Ver pedidos del día \n10. Desconectarse",
+        "employee_menu": "\n1. Crear productos \n2. Buscar productos \n3. Actualizar producto \n4. Eliminar producto \n5. Anular pedidos \n6. Ver pedidos del día \n7. Ver promedio ventas del día \n8. Desconectarse",
+        "admin_menu": "\n1. Crear administrador \n2. Crear empleados \n3. Desactivar o activar empleado \n4. Crear productos \n5. Buscar productos \n6. Actualizar producto \n7. Eliminar producto \n8. Anular pedidos \n9. Ver pedidos del día \n10. Ver promedio ventas del día \n11. Desconectarse",
         "wrong_option": "\n----------------------------------------\nERROR\nOpción inválida. Por favor digite su seleccion nuevamente\n----------------------------------------",
         "empl_exists": "Ya existe un empleado con este correo electrónico, por favor intente con uno diferente.",
         "empl_added": "\n----------------------------------------\nEl empleado fue creado exitosamente.\n----------------------------------------",
@@ -74,7 +74,8 @@ class Mensajes:
         "order_to_cancel_not_found": "\n----------------------------------------\nERROR\nNo se encontraron pedidos con esa Id\n----------------------------------------",
         "autor": "\nHecho por: ",
         "id_to_comment": "\nIngrese el Id del producto a Comentar: ",
-        "the_comment": "\nIngrese el Comentario: "
+        "the_comment": "\nIngrese el Comentario: ",
+        "average_sales": "\nEl valor promedio de las ventas del día fue $"
     }
 
     mensajes_eng = {
@@ -152,5 +153,6 @@ class Mensajes:
         "order_to_cancel_not_found": "\n----------------------------------------\nERROR\nThere's no orders with that Id\n----------------------------------------",
         "autor": "\nMade by: ",
         "id_to_comment": "\nPlease enter the id of the product you want to comment: ",
-        "the_comment": "\nMake a comment: "
+        "the_comment": "\nMake a comment: ",
+        "average_sales": "\nThe average value for the day sales was $"
     }
