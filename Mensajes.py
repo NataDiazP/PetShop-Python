@@ -75,6 +75,10 @@ class Mensajes:
         "autor": "\nHecho por: ",
         "id_to_comment": "\nIngrese el Id del producto a Comentar: ",
         "the_comment": "\nIngrese el Comentario: ",
+        "wish_list_menu": "\nQue desea hacer?\n1. comprar\n2. Eliminar productos de mi lista de deseados\n3. Salir al menu\n ",
+        "product_not_found_in_wish_list": "\n Producto no encontrado en lista deseados\n ",
+        "insert_product_id_buy": "\n Inserte el ID del producto a comprar\n",
+        "empty_wish_list": "\n----------------------------------------\nERROR\nLista de deseos vacia\n----------------------------------------",
         "average_sales": "\nEl valor promedio de las ventas del día fue $"
     }
 
@@ -154,5 +158,9 @@ class Mensajes:
         "autor": "\nMade by: ",
         "id_to_comment": "\nPlease enter the id of the product you want to comment: ",
         "the_comment": "\nMake a comment: ",
+        "wish_list_menu": "\nWhat would you like to do?\n1. buy\n2. delete products of my wish list\n3. get to main menu\n",
+        "product_not_found_in_wish_list": "\n Product not found in wish list\n ",
+        "insert_product_id_buy": "\n Insert the id of the product you want to buy\n",
+        "empty_wish_list": "\n----------------------------------------\nERROR\nEmpty wish list\n----------------------------------------",
         "average_sales": "\nThe average value for the day sales was $"
     }
