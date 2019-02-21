@@ -28,8 +28,8 @@ class Mensajes:
         "succes_register": "\n----------------------------------------\nSe ha registrado con exito\n----------------------------------------",
         "employee_login_menu": "\nSelecciona una opcion\n\n1. Iniciar sesión\n2. Volver al menu principal",
         "client_menu": ", Bienvenido a PetShop, ¿Que desea hacer?\n\n1. Ver productos \n2. Seleccionar producto(s) \n3. Crear comentario \n4. Ver carrito de compras  \n5. Ver lista de deseos \n6. Ver mis pedidos realizados \n7. Desconectarme",
-        "employee_menu": "\n1. Crear productos \n2. Buscar productos \n3. Actualizar producto \n4. Eliminar producto \n5. Anular pedidos \n6. Ver pedidos del día \n7. Desconectarse",
-        "admin_menu": "\n1. Crear administrador \n2. Crear empleados \n3. Desactivar o activar empleado \n4. Crear productos \n5. Buscar productos \n6. Actualizar producto \n7. Eliminar producto \n8. Anular pedidos \n9. Ver pedidos del día \n10. Desconectarse",
+        "employee_menu": "\n1. Crear productos \n2. Buscar productos \n3. Actualizar producto \n4. Eliminar producto \n5. Anular pedidos \n6. Ver pedidos del día \n7. Ver promedio ventas del día \n8. Desconectarse",
+        "admin_menu": "\n1. Crear administrador \n2. Crear empleados \n3. Desactivar o activar empleado \n4. Crear productos \n5. Buscar productos \n6. Actualizar producto \n7. Eliminar producto \n8. Anular pedidos \n9. Ver pedidos del día \n10. Ver promedio ventas del día \n11. Desconectarse",
         "wrong_option": "\n----------------------------------------\nERROR\nOpción inválida. Por favor digite su seleccion nuevamente\n----------------------------------------",
         "empl_exists": "Ya existe un empleado con este correo electrónico, por favor intente con uno diferente.",
         "empl_added": "\n----------------------------------------\nEl empleado fue creado exitosamente.\n----------------------------------------",
@@ -78,7 +78,9 @@ class Mensajes:
         "wish_list_menu": "\nQue desea hacer?\n1. comprar\n2. Eliminar productos de mi lista de deseados\n3. Salir al menu\n ",
         "product_not_found_in_wish_list": "\n Producto no encontrado en lista deseados\n ",
         "insert_product_id_buy": "\n Inserte el ID del producto a comprar\n",
-        "empty_wish_list": "\n----------------------------------------\nERROR\nLista de deseos vacia\n----------------------------------------"
+        "empty_wish_list": "\n----------------------------------------\nERROR\nLista de deseos vacia\n----------------------------------------",
+        "average_sales": "\nEl valor promedio de las ventas del día fue $",
+        "no_orders_day": "\nNo hay pedidos para el día de hoy."
     }
 
     mensajes_eng = {
@@ -160,5 +162,7 @@ class Mensajes:
         "wish_list_menu": "\nWhat would you like to do?\n1. buy\n2. delete products of my wish list\n3. get to main menu\n",
         "product_not_found_in_wish_list": "\n Product not found in wish list\n ",
         "insert_product_id_buy": "\n Insert the id of the product you want to buy\n",
-        "empty_wish_list": "\n----------------------------------------\nERROR\nEmpty wish list\n----------------------------------------"
+        "empty_wish_list": "\n----------------------------------------\nERROR\nEmpty wish list\n----------------------------------------",
+        "average_sales": "\nThe average value for the day sales was $",
+        "no_orders_day": "\nThere are not orders for today."
     }
