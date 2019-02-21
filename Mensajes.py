@@ -79,7 +79,8 @@ class Mensajes:
         "product_not_found_in_wish_list": "\n Producto no encontrado en lista deseados\n ",
         "insert_product_id_buy": "\n Inserte el ID del producto a comprar\n",
         "empty_wish_list": "\n----------------------------------------\nERROR\nLista de deseos vacia\n----------------------------------------",
-        "average_sales": "\nEl valor promedio de las ventas del día fue $"
+        "average_sales": "\nEl valor promedio de las ventas del día fue $",
+        "no_orders_day": "\nNo hay pedidos para el día de hoy."
     }
 
     mensajes_eng = {
@@ -162,5 +163,6 @@ class Mensajes:
         "product_not_found_in_wish_list": "\n Product not found in wish list\n ",
         "insert_product_id_buy": "\n Insert the id of the product you want to buy\n",
         "empty_wish_list": "\n----------------------------------------\nERROR\nEmpty wish list\n----------------------------------------",
-        "average_sales": "\nThe average value for the day sales was $"
+        "average_sales": "\nThe average value for the day sales was $",
+        "no_orders_day": "\nThere are not orders for today."
     }

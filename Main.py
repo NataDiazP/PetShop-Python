@@ -311,7 +311,7 @@ class Main:
                              print(Main.mensajes["product_deleted"])
                         else:
                              print(Main.mensajes["product_not_found_in_wish_list"])
-                             
+
                         input(Main.mensajes["go_back_press_any_key"])
                         Main.menuUsuariosOpciones()
                     elif opcion_seleccionada == 3:
@@ -490,7 +490,12 @@ class Main:
 
             elif opcionSeleccionada == (7 + opcion_inicial):
                 # Promedio ventas del día
-                print(Main.mensajes["average_sales"] + Pedido.valorPromedioVentasDia())
+                promedio_ventas_dia = Pedido.valorPromedioVentasDia()
+
+                if promedio_ventas_dia == 0:
+                    print(Main.mensajes["no_orders_day"])
+                else:
+                    print(Main.mensajes["average_sales"] + promedio_ventas_dia)
 
             elif opcionSeleccionada == (8 + opcion_inicial):
                 Main.usuario_actual = None
