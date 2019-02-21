@@ -1,13 +1,15 @@
 class Persona():
+
     """
     	Persona: Información básica de usuarios y empleados
     	Atributos: id, nombre, email, telefono, direccion, comentarios, pedidos
     """
 
-    personas = []
-    contador_ids = 0
+    personas = [] # Lista de personas
+    contador_ids = 0 # Contador de ids - AUTOINCREMENTABLE
 
     def __init__(self, nombre="", email="", telefono="", direccion="", password=""):
+
         """
             Id: self._id
             Name: self._nombre
@@ -16,6 +18,7 @@ class Persona():
             Address: self._direccion
             Password: self._password
         """
+
         Persona.contador_ids += 1
         self.setId(Persona.contador_ids)
         self.setNombre(nombre)
@@ -82,7 +85,7 @@ class Persona():
         return self._listaDeseos
 
     def registrarse(self, nombre, email, telefono, direccion, password, mensajes):
-
+        # Metodo que sirve para registrar un usuario
         for persona_actual in Persona.personas:
             if persona_actual.getEmail() == email:
                 return {"exitoso": False,
@@ -94,6 +97,7 @@ class Persona():
         self.setDireccion(direccion)
         self.setPassword(password)
 
+        # Una vez al usuario se le seteen los datos, hay que agregarlo a la lista de personas
         Persona.personas.append(self)
 
         return {
@@ -102,8 +106,10 @@ class Persona():
         }
 
     def iniciar_sesion(self,  mensajes):
+        # Metodo que sirve para iniciar sesion desde usuario
         for persona_actual in Persona.personas:
             if persona_actual.getEmail() == self.getEmail() and persona_actual.getPassword() == self.getPassword():
+                # Se le añaden al usuario actual en el sistema los atributos que encontro de si mismo en la lista de personas
                 self.setId(persona_actual.getId())
                 self.setNombre(persona_actual.getNombre())
                 self.setTelefono(persona_actual.getTelefono())
@@ -124,6 +130,7 @@ class Persona():
 
 
     def agregar_lista_deseos(self, producto, mensajes):
+        # Metodo que sirve para agregar un producto a la lista de deseos de determinada persona
         for productoActual in self._listaDeseos:
             if productoActual.getId() == producto.getId():
                 return {
