@@ -112,6 +112,7 @@ class Producto():
         # Devuelve true si hay suficiente cantidad en inventario, de lo contrario devuelve false
         return self._cantidad_inventario >= cantidad_venta
 
+    @staticmethod
     def listarProductos(mensajes):
         lista_productos = ""
 

@@ -336,9 +336,9 @@ class Main:
 
             elif opcionSeleccionada == 6:
                 # Ver pedidos realizados
-                if len(Pedido.pedidos) > 0:
+                if len(Main.usuario_actual.getPedidos()) > 0:
                     print(Main.mensajes["previous_orders"])
-                    for pedido_actual in Pedido.pedidos:
+                    for pedido_actual in Main.usuario_actual.getPedidos():
                         if pedido_actual.getEstado() == "Realizado" or pedido_actual.getEstado() == "Anulado":
                             print(pedido_actual.toString(Main.mensajes))
                 else:
@@ -452,7 +452,6 @@ class Main:
                                     descripcion_producto, cantidad_inventario_producto)
                 print(producto.validarExistenciaEnLista(Main.mensajes))
 
-
             elif opcionSeleccionada == (2 + opcion_inicial):
                 # Buscar productos por palabra (Empleado)
                 nombre_producto = input(Main.mensajes["product_to_search"])
@@ -469,11 +468,7 @@ class Main:
 
             elif opcionSeleccionada == (3 + opcion_inicial):
                 # Actualizar productos (Empleado)
-
-                for producto_actual in Producto.productos:
-                    print("\n-------------------------------------------------")
-                    print(producto_actual.toString(Main.mensajes))
-                    print("-------------------------------------------------")
+                print(Producto.listarProductos(Main.mensajes))
 
                 id_producto_buscar = int(input(Main.mensajes["insert_product_id_update"]))
                 producto_seleccionado = Producto.seleccionarProducto(id_producto_buscar)
@@ -497,10 +492,7 @@ class Main:
 
             elif opcionSeleccionada == (4 + opcion_inicial):
                 # Eliminar producto de la lista de productos (Empleado)
-                for producto_actual in Producto.productos:
-                    print("\n-------------------------------------------------")
-                    print(producto_actual.toString(Main.mensajes))
-                    print("-------------------------------------------------")
+                print(Producto.listarProductos(Main.mensajes))
 
                 id_producto_borrar = int(input(Main.mensajes["insert_product_id_delete"]))
                 print(Producto.borrarProducto(id_producto_borrar, Main.mensajes))

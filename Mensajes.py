@@ -79,7 +79,7 @@ class Mensajes:
         "wish_list_menu": "\n¿Que desea hacer?\n\n1. Comprar.\n2. Eliminar productos de mi lista de deseados.\n3. Salir al menu.",
         "product_not_found_in_wish_list": "\n----------------------------------------\nERROR\nProducto no encontrado en lista deseados.\n----------------------------------------",
         "insert_product_id_buy": "\n Inserte el ID del producto a comprar.\n",
-        "empty_wish_list": "\n----------------------------------------\nERROR\nLista de deseos vacia.\n----------------------------------------",
+        "empty_wish_list": "\n----------------------------------------\nLista de deseos vacia.\n----------------------------------------",
         "average_sales": "\nEl valor promedio de las ventas del día fue $ ",
         "total_sales": "\nEl valor total de las ventas del dia fue $ ",
         "no_orders_day": "\n----------------------------------------\nERROR\nNo hay pedidos para el día de hoy.\n----------------------------------------"
@@ -165,7 +165,7 @@ class Mensajes:
         "wish_list_menu": "\nWhat would you like to do?\n\n1. Buy.\n2. Delete products of my wish list.\n3. Go to main menu.",
         "product_not_found_in_wish_list": "\n----------------------------------------\nERROR\nProduct not found in wish list.\n----------------------------------------",
         "insert_product_id_buy": "\n Insert the id of the product you want to buy.\n",
-        "empty_wish_list": "\n----------------------------------------\nERROR\nEmpty wish list.\n----------------------------------------",
+        "empty_wish_list": "\n----------------------------------------\nEmpty wish list.\n----------------------------------------",
         "average_sales": "\nThe average value for the day sales was $ ",
         "total_sales": "\nThe total value for the day sales was $ ",
         "no_orders_day": "\n----------------------------------------\nERROR\nThere are not orders for today.\n----------------------------------------"

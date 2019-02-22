@@ -134,8 +134,8 @@ class Pedido():
 		lista_productos_a_comentar = []
 		producto_agregado = False
 
-		for pedido_actual in Pedido.pedidos:
-			if pedido_actual.getEstado()=="Realizado" and pedido_actual.getPersona() == usuario_actual:
+		for pedido_actual in usuario_actual.getPedidos():
+			if pedido_actual.getEstado() == "Realizado":
 				for pedido_producto in pedido_actual.getPedidoProductos():
 					producto_actual = pedido_producto.getProducto()
 
