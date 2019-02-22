@@ -10,11 +10,14 @@ class Util:
 
     @staticmethod
     def generarDatosFicticiosTxt():
+        # Metodo para generar los datos ficticios desde el archivo txt "empleados.txt"
         archivo = open("empleados.txt", "r")
-
+        # Leemos una a una las lineas del archivo
         for linea in archivo:
+            # Guardamos una lista de partir las lineas por ;
             datos = linea.split(";")
 
+            # Creamos un objeto con todos los datos leidos de cada una de las lineas
             empleado = Empleado(datos[0], datos[1], datos[2], datos[3], datos[4], bool(datos[5]), bool(datos[6]))
             Empleado.empleados.append(empleado)
 
@@ -22,7 +25,7 @@ class Util:
 
     @staticmethod
     def generarDatosFicticios():
-
+        # Metodo para generar los datos ficticios
         u1 = Persona("Prueba", "prueba@gmail.com", "3089647558", "Avenida siempre viva", "123")
         u2 = Persona("Prueba2", "prueba2@gmail.com", "4541694", "Cerro el volador", "123")
 

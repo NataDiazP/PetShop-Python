@@ -1,4 +1,3 @@
-from Producto import Producto
 import datetime
 
 class Pedido():
@@ -8,20 +7,21 @@ class Pedido():
 		Atributos: id, fecha, valorTotal, persona, pedido_productos, estado
 	"""
 
-	pedidos = []
-	contadorIds = 0
+	pedidos = [] # Lista de pedidos
+	contador_ids = 0 # Contador de ids - AUTOINCREMENTABLE
 
 	def __init__(self, fecha, persona, valorTotal = 0, estado="Pendiente"):
+
 		"""
 			Id: self._id
-			Fecha: self._fecha
-			Valor Total: self._valorTotal
-			Persona: self._persona
-			Estado: self._estado
+			Date: self._fecha
+			Value Total: self._valorTotal
+			Related person: self._persona
+			State: self._estado
 		"""
 
-		Pedido.contadorIds += 1
-		self.setId(Pedido.contadorIds)
+		Pedido.contador_ids += 1
+		self.setId(Pedido.contador_ids)
 		self.setFecha(fecha)
 		self.setPersona(persona)
 		self.setValorTotal(valorTotal)
@@ -97,6 +97,7 @@ class Pedido():
 		return resumen_pedido
 
 	def calcularValorTotal(self):
+        # Metodo que sirve para calcular el valor total de un pedido sumando todos los subtotales de sus pedido_producto
 		valor_total = 0
 
 		for pedido_producto in self._pedido_productos:
@@ -105,6 +106,7 @@ class Pedido():
 		self.setValorTotal(valor_total)
 
 	def comprar(self):
+        # Metodo que sirve para comprar determinado pedido y descontar del inventario las unidades de cada producto que tenga este pedido
 		for pedido_producto in self.getPedidoProductos():
 			producto_seleccionado = pedido_producto.getProducto()
 			producto_seleccionado.setCantidadInventario(producto_seleccionado.getCantidadInventario() - pedido_producto.getCantidad())
@@ -114,10 +116,12 @@ class Pedido():
 
 	@staticmethod
 	def anularPedido(id_pedido, mensajes):
+        # Metodo que sirve para anular un pedido desde la clase empleado
 		for pedido_actual in Pedido.pedidos:
 			if pedido_actual.getId() == id_pedido:
 				for pedido_producto in pedido_actual.getPedidoProductos():
 					producto_seleccionado = pedido_producto.getProducto()
+					# Al anular pedido devemos devolver las unidades que se habian "comprado" al inventario
 					producto_seleccionado.setCantidadInventario(producto_seleccionado.getCantidadInventario() + pedido_producto.getCantidad())
 
 				pedido_actual.setEstado("Anulado")
@@ -126,6 +130,7 @@ class Pedido():
 
 	@staticmethod
 	def productosAcomentar(usuario_actual):
+        # Metodo que sirve para encontrar los productos comprados desde todos los pedidos realizados por una persona, devuelve una lista con todos los productos comprados sin repetir
 		lista_productos_a_comentar = []
 		producto_agregado = False
 
@@ -134,6 +139,7 @@ class Pedido():
 				for pedido_producto in pedido_actual.getPedidoProductos():
 					producto_actual = pedido_producto.getProducto()
 
+					# Comprobamos si el producto ya se agrego a la lista de productos de comentar para no agregarlo nuevamente
 					for prod in lista_productos_a_comentar:
 						if prod.getId() == producto_actual.getId():
 							producto_agregado = True
@@ -147,14 +153,23 @@ class Pedido():
 		return lista_productos_a_comentar
 
 	@staticmethod
-	def valorPromedioVentasDia():
+	def valorPromedioYTotalVentasDia():
+        # Metodo que sirve para calcular el promedio y el total de las ventas en el dia
 		valor_total_dia = 0
 		contador = 0
 
 		for pedido_actual in Pedido.pedidos:
 			if pedido_actual.getFecha() == datetime.date.today():
-				for pedido_producto in pedido_actual.getPedidoProductos():
-					valor_total_dia += pedido_producto.getSubtotal()
-					contador += 1
+				valor_total_dia += pedido_actual.getValorTotal()
+				contador += 1
 
-		return (valor_total_dia / contador) if contador > 0 else 0
+		if contador > 0:
+			return {
+				"promedio": (valor_total_dia / contador),
+				"total": valor_total_dia
+			}
+		else:
+			return {
+				"promedio": 0,
+				"total": 0
+			}

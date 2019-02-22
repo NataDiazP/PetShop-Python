@@ -4,3 +4,5 @@ Hola;hola@hola.com;123;123456;cll 123;True;True
 Empl1;empl1@gmail.com;123456;1234567;cll 123;False;False
 emanuel;emanuel@gmail.com;123;29284284;avenida siempre viva;False;True
 Juan;juan@gmail.com;123;123;123;False;True
+alonso;alonso@gmail.com;123;24828259;alsjlfja;True;True
+reloj;reloj@gmail.com;123;029842905;as;False;True

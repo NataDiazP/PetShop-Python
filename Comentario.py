@@ -1,5 +1,3 @@
-import sys
-
 class Comentario():
 
 	"""
@@ -7,8 +5,15 @@ class Comentario():
 		Atributos: id, descripcion, persona, producto
 	"""
 
-	contador_ids=0
+	contador_ids=0 # Contador de ids - AUTOINCREMENTABLE
+
 	def __init__(self, descripcion, persona, producto):
+		"""
+			Id: self._id
+			Descripcion: self._descripcion
+			Persona a cargo: self._persona
+			Producto relacionado: self._producto
+		"""
 		Comentario.contador_ids+=1
 
 		self.setId(Comentario.contador_ids)
