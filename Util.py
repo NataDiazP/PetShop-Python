@@ -29,15 +29,15 @@ class Util:
         u1 = Persona("Prueba", "prueba@gmail.com", "3089647558", "Avenida siempre viva", "123")
         u2 = Persona("Prueba2", "prueba2@gmail.com", "4541694", "Cerro el volador", "123")
 
-        p1 = Producto("Lana de oveja virgen", 10000, "Bufandas?", 20)
-        p2 = Producto("Bigotes de lemur lampiño", 2300, "Calvo pero serio", 100)
-        p3 = Producto("Aceite omega 3 de bagre", 50000, "Del cauca lo mejor", 5)
-        p4 = Producto("Colita de Pinscher", 1000000, "Recien cortada", 1)
-        p5 = Producto("Caminador para tortuga", 30000, "Useless", 50)
+        p1 = Producto("Collar para gato.", 20000, "Un hermoso collar verde para los felinos.", 20)
+        p2 = Producto("Correa para perro.", 15000, "Perfecta para sacar de paseo a nuestros amigos caninos.", 100)
+        p3 = Producto("Alimento para pajaros.", 5400, "Con semillas de girasol.", 5)
+        p4 = Producto("Colita de Pinscher.", 1000000, "Recien cortada.", 1)
+        p5 = Producto("Mameluco para tortuga.", 55000, "Fashion!.", 50)
 
-        c1 = Comentario("Me sirvio para rebajar.", u1, p3)
-        c2 = Comentario("No sirve para nada!!!!!!!!.", u2, p3)
-        c3 = Comentario("Me hice tremendo almuerzo con esto.", u1, p4)
+        c1 = Comentario("Delicioso alpiste, incluso yo lo consumo.", u1, p3)
+        c2 = Comentario("Todo se lo roban las tortolas.", u2, p3)
+        c3 = Comentario("Pense que estas cosas solo se vendian en la deep web.", u1, p4)
 
         ped1 = Pedido(datetime.date.today(), u1, 0, "Pendiente")
 
