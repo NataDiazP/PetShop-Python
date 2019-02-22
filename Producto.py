@@ -112,6 +112,15 @@ class Producto():
         # Devuelve true si hay suficiente cantidad en inventario, de lo contrario devuelve false
         return self._cantidad_inventario >= cantidad_venta
 
+    def listarProductos(mensajes):
+        lista_productos = ""
+
+        for producto_actual in Producto.productos:
+            lista_productos += "\n-------------------------------------------------"
+            lista_productos += "\n" + producto_actual.toString(mensajes)
+
+        return lista_productos
+
     @staticmethod
     def buscarProductoNombre(nombreBuscar):
         # Metodo que devuelve una lista con productos buscados mediante una palabra por un empleado

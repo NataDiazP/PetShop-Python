@@ -1,6 +1,0 @@
-matmartinezpal@unal.edu.co;123;Mateo;avenida siempreviva;2897456
-Pedro@gmail.com;123;Pedro;Cr45842;5897456
-cocos;123;coco;321;123
-jj;1234;jj;123;12
-layulis@hotmail.com;1234;La Yulis;123;123
-yuyu1;12345;yuyu;1234;123

@@ -156,11 +156,7 @@ class Main:
                     Main.menuUsuariosOpciones()
 
                 else:
-
-                    for producto_actual in Producto.productos:
-                        print("\n-------------------------------------------------")
-                        print(producto_actual.toString(Main.mensajes))
-                        print("-------------------------------------------------")
+                    print(Producto.listarProductos(Main.mensajes))
 
                     input(Main.mensajes["go_back_press_any_key"])
                     Main.menuUsuariosOpciones()
